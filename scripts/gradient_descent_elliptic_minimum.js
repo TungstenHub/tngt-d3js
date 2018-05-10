@@ -1,6 +1,6 @@
 pivot_coord  = [{x:1.2, y:0.5}];
 
-var svg = d3.select("#svg1"),
+var svg = d3.select("svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
