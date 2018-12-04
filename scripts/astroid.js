@@ -29,7 +29,7 @@ gear24_points = array.map(function(k) { return {x: (1+Math.cbrt(Math.cos(24*k))/
 gear12_points = array.map(function(k) { return {x: 0.5*(1+Math.cbrt(Math.cos(12*k))/12)*Math.cos(k), y: 0.5*(1+Math.cbrt(Math.cos(12*k))/12)*Math.sin(k)}});
 gear6_points = array.map(function(k) { return {x: 0.25*(1+Math.cbrt(Math.cos(6*k))/6)*Math.cos(k), y: 0.25*(1+Math.cbrt(Math.cos(6*k))/6)*Math.sin(k)}});
 
-var svg = d3.select("svg"),
+var svg = d3.select("#d3svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 

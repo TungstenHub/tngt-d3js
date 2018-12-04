@@ -1,4 +1,4 @@
-var svg = d3.select("svg"),
+var svg = d3.select("#d3svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
 

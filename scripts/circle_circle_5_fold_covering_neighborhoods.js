@@ -46,7 +46,7 @@ lift_point_color = '#AD1457'; // pink 800
 lift_path_color = '#E91E63'; // pink 500
 lift_disc_color = '#F48FB1'; // pink 200
 
-var svg = d3.select("svg"),
+var svg = d3.select("#d3svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 

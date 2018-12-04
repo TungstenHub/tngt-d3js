@@ -2,7 +2,7 @@ c = {x:0, y:0};
 e = {x:0.5, y:0};
 vector = {x:e.x-c.x,y:e.y-c.y};
 
-var svg = d3.select("svg"),
+var svg = d3.select("#d3svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 

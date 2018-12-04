@@ -9,7 +9,7 @@ circumcenter_color = '#C62828'; // red 800
 orthocenter_color = '#4527A0'; // deep purple 800
 euler_color = '#37474F'; // blue grey 800
 
-var svg = d3.select("svg"),
+var svg = d3.select("#d3svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 

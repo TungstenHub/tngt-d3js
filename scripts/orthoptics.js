@@ -12,7 +12,7 @@ pivot_angle_color = '#F44336'; // red 500
 center_color = '#EF6C00'; // orange 800
 center_angle_color = '#FF9800'; // orange 500
 
-var svg = d3.select("svg"),
+var svg = d3.select("#d3svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 

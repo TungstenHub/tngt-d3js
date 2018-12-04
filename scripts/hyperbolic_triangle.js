@@ -6,7 +6,7 @@ vertex_color = '#1565C0'; // blue 800
 side_color = '#2196F3'; // blue 500
 triangle_color = '#BBDEFB' // blue 100
 
-var svg = d3.select("svg"),
+var svg = d3.select("#d3svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 

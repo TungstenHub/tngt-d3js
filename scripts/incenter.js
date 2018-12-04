@@ -7,7 +7,7 @@ incenter_color = '#FFA000'; // amber 800
 incircle_color = '#FFA000'; // amber 800
 bisec_color = '#FFC107'; // amber 500
 
-var svg = d3.select("svg"),
+var svg = d3.select("#d3svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 

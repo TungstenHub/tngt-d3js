@@ -3,7 +3,7 @@ radius = 200
 pendulum_color = '#2196F3'; // blue 500
 track_color = '#90CAF9'; // blue 200
 
-var svg = d3.select("svg"),
+var svg = d3.select("#d3svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
