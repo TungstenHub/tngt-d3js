@@ -6,7 +6,7 @@ triangle_color = '#BBDEFB' // blue 100
 orthocenter_color = '#4527A0'; // deep purple 800
 altitude_color = '#673AB7'; // deep purple 500
 
-var svg = d3.select("#d3svg"),
+var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 

@@ -7,7 +7,7 @@ circumcenter_color = '#C62828'; // red 800
 circumcircle_color = '#C62828'; // red 800
 perp_bisec_color = '#F44336'; // red 500
 
-var svg = d3.select("#d3svg"),
+var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 

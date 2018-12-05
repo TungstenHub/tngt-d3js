@@ -4,7 +4,7 @@ source_color = '#F9A825'; // yellow 800
 ray_color = '#FFEB3B'; // yellow 500
 target_color = '#00838F'; // cyan 800
 
-var svg = d3.select("#d3svg"),
+var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 

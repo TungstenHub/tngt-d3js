@@ -3,7 +3,7 @@ point_coords = [{x: 535, y: 564}, {x:569, y:133}, {x:750,y:345}, {x:309, y:135},
 point_color = '#2E7D32'; // green 800
 conic_color = '#4CAF50'; // green 500
 
-var svg = d3.select("#d3svg"),
+var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 

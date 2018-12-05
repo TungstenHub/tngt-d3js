@@ -23,7 +23,7 @@ path_color = '#009688'; // teal 500
 lift_point_color = '#AD1457'; // pink 800
 lift_path_color = '#E91E63'; // pink 500
 
-var svg = d3.select("#d3svg"),
+var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 

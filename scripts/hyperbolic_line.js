@@ -5,7 +5,7 @@ point_coords = [{x:0.6, y:0.1}, {x:-0.2, y:0.7}];
 vertex_color = '#1565C0'; // blue 800
 side_color = '#2196F3'; // blue 500
 
-var svg = d3.select("#d3svg"),
+var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 

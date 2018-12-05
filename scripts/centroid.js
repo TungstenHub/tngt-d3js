@@ -6,7 +6,7 @@ triangle_color = '#BBDEFB' // blue 100
 centroid_color = '#2E7D32'; // green 800
 median_color = '#4CAF50'; // green 500
 
-var svg = d3.select("#d3svg"),
+var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
