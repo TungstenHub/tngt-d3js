@@ -1,6 +1,11 @@
 radius = 200
 
-point_coords = [{x:-1.5, y:0}, {x:-0.5, y:0}, {x:0.5, y:0}, {x:1.5, y:0}];
+point_coords = [
+    {x:Math.cos(5*Math.PI/4), y:Math.sin(5*Math.PI/4)}, 
+    {x:Math.cos(3*Math.PI/4), y:Math.sin(3*Math.PI/4)},
+    {x:Math.cos(1*Math.PI/4), y:Math.sin(1*Math.PI/4)},
+    {x:Math.cos(-1*Math.PI/4), y:Math.sin(-1*Math.PI/4)}
+];
 
 base_color = '#2196F3'; // blue 500
 point_color = '#1565C0'; // blue 800
@@ -29,10 +34,14 @@ b = point_coords[1];
 c = point_coords[2];
 d = point_coords[3];
 
-var line = svg.append("path")
-    .attr("d", lineFunction([{x:-3, y:0}, {x:3, y:0}]))
-    .attr("stroke-width", 5)
-    .attr("stroke", base_color);
+var circle = svg
+    .append("circle")
+    .attr("cx", x(0))
+    .attr("cy", y(0))
+    .attr("r", radius)
+    .style("stroke-width", 5)
+    .style("stroke", base_color)   
+    .style("fill", "none"); 
 
 var base_points = svg
     .append("g")
@@ -92,8 +101,8 @@ var cross_ratio = function(A, B, C, D) {
 
 update = function() {
     cross_ratio_text
-        .attr("x", function(d, i) { return x(d.x); })
-        .attr("y", function(d, i) { return i==3 ? y(0.35) : y(-0.35); })
+        .attr("x", function(d, i) { return i==3 ? x(1.5*d.x) : x(0.6*d.x); })
+        .attr("y", function(d, i) { return i==3 ? (d.y<0 ? y(1.5*d.y+0.2) : y(1.5*d.y-0.2)) : y(0.6*d.y); })
         .text( function (data, i) { 
             switch(i) {
                 case 0:
@@ -103,12 +112,12 @@ update = function() {
                 case 2:
                     return '1'
                 default:
-                    return d3.format(".2f")(cross_ratio(a.x,b.x,c.x,d.x))
+                    return d3.format(".2f")(cross_ratio(a.x/(a.y+1),b.x/(b.y+1),c.x/(c.y+1),d.x/(d.y+1)))
             }
         });
     point_labels
-        .attr("x", function(d, i) { return x(d.x); })
-        .attr("y", function(d, i) { return y(0.12); })
+        .attr("x", function(d, i) { return x(0.8*d.x); })
+        .attr("y", function(d, i) { return y(0.8*d.y); })
         .text( function (data, i) { 
             switch(i) {
                 case 0:
@@ -122,8 +131,8 @@ update = function() {
             }
         });
     cr_labels
-        .attr("x", function(d, i) { return x(d.x); })
-        .attr("y", function(d, i) { return i==3 ? y(0.6) : y(-0.6); })
+    .attr("x", function(d, i) { return x(1.5*d.x); })
+    .attr("y", function(d, i) { return i==3 ? y(1.5*d.y) : y(1.5*d.y); })
         .text( function (data, i) { 
             switch(i) {
                 case 0:
@@ -148,8 +157,8 @@ var drag_handler_base_points = d3.drag()
     .on("drag", function(d) {
         xx = start_x + x.invert(d3.event.x);
         yy = start_y + y.invert(d3.event.y);
-        d.x = xx;
-        d.y = 0;
+        d.x = xx/Math.sqrt(xx*xx+yy*yy)
+        d.y = yy/Math.sqrt(xx*xx+yy*yy)
         d3.select(this)
             .attr("cx", x(d.x))
             .attr("cy", y(d.y));
