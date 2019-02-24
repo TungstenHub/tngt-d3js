@@ -1,5 +1,5 @@
-d3.requireFrom(async name => {return `${name}`;})(
-    "./utils/triangle_coordinates.js",
+d3require(
+    "utils/triangle_coordinates.js",
 ).then(d3m => {
 
 vertex_color = '#1565C0'; // blue 800
