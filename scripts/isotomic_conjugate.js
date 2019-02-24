@@ -1,3 +1,7 @@
+d3.requireFrom(async name => {return `${name}`;})(
+    "./utils/triangle_coordinates.js",
+).then(d3m => {
+
 vertex_color = '#1565C0'; // blue 800
 side_color = '#2196F3'; // blue 500
 triangle_color = '#BBDEFB' // blue 100
@@ -36,27 +40,13 @@ var triangle = svg.append("path")
     .attr("stroke", "none")
     .attr("fill", triangle_color);
 
-function from_bar_coords(A, B, C, tri){
-    let [p, q, r] = tri;
-    return {x:(p*A.x+q*B.x+r*C.x)/(p+q+r),
-            y:(p*A.y+q*B.y+r*C.y)/(p+q+r)};
-}
-
-function get_bar_coords(A, B, C, D){
-    let l1 = (B.y-C.y)*(D.x-C.x) - (B.x-C.x)*(D.y-C.y);
-    let l2 = (C.y-A.y)*(D.x-C.x) - (C.x-A.x)*(D.y-C.y);
-    let l  = (B.y-C.y)*(A.x-C.x) - (B.x-C.x)*(A.y-C.y);
-    return [l1/l, l2/l, 1-(l1+l2)/l];
-}
-
-function cevian_int(A, B, C, D){
-    let [p, q, r] = get_bar_coords(A, B, C, D);
-    return {x:(q*B.x+r*C.x)/(q+r),
-            y:(q*B.y+r*C.y)/(q+r)};
-}
-
-function isot_conj(tri){
-    let [p, q, r] = tri;
+/**
+ * Computes the barycentric coordinates of the isotomic conjugate
+ * @param {number[]} bar - barycentric coordinates
+ * @return {number[]} - isotomic conjugate barycentric coordinates
+ */
+function isot_conj(bar){
+    let [p, q, r] = bar;
     return [q*r, r*p, p*q];
 }
 
@@ -65,7 +55,7 @@ b = point_coords[1];
 c = point_coords[2];
 
 o = anchor_coords[0];
-i = from_bar_coords(a,b,c,isot_conj(get_bar_coords(a,b,c,o)));
+i = d3m.from_bar_coords(a,b,c,isot_conj(d3m.get_bar_coords(a,b,c,o)));
 
 var a_cev_aux = svg.append("path")
     .attr("d", lineFunction([a,o]))
@@ -104,32 +94,32 @@ var c_isot_aux = svg.append("path")
     .attr("stroke", isot_cev_color);
 
 var a_cev = svg.append("path")
-    .attr("d", lineFunction([a,cevian_int(a,b,c,o)]))
+    .attr("d", lineFunction([a,d3m.cevian_int(a,b,c,o)]))
     .attr("stroke-width", 3.5)
     .attr("stroke", anchor_cev_color);
 
 var b_cev = svg.append("path")
-    .attr("d", lineFunction([b,cevian_int(b,c,a,o)]))
+    .attr("d", lineFunction([b,d3m.cevian_int(b,c,a,o)]))
     .attr("stroke-width", 3.5)
     .attr("stroke", anchor_cev_color);
 
 var c_cev = svg.append("path")
-    .attr("d", lineFunction([c,cevian_int(c,a,b,o)]))
+    .attr("d", lineFunction([c,d3m.cevian_int(c,a,b,o)]))
     .attr("stroke-width", 3.5)
     .attr("stroke", anchor_cev_color);
 
 var a_isot = svg.append("path")
-    .attr("d", lineFunction([a,cevian_int(a,b,c,i)]))
+    .attr("d", lineFunction([a,d3m.cevian_int(a,b,c,i)]))
     .attr("stroke-width", 3.5)
     .attr("stroke", isot_cev_color);
 
 var b_isot = svg.append("path")
-    .attr("d", lineFunction([b,cevian_int(b,c,a,i)]))
+    .attr("d", lineFunction([b,d3m.cevian_int(b,c,a,i)]))
     .attr("stroke-width", 3.5)
     .attr("stroke", isot_cev_color);
 
 var c_isot = svg.append("path")
-    .attr("d", lineFunction([c,cevian_int(c,a,b,i)]))
+    .attr("d", lineFunction([c,d3m.cevian_int(c,a,b,i)]))
     .attr("stroke-width", 3.5)
     .attr("stroke", isot_cev_color);
 
@@ -196,7 +186,7 @@ var drag_handler = d3.drag()
         b = vertices.data()[1];
         c = vertices.data()[2];
         o = anchor.data()[0];
-        i = from_bar_coords(a,b,c,isot_conj(get_bar_coords(a,b,c,o)));
+        i = d3m.from_bar_coords(a,b,c,isot_conj(d3m.get_bar_coords(a,b,c,o)));
         triangle
             .attr("d", lineFunction([a,b,c]));
         a_side
@@ -206,17 +196,17 @@ var drag_handler = d3.drag()
         c_side
             .attr("d", lineFunction([a,b]));
         a_cev
-            .attr("d", lineFunction([a,cevian_int(a,b,c,o)]));
+            .attr("d", lineFunction([a,d3m.cevian_int(a,b,c,o)]));
         b_cev
-            .attr("d", lineFunction([b,cevian_int(b,c,a,o)]));
+            .attr("d", lineFunction([b,d3m.cevian_int(b,c,a,o)]));
         c_cev
-            .attr("d", lineFunction([c,cevian_int(c,a,b,o)]));
+            .attr("d", lineFunction([c,d3m.cevian_int(c,a,b,o)]));
         a_isot
-            .attr("d", lineFunction([a,cevian_int(a,b,c,i)]));
+            .attr("d", lineFunction([a,d3m.cevian_int(a,b,c,i)]));
         b_isot
-            .attr("d", lineFunction([b,cevian_int(b,c,a,i)]));
+            .attr("d", lineFunction([b,d3m.cevian_int(b,c,a,i)]));
         c_isot
-            .attr("d", lineFunction([c,cevian_int(c,a,b,i)]));
+            .attr("d", lineFunction([c,d3m.cevian_int(c,a,b,i)]));
         a_cev_aux
             .attr("d", lineFunction([a,o]));
         b_cev_aux
@@ -235,4 +225,6 @@ var drag_handler = d3.drag()
     }); 
         
 drag_handler(vertices);   
-drag_handler(anchor);   
+drag_handler(anchor);  
+
+});
