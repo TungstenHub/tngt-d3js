@@ -1,22 +1,24 @@
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
 radius = 125
 
-astroid_border_color = '#2196F3'; // blue 500
-astroid_color = '#90CAF980' // blue 200 50% opacity
-
-gear24_border_color = '#4CAF50'; // green 500
-gear24_color = '#A5D6A7' // green 200
-
-gear12_border_color = '#FF9800'; // orange 500
-gear12_color = '#FFCC80' // orange 200
-
-gear6_border_color = '#E91E63'; // pink 500
-gear6_color = '#F48FB1' // pink 200
-
-pivot_border_color = '#1565C0'; // blue 800
-pivot_color = 'white'
-
-tangent_point_color = '#9E9D24'; // lime 800
-tangent_color = '#CDDC39'; // lime 500
+const
+astroid_border_color = color.blue.w500, 
+astroid_color = color.blue.w200 + '80', 
+gear24_border_color = color.green.w500, 
+gear24_color = color.green.w200, 
+gear12_border_color = color.orange.w500, 
+gear12_color = color.orange.w200, 
+gear6_border_color = color.pink.w500, 
+gear6_color = color.pink.w200, 
+pivot_border_color = color.blue.w800, 
+pivot_color = 'white',
+tangent_point_color = color.lime.w500, 
+tangent_color = color.lime.w500; 
 
 pivot_coord  = [{x:Math.cos(0.4)/2, y:Math.sin(0.4)/2}];
 
@@ -189,3 +191,5 @@ var drag_handler = d3.drag()
     }); 
         
 drag_handler(pivot);   
+
+});

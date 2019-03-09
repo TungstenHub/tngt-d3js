@@ -1,15 +1,20 @@
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
 radius = 200
 
 point_coords = [{x:-1.5, y:0}, {x:-0.5, y:0}, {x:0.5, y:0}, {x:1.5, y:0}];
 
-base_color = '#2196F3'; // blue 500
-point_color = '#1565C0'; // blue 800
-
-point_label_color = '#4CAF50' // green 500
-cr_label_color = '#2E7D32' // green 800
-
-cross_ratio_guides = '#9E9E9E' // grey 500
-cross_ratio_color = '#424242' //grey 800
+const
+base_color = color.blue.w500,
+point_color = color.blue.w800,
+point_label_color = color.green.w500,
+cr_label_color = color.green.w800,
+cross_ratio_guides = color.gray.w500,
+cross_ratio_color = color.gray.w800;
 
 var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
@@ -161,4 +166,6 @@ var drag_handler_base_points = d3.drag()
         update();
     }); 
 
-drag_handler_base_points(base_points);   
+drag_handler_base_points(base_points);
+
+});

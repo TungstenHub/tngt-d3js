@@ -1,8 +1,15 @@
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
 radius = 100
 
-source_color = '#F9A825'; // yellow 800
-ray_color = '#FFEB3B'; // yellow 500
-target_color = '#00838F'; // cyan 800
+const
+source_color = color.yellow.w800,
+ray_color = color.yellow.w500,
+target_color = color.cyan.w800;
 
 var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
@@ -176,3 +183,5 @@ var source = svg
 	}); 
 		
 drag_handler(source);
+
+});

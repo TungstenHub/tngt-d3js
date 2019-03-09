@@ -1,3 +1,18 @@
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
+const
+point_color = color.teal.w800,
+path_color = color.teal.w500,
+lift_point_color = color.pink.w800,
+lift_path_color = color.pink.w500,
+lemn_1 = color.blue.w500,
+lemn_2 = color.amber.w500,
+lemn_join = color.gray.w500;
+
 radius = 120
 
 offset = -1.7
@@ -17,11 +32,7 @@ lemn_paramet = function(u){
     return {x: Math.sqrt(2)*Math.cos(u)/(1+Math.sin(u)*Math.sin(u)), y: Math.sqrt(2)*Math.cos(u)*Math.sin(u)/(1+Math.sin(u)*Math.sin(u))};
 }
 
-point_color = '#00695C'; // teal 800
-path_color = '#009688'; // teal 500
 
-lift_point_color = '#AD1457'; // pink 800
-lift_path_color = '#E91E63'; // pink 500
 
 var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
@@ -71,23 +82,23 @@ to_lemn = function(px,py) {
 svg.append("path")
     .attr("d", lineFunction(Array.from({length: 26}, (x,i) => lemn_paramet(Math.PI*(i-25)/50))))
     .style("stroke-width", 7)
-    .attr("stroke", "#2196F3") // blue 500
+    .attr("stroke", lemn_1)
     .attr("fill", "none");
 svg.append("path")
     .attr("d", lineFunction(Array.from({length: 26}, (x,i) => lemn_paramet(Math.PI*(i)/50))))
     .style("stroke-width", 3)
-    .attr("stroke", "#2196F3") // blue 500
+    .attr("stroke", lemn_1)
     .attr("fill", "none");
 
 svg.append("path")
     .attr("d", lineFunction(Array.from({length: 26}, (x,i) => lemn_paramet(Math.PI*(i+25)/50))))
     .style("stroke-width", 3)
-    .attr("stroke", "#FFC107") // amber 500
+    .attr("stroke", lemn_2)
     .attr("fill", "none");
 svg.append("path")
     .attr("d", lineFunction(Array.from({length: 26}, (x,i) => lemn_paramet(Math.PI*(i+50)/50))))
     .style("stroke-width", 7)
-    .attr("stroke", "#FFC107") // amber 500
+    .attr("stroke", lemn_2)
     .attr("fill", "none");
 
 svg
@@ -95,35 +106,35 @@ svg
     .attr("cx", x(0))
     .attr("cy", y(0))
     .attr("r", 5)
-    .attr("fill", '#9E9E9E'); // gray 500
+    .attr("fill", lemn_join);
 
 for (k of [0,1,2]) {
     svg.append("path")
         .attr("d", lineFunction(Array.from({length: 26}, (x,i) => unfold(lemn_paramet(Math.PI*(i-25)/50),k))))
         .style("stroke-width", 7)
-        .attr("stroke", "#2196F3") // blue 500
+        .attr("stroke", lemn_1)
         .attr("fill", "none");
     svg.append("path")
         .attr("d", lineFunction(Array.from({length: 26}, (x,i) => unfold(lemn_paramet(Math.PI*(i)/50),k))))
         .style("stroke-width", 3)
-        .attr("stroke", "#2196F3") // blue 500
+        .attr("stroke", lemn_1)
         .attr("fill", "none");
     svg.append("path")
         .attr("d", lineFunction(Array.from({length: 26}, (x,i) => unfold(lemn_paramet(Math.PI*(i+25)/50),k))))
         .style("stroke-width", 3)
-        .attr("stroke", "#FFC107") // amber 500
+        .attr("stroke", lemn_2)
         .attr("fill", "none");
     svg.append("path")
         .attr("d", lineFunction(Array.from({length: 26}, (x,i) => unfold(lemn_paramet(Math.PI*(i+50.01)/50),k))))
         .style("stroke-width", 7)
-        .attr("stroke", "#FFC107") // amber 500
+        .attr("stroke", lemn_2)
         .attr("fill", "none");
     svg
         .append("circle")
         .attr("cx", x(unfold({x:0,y:0},k).x))
         .attr("cy", y(unfold({x:0,y:0},k).y))
         .attr("r", 5)
-        .attr("fill", '#9E9E9E'); // gray 500
+        .attr("fill", lemn_join);
 }
 
 point_neigh_coords = neigh_array.map(function(u) { return to_lemn(
@@ -217,4 +228,6 @@ var drag_handler = d3.drag()
         }		
     }); 
         
-drag_handler(point);  
+drag_handler(point); 
+
+});

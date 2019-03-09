@@ -1,9 +1,16 @@
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
 radius = 200
 
 point_coords = [{x:0.6, y:0.1}, {x:-0.2, y:0.7}];
 
-vertex_color = '#1565C0'; // blue 800
-side_color = '#2196F3'; // blue 500
+const
+vertex_color = color.blue.w800,
+side_color = color.blue.w500;
 
 var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
@@ -85,4 +92,6 @@ var drag_handler = d3.drag()
             .attr("d", lineFunction(hypLineFunction(a,b)))
     }); 
         
-drag_handler(vertices);  
+drag_handler(vertices);
+
+});

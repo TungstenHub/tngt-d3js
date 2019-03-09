@@ -1,3 +1,13 @@
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
+const
+point_color = color.blue.w800,
+inverse_color = color.green.w800;
+
 radius = 100;
 
 var svg = d3.select(".d3svg"),
@@ -18,7 +28,7 @@ var inverse = svg
     .attr("cx", width/2)
     .attr("cy", height/2+200)
     .attr("r", 10)   
-    .style("fill", "green"); 
+    .style("fill", inverse_color); 
 
 var point = svg
     .append("g")
@@ -30,7 +40,7 @@ var point = svg
         .attr("cx", function(d) {return(width/2+d.x)})
         .attr("cy", function(d) {return(height/2+d.y)})
         .attr("r", 10)
-        .attr("fill", "steelblue"); 
+        .attr("fill", point_color); 
  
 var drag_handler = d3.drag()
     .on("drag", function() {
@@ -45,3 +55,5 @@ var drag_handler = d3.drag()
     }); 
          
 drag_handler(point);   
+
+});

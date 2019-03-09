@@ -1,7 +1,14 @@
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
 point_coords = [{x: 535, y: 564}, {x:569, y:133}, {x:750,y:345}, {x:309, y:135}, {x:227,y:368}];
 
-point_color = '#2E7D32'; // green 800
-conic_color = '#4CAF50'; // green 500
+const
+point_color = color.green.w800,
+conic_color = color.green.w500;
 
 var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
@@ -100,4 +107,6 @@ var drag_handler = d3.drag()
                     -0.1*height<d.coord[1].y && d.coord[1].y<1.1*height)) ? 1 : 0); })
     }); 
         
-drag_handler(vertices);   
+drag_handler(vertices);
+
+});

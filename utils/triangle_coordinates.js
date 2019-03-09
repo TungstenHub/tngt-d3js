@@ -10,6 +10,22 @@ class Point {
         this.x = x
         this.y = y
     }
+
+    static with(x, y) {
+        return new Point(x, y);
+    }
+}
+
+/**
+ * Distance between points
+ * @param {Point} A 
+ * @param {Point} B
+ * @return {number} 
+ */
+function dist(A, B){
+    var dx = A.x - B.x;
+    var dy = A.y - B.y;
+    return Math.sqrt(dx*dx + dy*dy);
 }
 
 /**
@@ -22,8 +38,8 @@ class Point {
  */
 function from_bar_coords(A, B, C, bar){
     let [p, q, r] = bar;
-    return {x:(p*A.x+q*B.x+r*C.x)/(p+q+r),
-            y:(p*A.y+q*B.y+r*C.y)/(p+q+r)};
+    return Point.with((p*A.x+q*B.x+r*C.x)/(p+q+r),
+                      (p*A.y+q*B.y+r*C.y)/(p+q+r));
 }
 
 /**
@@ -51,11 +67,12 @@ function get_bar_coords(A, B, C, D){
  */
 function cevian_int(A, B, C, D){
     let [, q, r] = get_bar_coords(A, B, C, D);
-    return {x:(q*B.x+r*C.x)/(q+r),
-            y:(q*B.y+r*C.y)/(q+r)};
+    return Point.with((q*B.x+r*C.x)/(q+r),
+                      (q*B.y+r*C.y)/(q+r));
 }
 
-
+exports.Point = Point;
+exports.dist = dist;
 exports.from_bar_coords = from_bar_coords;
 exports.get_bar_coords = get_bar_coords;
 exports.cevian_int = cevian_int;

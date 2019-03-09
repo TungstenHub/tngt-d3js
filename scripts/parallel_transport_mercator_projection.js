@@ -1,3 +1,9 @@
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
 pivot_coord  = [{x:0, y:0}];
 
 var svg = d3.select(".d3svg"),
@@ -6,8 +12,9 @@ height = +svg.attr("height");
 
 radius = width/(2*Math.PI);
 
-arrow_color = '#2196F3'; // blue 500
-pivot_color = '#FFEB3B'; // yellow 500
+const
+arrow_color = color.blue.w500,
+pivot_color = color.yellow.w500;
 
 var x = d3.scaleLinear().domain([0, width/(2*radius)]).range([width/2, width]);
 var y = d3.scaleLinear().domain([0, height/(2*radius)]).range([height/2, 0]);
@@ -104,3 +111,5 @@ var drag_handler = d3.drag()
 	}); 
 		
 drag_handler(pivot);
+
+});

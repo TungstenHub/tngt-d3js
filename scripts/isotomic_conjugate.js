@@ -1,23 +1,22 @@
 d3require(
+    "utils/init_canvas.js",
     "utils/triangle_coordinates.js",
+    "utils/material_color.js",
 ).then(d3m => {
 
-vertex_color = '#1565C0'; // blue 800
-side_color = '#2196F3'; // blue 500
-triangle_color = '#BBDEFB' // blue 100
-anchor_color = '#37474F'; // blue_gray 800
-anchor_cev_color = '#607D8B'; // blue_gray 500
-isot_color = '#FFD600'; // yellow acc 700
-isot_cev_color = '#FFEB3B'; // yellow 500
+const color = d3m.mdColor;
 
-var svg = d3.select(".d3svg"),
-width = +svg.attr("width"),
-height = +svg.attr("height");
+const
+vertex_color = color.blue.w800, 
+side_color = color.blue.w500, 
+triangle_color = color.blue.w100, 
+anchor_color = color.bluegray.w800, 
+anchor_cev_color = color.bluegray.w500, 
+isot_color = color.yellow.a700, 
+isot_cev_color = color.yellow.w500; 
 
-var radius = 300;
-
-var x = d3.scaleLinear().domain([0, width/(2*radius)]).range([width/2, width]);
-var y = d3.scaleLinear().domain([0, height/(2*radius)]).range([height/2, 0]);
+const svg = d3.select(".d3svg");
+const [width, height, x, y] = d3m.init_canvas(svg, 300);
 
 var start_x, start_y; 
 

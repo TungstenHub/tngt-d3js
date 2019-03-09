@@ -1,10 +1,18 @@
+d3require(
+    "utils/triangle_coordinates.js",
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
 point_coords = [{x:238, y:486}, {x:445, y:139}, {x:677,y:368}];
 
-vertex_color = '#1565C0'; // blue 800
-side_color = '#2196F3'; // blue 500
-triangle_color = '#BBDEFB' // blue 100
-orthocenter_color = '#4527A0'; // deep purple 800
-altitude_color = '#673AB7'; // deep purple 500
+const
+vertex_color = color.blue.w800,
+side_color = color.blue.w500,
+triangle_color = color.blue.w100,
+orthocenter_color = color.deeppurple.w800;
+altitude_color = color.deeppurple.w500;
 
 var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
@@ -152,3 +160,5 @@ var drag_handler = d3.drag()
     });
 
 drag_handler(vertices);
+
+});

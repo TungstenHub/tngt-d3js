@@ -1,3 +1,12 @@
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
+const
+pivot_color = color.yellow.w500;
+
 radius = 312.75 // to adjust the photo
 offset = 218.25
 
@@ -57,7 +66,7 @@ var iter_path = svg.selectAll('path')
     .enter().append('path')
     .attr('d', function(d) { return lineFunction(d.p); })
     .attr('stroke-width', function(d) { return 3*d.c; })
-    .attr('stroke',"#FFEB3B") // yellow 500
+    .attr('stroke', pivot_color)
     .attr("stroke-opacity", function(d) { return d.c; })
     .attr('fill', 'none');
 
@@ -72,7 +81,7 @@ var pivot = svg
         .attr("cx", function(d) {return(x(d.x))})
         .attr("cy", function(d) {return(y(d.y))})
         .attr("r", 7)
-        .attr("fill", "#FFEB3B"); // yellow 500
+        .attr("fill", pivot_color);
 
 
 var drag_handler = d3.drag()
@@ -92,4 +101,6 @@ var drag_handler = d3.drag()
             .attr('d', function(d) { return lineFunction(d.p); })
     }); 
         
-drag_handler(pivot);  
+drag_handler(pivot);
+
+});

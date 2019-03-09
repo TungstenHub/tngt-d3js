@@ -1,11 +1,17 @@
+d3.requireFrom(async name => {return `${name}`;})(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
 point_coords = [{x:238, y:486}, {x:445, y:139}, {x:677,y:368}];
 
-vertex_color = '#1565C0'; // blue 800
-side_color = '#2196F3'; // blue 500
-triangle_color = '#BBDEFB' // blue 100
-gergonne_color = '#00695C'; // teal 800
-incircle_color = '#FFA000'; // amber 800
-cev_color = '#009688'; // teal 500
+vertex_color = color.blue.w800;
+side_color = color.blue.w500;
+triangle_color =color.blue.w100;
+gergonne_color = color.teal.w800;
+incircle_color = color.amber.w800;
+cev_color = color.teal.w500;
 
 var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
@@ -151,4 +157,6 @@ var drag_handler = d3.drag()
             .attr("r", radius(a,b,c))
     }); 
         
-drag_handler(vertices);   
+drag_handler(vertices);
+
+});

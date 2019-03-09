@@ -1,3 +1,14 @@
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
+const
+point_color = color.blue.w800,
+inverse_color = color.green.w800,
+polar_color = color.green.w500;
+
 radius = 100;
 
 var svg = d3.select(".d3svg"),
@@ -13,13 +24,6 @@ var circle = svg
     .style("stroke", "black")   
     .style("fill", "none"); 
 
-var inverse = svg
-    .append("circle")
-    .attr("cx", width/2)
-    .attr("cy", height/2+200)
-    .attr("r", 10)   
-    .style("fill", "green"); 
-
 var polar = svg
     .append('line')
     .attr("x1", -width)
@@ -27,7 +31,14 @@ var polar = svg
     .attr("y1", height/2+200)
     .attr("y2", height/2+200)
     .style("stroke-width", 5)
-    .style("stroke", "green") 
+    .style("stroke", polar_color) 
+
+var inverse = svg
+    .append("circle")
+    .attr("cx", width/2)
+    .attr("cy", height/2+200)
+    .attr("r", 10)   
+    .style("fill", inverse_color); 
 
 var point = svg
     .append("g")
@@ -39,7 +50,7 @@ var point = svg
         .attr("cx", function(d) {return(width/2+d.x)})
         .attr("cy", function(d) {return(height/2+d.y)})
         .attr("r", 10)
-        .attr("fill", "steelblue"); 
+        .attr("fill", point_color); 
 
     
     
@@ -63,4 +74,6 @@ var drag_handler = d3.drag()
         
         
 //apply the drag_handler to our circles 
-drag_handler(point);   
+drag_handler(point);
+
+});

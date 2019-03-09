@@ -1,16 +1,21 @@
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
 radius = 200
 
 pivot_coord  = [{x:Math.cos(-2.5), y:Math.sin(-2.5)}];
 point_coords = [{x:Math.cos(-1), y:Math.sin(-1)}, {x:Math.cos(1.8), y:Math.sin(1.8)}];
 
-vertex_color = '#1565C0'; // blue 800
-side_color = '#2196F3'; // blue 500
-
-pivot_color = '#C62828'; // red 800
-pivot_angle_color = '#F44336'; // red 500
-
-center_color = '#EF6C00'; // orange 800
-center_angle_color = '#FF9800'; // orange 500
+const
+vertex_color = color.blue.w800,
+side_color = color.blue.w500,
+pivot_color = color.red.w800,
+pivot_angle_color = color.red.w500,
+center_color = color.orange.w800,
+center_angle_color = color.orange.w500;
 
 var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
@@ -210,4 +215,6 @@ var drag_handler = d3.drag()
     }); 
         
 drag_handler(vertices);
-drag_handler(pivot);   
+drag_handler(pivot);
+
+});

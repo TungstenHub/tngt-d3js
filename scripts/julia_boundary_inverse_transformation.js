@@ -1,7 +1,12 @@
-vertex_color = '#000000'; // black
-julia_color = '#FF9800'; // green 500
-circles_color = '#2196F3'; // blue 500
-rays_color = '#E91E63'; // pink 500
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
+const
+vertex_color = 'black',
+julia_color = color.orange.w500;
 
 var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
@@ -96,4 +101,6 @@ var drag_handler = d3.drag()
             .attr("cy", function(d) {return(y(d.y))})
     }); 
         
-drag_handler(vertices);   
+drag_handler(vertices);
+
+});

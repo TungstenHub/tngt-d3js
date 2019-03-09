@@ -1,7 +1,13 @@
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
 radius = 200
 	
-pendulum_color = '#2196F3'; // blue 500
-track_color = '#90CAF9'; // blue 200
+pendulum_color = color.blue.w500;
+track_color = color.blue.w200;
 
 var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
@@ -65,3 +71,5 @@ var interval = setInterval(function() {
     iter++;
     update();
 }, 2);
+
+});

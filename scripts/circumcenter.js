@@ -1,11 +1,18 @@
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
 point_coords = [{x:238, y:486}, {x:445, y:139}, {x:677,y:368}];
 
-vertex_color = '#1565C0'; // blue 800
-side_color = '#2196F3'; // blue 500
-triangle_color = '#BBDEFB' // blue 100
-circumcenter_color = '#C62828'; // red 800
-circumcircle_color = '#C62828'; // red 800
-perp_bisec_color = '#F44336'; // red 500
+const
+vertex_color = color.blue.w800,
+side_color = color.blue.w500,
+triangle_color =color.blue.w100,
+circumcenter_color = color.red.w800,
+circumcircle_color = color.red.w800,
+perp_bisec_color = color.red.w500;
 
 var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
@@ -142,3 +149,5 @@ var drag_handler = d3.drag()
     });
 
 drag_handler(vertices);
+
+});

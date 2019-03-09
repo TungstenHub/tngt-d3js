@@ -1,3 +1,13 @@
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
+const
+pivot_color = color.pink.w500,
+iter_color = color.orange.w500;
+
 pivot_coord  = [{x:0.5, y:0.2}];
 
 var svg = d3.select(".d3svg"),
@@ -34,7 +44,7 @@ var contours = d3.contours()
     .size([n, m])
     .thresholds(thresholds);
 
-var color = d3.scaleLinear()
+var grad_color = d3.scaleLinear()
     .domain(d3.extent(thresholds))
     .interpolate(function() { return d3.interpolateYlGnBu; });
 
@@ -42,7 +52,7 @@ svg.selectAll("path")
     .data(contours(values))
     .enter().append("path")
         .attr("d", d3.geoPath(d3.geoIdentity().scale(width / n)))
-        .attr("fill", function(d) { return color(d.value); });
+        .attr("fill", function(d) { return grad_color(d.value); });
 
 var lineFunction = d3.line()
     .x(function(d) { return x(d.x); })
@@ -54,7 +64,7 @@ grad = func_2d_der(c.x, c.y);
 arrow = svg.append("path")
     .attr("d", lineFunction([c,{x:c.x+grad[0],y:c.y+grad[1]}]))
     .attr("stroke-width", 5)
-    .attr("stroke", "#FF9800") // orange 500
+    .attr("stroke", iter_color)
 angle = Math.atan2(grad[1],grad[0]);
 marker = svg.append("path")
     .attr("d", lineFunction([{x:0.05*Math.cos(0*Math.PI/3+angle),y:0.05*Math.sin(0*Math.PI/3+angle)},
@@ -62,7 +72,7 @@ marker = svg.append("path")
                             {x:0.05*Math.cos(4*Math.PI/3+angle),y:0.05*Math.sin(4*Math.PI/3+angle)}]))
     .attr("transform", "translate(" + radius*(c.x+grad[0]) + "," + radius*(-c.y-grad[1]) + ")")
     .attr("stroke", 'none')
-    .attr("fill", "#FF9800") // orange 500
+    .attr("fill", iter_color)
 
 var pivot = svg
     .append("g")
@@ -75,7 +85,7 @@ var pivot = svg
         .attr("cx", function(d) {return(x(d.x))})
         .attr("cy", function(d) {return(y(d.y))})
         .attr("r", 7)
-        .attr("fill", "#E91E63"); // pink 500
+        .attr("fill", pivot_color);
 
 var drag_handler = d3.drag()
     .on("start", function(d) {
@@ -101,3 +111,5 @@ var drag_handler = d3.drag()
     }); 
         
 drag_handler(pivot);
+
+});

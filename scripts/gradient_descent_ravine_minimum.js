@@ -1,3 +1,13 @@
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
+const
+pivot_color = color.pink.w500,
+iter_color = color.orange.w500;
+
 pivot_coord  = [{x:1.2, y:0.5}];
 
 var svg = d3.select(".d3svg"),
@@ -36,7 +46,7 @@ var contours = d3.contours()
     .size([n, m])
     .thresholds(thresholds);
 
-var color = d3.scaleLinear()
+var grad_color = d3.scaleLinear()
     .domain(d3.extent(thresholds))
     .interpolate(function() { return d3.interpolateYlGnBu; });
 
@@ -44,7 +54,7 @@ svg.selectAll("path")
     .data(contours(values))
     .enter().append("path")
         .attr("d", d3.geoPath(d3.geoIdentity().scale(width / n)))
-        .attr("fill", function(d) { return color(d.value); });
+        .attr("fill", function(d) { return grad_color(d.value); });
 
 var lineFunction = d3.line()
     .x(function(d) { return x(d.x); })
@@ -78,7 +88,7 @@ var iter_path = svg.selectAll('.path')
     .enter().append('path')
     .attr('d', function(d) { return lineFunction(d.p); })
     .attr('stroke-width', 3)
-    .attr('stroke',"#FF9800") // orange 500
+    .attr('stroke', iter_color)
     .attr("stroke-opacity", function(d) { return d.c; })
     .attr('fill', 'none');
 
@@ -93,7 +103,7 @@ var trace = svg
         .attr("cx", function(d) {return(x(d.p.x))})
         .attr("cy", function(d) {return(y(d.p.y))})
         .attr("r", 3)
-        .attr("fill", "#E91E63") // pink 500
+        .attr("fill", pivot_color)
         .attr("opacity",function(d) {return(d.c*d.c)});
 
 var pivot = svg
@@ -107,7 +117,7 @@ var pivot = svg
         .attr("cx", function(d) {return(x(d.x))})
         .attr("cy", function(d) {return(y(d.y))})
         .attr("r", 7)
-        .attr("fill", "#E91E63"); // pink 500
+        .attr("fill", pivot_color);
 
 svg.append("path")
     .attr("d", lineFunction([{x:x.invert(width*2/5),y:y.invert(height*9/10)},{x:x.invert(width*3/5),y:y.invert(height*9/10)}]))
@@ -177,3 +187,5 @@ var drag_handler_lr = d3.drag()
         
 drag_handler(pivot);   
 drag_handler_lr(lr_pivot);
+
+});

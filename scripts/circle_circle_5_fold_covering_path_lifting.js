@@ -1,3 +1,16 @@
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
+const
+point_color = color.teal.w800,
+path_color = color.teal.w500,
+disc_color = color.teal.w200,
+lift_point_color = color.pink.w800,
+lift_path_color = color.pink.w500;
+
 radius = 200
 
 offset = -1
@@ -32,13 +45,6 @@ long_helix = function(v){
 transv_helix = function(u){
     return [helix(u,0.2), helix(u,1)];
 }
-
-point_color = '#00695C'; // teal 800
-path_color = '#009688'; // teal 500
-disc_color = '#80CBC4'; // teal 200
-
-lift_point_color = '#AD1457'; // pink 800
-    lift_path_color = '#E91E63'; // pink 500
 
 var svg = d3.select(".d3svg"),
 width = +svg.attr("width"),
@@ -197,3 +203,5 @@ var drag_handler = d3.drag()
     }); 
         
 drag_handler(point);  
+
+});

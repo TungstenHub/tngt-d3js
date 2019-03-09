@@ -1,3 +1,11 @@
+d3require(
+    "utils/material_color.js",
+).then(d3m => {
+
+const color = d3m.mdColor;
+
+const node_color = color.red.w800;
+
 var svg = d3.select(".d3svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
@@ -74,7 +82,7 @@ var node = svg.append("g")
     .attr("r", 7)
     .attr("stroke", 'white')
     .attr("stroke-width", 2)
-    .attr("fill", '#C62828') // red 800
+    .attr("fill", node_color)
     .call(d3.drag()
         .on("start", dragstarted)
         .on("drag", dragged)
@@ -115,3 +123,5 @@ function dragended(d) {
     d.fx = null;
     d.fy = null;
 }
+
+});
