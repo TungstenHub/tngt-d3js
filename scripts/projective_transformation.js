@@ -6,7 +6,7 @@ const color = d3m.mdColor;
 
 const
 vertex_color = '#000000',
-grid_color = color.green.w500,
+grid_color = color.orange.w500,
 circles_color = color.blue.w500,
 rays_color = color.pink.w500;
 
