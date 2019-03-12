@@ -1,9 +1,6 @@
-d3require(
-    "utils/triangle_coordinates.js",
-    "utils/material_color.js",
-).then(d3m => {
-
-const color = d3m.mdColor;
+import {Point, dist} from "../utils/basic_objects2.js";
+import {mdColor as color} from "../utils/material_color2.js";
+import {from_bar_coords, cevian_int} from "../utils/triangle_coordinates2.js";
 
 const
 vertex_color = color.blue.w800,
@@ -22,7 +19,7 @@ var lineFunction = d3.line()
     .y(function(d) { return d.y; });
 
 function bar_incenter(A, B, C) {
-    return [d3m.dist(B,C),d3m.dist(C,A),d3m.dist(A,B)];
+    return [dist(B,C),dist(C,A),dist(A,B)];
 }
 
 function in_radius(A, B, C){
@@ -30,32 +27,31 @@ function in_radius(A, B, C){
         - A.y*B.x + A.x*B.y 
         + A.y*C.x - B.y*C.x 
         - A.x*C.y + B.x*C.y
-        )/(d3m.dist(A,B)+d3m.dist(B,C)+d3m.dist(C,A))
+        )/(dist(A,B)+dist(B,C)+dist(C,A))
 }
 
-a = d3m.Point.with(238,486);
-b = d3m.Point.with(445,139);
-c = d3m.Point.with(677,368);
-vertices = [a,b,c];
-i = d3m.from_bar_coords(a,b,c,bar_incenter(a,b,c));
+let a = Point.with(238,486);
+let b = Point.with(445,139);
+let c = Point.with(677,368);
+let i = from_bar_coords(a,b,c,bar_incenter(a,b,c));
 
 var triangle = svg.append("path")
-    .attr("d", lineFunction(vertices))
+    .attr("d", lineFunction([a,b,c]))
     .attr("stroke", "none")
     .attr("fill", triangle_color);
 
 var a_bisec = svg.append("path")
-    .attr("d", lineFunction([a,d3m.cevian_int(a,b,c,i)]))
+    .attr("d", lineFunction([a,cevian_int(a,b,c,i)]))
     .attr("stroke-width", 5)
     .attr("stroke", bisec_color);
 
 var b_bisec = svg.append("path")
-    .attr("d", lineFunction([b,d3m.cevian_int(b,c,a,i)]))
+    .attr("d", lineFunction([b,cevian_int(b,c,a,i)]))
     .attr("stroke-width", 5)
     .attr("stroke", bisec_color);
 
 var c_bisec = svg.append("path")
-    .attr("d", lineFunction([c,d3m.cevian_int(c,a,b,i)]))
+    .attr("d", lineFunction([c,cevian_int(c,a,b,i)]))
     .attr("stroke-width", 5)
     .attr("stroke", bisec_color);
 
@@ -94,7 +90,7 @@ var vertices = svg
     .append("g")
     .attr("class", "vertices")
         .selectAll(".vertices")
-        .data(vertices)
+        .data([a,b,c])
         .enter()
         .append("circle")
         .attr("class", "vertex")
@@ -112,7 +108,7 @@ var drag_handler = d3.drag()
         a = vertices.data()[0];
         b = vertices.data()[1];
         c = vertices.data()[2];
-        i = d3m.from_bar_coords(a,b,c,bar_incenter(a,b,c));
+        i = from_bar_coords(a,b,c,bar_incenter(a,b,c));
         triangle
             .attr("d", lineFunction([a,b,c]));
         a_side
@@ -122,11 +118,11 @@ var drag_handler = d3.drag()
         c_side
             .attr("d", lineFunction([a,b]));
         a_bisec
-            .attr("d", lineFunction([a,d3m.cevian_int(a,b,c,i)]));
+            .attr("d", lineFunction([a,cevian_int(a,b,c,i)]));
         b_bisec
-            .attr("d", lineFunction([b,d3m.cevian_int(b,c,a,i)]));
+            .attr("d", lineFunction([b,cevian_int(b,c,a,i)]));
         c_bisec
-            .attr("d", lineFunction([c,d3m.cevian_int(c,a,b,i)]));
+            .attr("d", lineFunction([c,cevian_int(c,a,b,i)]));
         incenter
             .attr("cx", i.x)
             .attr("cy", i.y)
@@ -137,5 +133,3 @@ var drag_handler = d3.drag()
     }); 
         
 drag_handler(vertices);   
-
-});
