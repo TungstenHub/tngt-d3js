@@ -1,6 +1,6 @@
-import {Point, dist} from "../utils/basic_objects2.js";
-import {mdColor as color} from "../utils/material_color2.js";
-import {from_bar_coords, cevian_int} from "../utils/triangle_coordinates2.js";
+import {Point, dist} from "https://cdn.rawgit.com/TungstenHub/tngt-d3js/master/utils/basic_objects2.js";
+import {mdColor as color} from "https://cdn.rawgit.com/TungstenHub/tngt-d3js/master/utils/material_color2.js";
+import {from_bar_coords, cevian_int} from "https://cdn.rawgit.com/TungstenHub/tngt-d3js/master/utils/triangle_coordinates2.js";
 
 const
 vertex_color = color.blue.w800,
