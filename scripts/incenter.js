@@ -1,5 +1,7 @@
 d3require(
     "utils/material_color.js",
+    "utils/basic_objects.js",
+    "utils/triangle_coordinates.js",
 ).then(d3m => {
 
 const color = d3m.mdColor;
