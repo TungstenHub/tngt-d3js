@@ -1,4 +1,5 @@
-d3.requireFrom(async name => {return `${name}`;})(
+d3require(
+    "utils/triangle_coordinates.js",
     "utils/material_color.js",
 ).then(d3m => {
 
