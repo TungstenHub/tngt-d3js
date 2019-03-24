@@ -77,7 +77,21 @@ class DPointOnCircle extends DPoint {
         this.x = c.p.x + c.r*(x-c.p.x)/d;
         this.y = c.p.y + c.r*(y-c.p.y)/d;
     }
+}
 
+class DPointOnLine extends DPoint {
+    constructor (x, y, l) {
+        super(x, y);
+        this.l = l;
+        l.dependents.push(this);
+    }
+
+    calibrate() {
+        const x=this.x, y=this.y, p=this.l.p, v=this.l.v;
+        const t = ((x-p.x)*v.y-(y-p.y)*v.x)/(v.x*v.x+v.y*v.y);
+        this.x = x-t*v.y;
+        this.y = y+t*v.x;
+    }
 }
 
 /** Functional Point */
@@ -145,5 +159,6 @@ export{
     Point,
     DPoint,
     DPointOnCircle,
+    DPointOnLine,
     FPoint
 }

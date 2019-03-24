@@ -13,7 +13,9 @@ base_c = new Circle(new Point(0,0),1),
 a = new DPoint(0,-0.6),
 b = new DPoint(0,-0.4),
 domain_c = new CirclePP(a,b),
+
 p = new DPointOnCircle(0.2,-0.6,domain_c),
+q = FPoint.inverse(p,base_c),
 
 r = new FQuantity(Point.dist,[a,b]),
 d = new FQuantity(Point.dist,[new Point(0,0),a]),
@@ -22,11 +24,9 @@ image_c_radius = new FQuantity(
     [r,d]
 ),
 
-
-q = FPoint.inverse(p,base_c),
 image_c_center = new FPoint(
-    (a,r0,d0) => {
-        const factor = 1/(d0.v*d0.v-r0.v*r0.v);
+    (a,r,d) => {
+        const factor = 1/(d.v*d.v-r.v*r.v);
         return {x:a.x*factor,y:a.y*factor};
     },
     [a,r,d]
