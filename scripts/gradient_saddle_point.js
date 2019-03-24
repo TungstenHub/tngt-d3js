@@ -1,16 +1,12 @@
-d3require(
-    "utils/material_color.js",
-).then(d3m => {
-
-const color = d3m.mdColor;
+import {mdColor as color} from "../utils/material_color.js";
 
 const
 pivot_color = color.pink.w500,
 iter_color = color.orange.w500;
 
-pivot_coord  = [{x:0.5, y:0.2}];
+let pivot_coord  = [{x:0.5, y:0.2}];
 
-var svg = d3.select(".d3svg"),
+var svg = d3.select("#gradient_saddle_point"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
@@ -37,7 +33,7 @@ for (var i = 0.5; i < n; ++i, ++k) {
 var min_value = Math.min(...values);
 var max_value = Math.max(...values);
 
-n_thresh = 20;
+let n_thresh = 20;
 var thresholds = d3.range(n_thresh).map(function(p) { return min_value+p*(max_value-min_value)/n_thresh; });
 
 var contours = d3.contours()
@@ -58,15 +54,15 @@ var lineFunction = d3.line()
     .x(function(d) { return x(d.x); })
     .y(function(d) { return y(d.y); });
 
-c = pivot_coord[0];	
-grad = func_2d_der(c.x, c.y);
+let c = pivot_coord[0];	
+let grad = func_2d_der(c.x, c.y);
 
-arrow = svg.append("path")
+let arrow = svg.append("path")
     .attr("d", lineFunction([c,{x:c.x+grad[0],y:c.y+grad[1]}]))
     .attr("stroke-width", 5)
     .attr("stroke", iter_color)
-angle = Math.atan2(grad[1],grad[0]);
-marker = svg.append("path")
+let angle = Math.atan2(grad[1],grad[0]);
+let marker = svg.append("path")
     .attr("d", lineFunction([{x:0.05*Math.cos(0*Math.PI/3+angle),y:0.05*Math.sin(0*Math.PI/3+angle)},
                             {x:0.05*Math.cos(2*Math.PI/3+angle),y:0.05*Math.sin(2*Math.PI/3+angle)},
                             {x:0.05*Math.cos(4*Math.PI/3+angle),y:0.05*Math.sin(4*Math.PI/3+angle)}]))
@@ -111,5 +107,3 @@ var drag_handler = d3.drag()
     }); 
         
 drag_handler(pivot);
-
-});

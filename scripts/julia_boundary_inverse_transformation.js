@@ -1,18 +1,14 @@
-d3require(
-    "utils/material_color.js",
-).then(d3m => {
-
-const color = d3m.mdColor;
+import {mdColor as color} from "../utils/material_color.js";
 
 const
 vertex_color = 'black',
 julia_color = color.orange.w500;
 
-var svg = d3.select(".d3svg"),
+var svg = d3.select("#julia_boundary_inverse_transformation"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
-radius = 150
+let radius = 150
 
 var x = d3.scaleLinear().domain([0, width/(2*radius)]).range([width/2, width]);
 var y = d3.scaleLinear().domain([0, height/(2*radius)]).range([height/2, 0]);
@@ -23,7 +19,7 @@ var lineFunction = d3.line()
     .x(function(d) { return x(d.x); })
     .y(function(d) { return y(d.y); });
 
-point_coords = [{x: 0, y: 0}];
+let point_coords = [{x: 0, y: 0}];
 
 function get_inverse_transf(point, seed){
     const c = point.x - seed.x;
@@ -41,11 +37,11 @@ function get_roots(iter, seed){
     return curr_roots
 }
 
-s = point_coords[0];
+let s = point_coords[0];
 
-k = 9;
+let k = 9;
 
-julia_coords = get_roots(k, s);
+let julia_coords = get_roots(k, s);
 
 var x_axis = svg.append("path")
     .attr("d", lineFunction([{x: -4, y: 0}, {x: 4, y: 0}]))
@@ -102,5 +98,3 @@ var drag_handler = d3.drag()
     }); 
         
 drag_handler(vertices);
-
-});

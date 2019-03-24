@@ -1,12 +1,8 @@
-d3require(
-    "utils/material_color.js",
-).then(d3m => {
+import {mdColor as color} from "../utils/material_color.js";
 
-const color = d3m.mdColor;
+let radius = 200
 
-radius = 200
-
-point_coords = [{x:-1.5, y:0}, {x:-0.5, y:0}, {x:0.5, y:0}, {x:1.5, y:0}];
+let point_coords = [{x:-1.5, y:0}, {x:-0.5, y:0}, {x:0.5, y:0}, {x:1.5, y:0}];
 
 const
 base_color = color.blue.w500,
@@ -16,7 +12,7 @@ cr_label_color = color.green.w800,
 cross_ratio_guides = color.gray.w500,
 cross_ratio_color = color.gray.w800;
 
-var svg = d3.select(".d3svg"),
+var svg = d3.select("#cross_ratio"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
@@ -29,10 +25,10 @@ var lineFunction = d3.line()
     .x(function(d) { return x(d.x); })
     .y(function(d) { return y(d.y); });
         
-a = point_coords[0];
-b = point_coords[1];
-c = point_coords[2];
-d = point_coords[3];
+let a = point_coords[0];
+let b = point_coords[1];
+let c = point_coords[2];
+let d = point_coords[3];
 
 var line = svg.append("path")
     .attr("d", lineFunction([{x:-3, y:0}, {x:3, y:0}]))
@@ -95,7 +91,7 @@ var cross_ratio = function(A, B, C, D) {
     return ((C-A)*(D-B))/((C-B)*(D-A));
 }
 
-update = function() {
+let update = function() {
     cross_ratio_text
         .attr("x", function(d, i) { return x(d.x); })
         .attr("y", function(d, i) { return i==3 ? y(0.35) : y(-0.35); })
@@ -151,8 +147,8 @@ var drag_handler_base_points = d3.drag()
         start_y = y.invert(height) + d3.event.y;
     })
     .on("drag", function(d) {
-        xx = start_x + x.invert(d3.event.x);
-        yy = start_y + y.invert(d3.event.y);
+        let xx = start_x + x.invert(d3.event.x);
+        let yy = start_y + y.invert(d3.event.y);
         d.x = xx;
         d.y = 0;
         d3.select(this)
@@ -167,5 +163,3 @@ var drag_handler_base_points = d3.drag()
     }); 
 
 drag_handler_base_points(base_points);
-
-});

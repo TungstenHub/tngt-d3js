@@ -1,12 +1,8 @@
-d3require(
-    "utils/material_color.js",
-).then(d3m => {
-
-const color = d3m.mdColor;
+import {mdColor as color} from "../utils/material_color.js";
 
 const node_color = color.red.w800;
 
-var svg = d3.select(".d3svg"),
+var svg = d3.select("#graph_petersen"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
 
@@ -46,9 +42,6 @@ var graph = {
         {"source": "5", "target": "10"}
     ]
 }
-    
-var nodes = graph.nodes,
-        links = graph.links;
 
 var forceLink = d3
 .forceLink().id(function (d) {
@@ -123,5 +116,3 @@ function dragended(d) {
     d.fx = null;
     d.fy = null;
 }
-
-});

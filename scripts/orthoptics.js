@@ -1,13 +1,9 @@
-d3require(
-    "utils/material_color.js",
-).then(d3m => {
+import {mdColor as color} from "../utils/material_color.js";
 
-const color = d3m.mdColor;
+let radius = 200
 
-radius = 200
-
-pivot_coord  = [{x:Math.cos(-2.5), y:Math.sin(-2.5)}];
-point_coords = [{x:Math.cos(-1), y:Math.sin(-1)}, {x:Math.cos(1.8), y:Math.sin(1.8)}];
+let pivot_coord  = [{x:Math.cos(-2.5), y:Math.sin(-2.5)}];
+let point_coords = [{x:Math.cos(-1), y:Math.sin(-1)}, {x:Math.cos(1.8), y:Math.sin(1.8)}];
 
 const
 vertex_color = color.blue.w800,
@@ -17,7 +13,7 @@ pivot_angle_color = color.red.w500,
 center_color = color.orange.w800,
 center_angle_color = color.orange.w500;
 
-var svg = d3.select(".d3svg"),
+var svg = d3.select("#orthoptics"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
@@ -37,11 +33,12 @@ var angleFunction = d3.arc()
     .endAngle(function(d) { return d.endAngle });
 
 function pivot_angles(p,q,r){
-    alpha = Math.PI/2-Math.atan2(q.y-p.y,q.x-p.x);
-    beta = Math.PI/2-Math.atan2(r.y-p.y,r.x-p.x);
-    gamma = Math.PI/2-Math.atan2(q.y,q.x);
-    delta = Math.PI/2-Math.atan2(r.y,r.x);
-    epsilon = Math.PI/2-Math.atan2(p.y,p.x);
+    let alpha = Math.PI/2-Math.atan2(q.y-p.y,q.x-p.x);
+    let beta = Math.PI/2-Math.atan2(r.y-p.y,r.x-p.x);
+    let gamma = Math.PI/2-Math.atan2(q.y,q.x);
+    let delta = Math.PI/2-Math.atan2(r.y,r.x);
+    let epsilon = Math.PI/2-Math.atan2(p.y,p.x);
+    let p_angles;
     if (beta-alpha >= Math.PI) {
         p_angles = {startAngle: beta, 
                     endAngle: alpha + 2*Math.PI};
@@ -55,6 +52,7 @@ function pivot_angles(p,q,r){
         p_angles = {startAngle: alpha, 
                     endAngle: beta};
     }
+    let c_angles;
     if (gamma <= epsilon && epsilon <= delta) {
         c_angles = {startAngle: delta, 
                     endAngle: gamma + 2*Math.PI};
@@ -68,11 +66,11 @@ function pivot_angles(p,q,r){
     return [p_angles, c_angles]
 }
         
-a = point_coords[0];
-b = point_coords[1];
-c = {x: 0, y: 0};
+let a = point_coords[0];
+let b = point_coords[1];
+let c = {x: 0, y: 0};
 
-d = pivot_coord[0];
+let d = pivot_coord[0];
         
 var circle = svg
     .append("circle")
@@ -98,8 +96,8 @@ var center_arc_2 = svg.append("path")
     .attr("transform", "translate("+x(1)+","+y(1)+")")
     .attr("fill", center_angle_color);
 
-    new_gamma = pivot_angles(d,a,b)[1].startAngle;
-    new_delta = pivot_angles(d,a,b)[1].endAngle;
+let new_gamma = pivot_angles(d,a,b)[1].startAngle;
+let new_delta = pivot_angles(d,a,b)[1].endAngle;
 
 var pivot_arc_1 = svg.append("path")
     .attr("d", angleFunction({startAngle: new_gamma, endAngle: (new_gamma+new_delta)/2}))
@@ -180,8 +178,8 @@ var drag_handler = d3.drag()
         start_y = y.invert(height) + d3.event.y;
     })
     .on("drag", function(d) {
-        xx = start_x + x.invert(d3.event.x);
-        yy = start_y + y.invert(d3.event.y);
+        let xx = start_x + x.invert(d3.event.x);
+        let yy = start_y + y.invert(d3.event.y);
         d.x = xx/Math.sqrt(xx*xx+yy*yy)
         d.y = yy/Math.sqrt(xx*xx+yy*yy)
         d3.select(this)
@@ -198,7 +196,7 @@ var drag_handler = d3.drag()
             .attr("d", lineFunction([c,a]));
         b_center
             .attr("d", lineFunction([c,b]));
-        angles = pivot_angles(d,a,b)
+        let angles = pivot_angles(d,a,b)
         pivot_arc
             .attr("d", angleFunction(angles[0]))
             .attr("transform", "translate("+x(d.x)+","+y(d.y)+")")
@@ -216,5 +214,3 @@ var drag_handler = d3.drag()
         
 drag_handler(vertices);
 drag_handler(pivot);
-
-});

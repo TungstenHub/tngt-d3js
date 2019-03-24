@@ -1,8 +1,4 @@
-d3require(
-    "utils/material_color.js",
-).then(d3m => {
-
-const color = d3m.mdColor;
+import {mdColor as color} from "../utils/material_color.js";
 
 const
 point_color = color.teal.w800,
@@ -12,45 +8,45 @@ lift_point_color = color.pink.w800,
 lift_path_color = color.pink.w500,
 lift_disc_color = color.pink.w200;
 
-radius = 200
+let radius = 200
 
-offset = -1
+let offset = -1
 
-point_coords = [{x:0.6, y:0.0}];
+let point_coords = [{x:0.6, y:0.0}];
 
-array = Array.from({length: 401}, (x,i) => 2*Math.PI*(i-200)/40);
-neigh_array = Array.from({length: 61}, (x,i) => 2*Math.PI*i/60);
+let array = Array.from({length: 401}, (x,i) => 2*Math.PI*(i-200)/40);
+let neigh_array = Array.from({length: 61}, (x,i) => 2*Math.PI*i/60);
 
-p = 0.5;
-q = 0.1;
-r = 0.05;
+let p = 0.5;
+let q = 0.1;
+let r = 0.05;
 
-polar = function(u,v) {
+let polar = function(u,v) {
     return {x: v*Math.cos(u), y: v*Math.sin(u)};
 }
 
-transv_polar = function(u){
+let transv_polar = function(u){
     return [polar(u,0.2), polar(u,1)];
 }
 
-helix = function(u,v) {
+let helix = function(u,v) {
     return {x: 2+p*v*Math.cos(u), y: q*v*Math.sin(u)+r*u};
 }
 
-long_helix = function(v){
+let long_helix = function(v){
     return array.map(function(u) { return helix(u,v)});
 }
 
-transv_helix = function(u){
+let transv_helix = function(u){
     return [helix(u,0.2), helix(u,1)];
 }
 
-inside_annulus = function(a,b){
+let inside_annulus = function(a,b){
     return {x: a/Math.max(Math.sqrt(a*a+b*b),Math.min(1,5*Math.sqrt(a*a+b*b))), 
             y: b/Math.max(Math.sqrt(a*a+b*b),Math.min(1,5*Math.sqrt(a*a+b*b)))};
 }
 
-var svg = d3.select(".d3svg"),
+var svg = d3.select("#line_circle_covering_neighborhoods"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
@@ -81,7 +77,7 @@ var circle2 = svg
     .style("stroke", "black")   
     .style("fill", "white");
 
-point_neigh_coords = neigh_array.map(function(u) { return inside_annulus(
+let point_neigh_coords = neigh_array.map(function(u) { return inside_annulus(
     point_coords[0].x+0.17*Math.cos(u),point_coords[0].y+0.17*Math.sin(u))});
 
 var point_neighborhood = svg.append("path")
@@ -90,16 +86,17 @@ var point_neighborhood = svg.append("path")
     .style("stroke", path_color)   
     .style("fill", disc_color);
 
-lifts_neighborhoods = Array.from({length: 11}, (x,i) => 'none')
+let lifts_neighborhoods = Array.from({length: 11}, (x,i) => 'none')
 
-rad = Math.sqrt(point_coords[0].x*point_coords[0].x+point_coords[0].y*point_coords[0].y)
-arg = Math.atan2(point_coords[0].y,point_coords[0].x)
-lift_coords = Array.from({length: 11}, (x,i) => helix(2*Math.PI*(i-5)+arg, rad));
+let rad = Math.sqrt(point_coords[0].x*point_coords[0].x+point_coords[0].y*point_coords[0].y)
+let arg = Math.atan2(point_coords[0].y,point_coords[0].x)
+let lift_coords = Array.from({length: 11}, (x,i) => helix(2*Math.PI*(i-5)+arg, rad));
 
-for (k of Array.from({length: 11}, (x,i) => i)) {
+for (let k of Array.from({length: 11}, (x,i) => i)) {
     lifts_neighborhoods[k] = svg.append("path")
     .attr("d", lineFunction(point_neigh_coords.map(function(u) { 
-        atan = Math.atan2(u.y,u.x);
+        let atan = Math.atan2(u.y,u.x);
+        let angle;
         if (Math.abs(atan+2*Math.PI-arg)<Math.abs(atan-arg)) {
             angle = atan+2*Math.PI
         } else if (Math.abs(atan-arg)<Math.abs(atan-2*Math.PI-arg)) {
@@ -113,7 +110,7 @@ for (k of Array.from({length: 11}, (x,i) => i)) {
     .style("fill", lift_disc_color);
 }
 
-for (v of [0.4, 0.6, 0.8]) {
+for (let v of [0.4, 0.6, 0.8]) {
     svg.append("circle")
         .attr("cx", x(0))
         .attr("cy", y(0))
@@ -123,7 +120,7 @@ for (v of [0.4, 0.6, 0.8]) {
         .style("fill", "none");
 }
 
-for (v of Array.from({length: 20}, (x,i) => 2*Math.PI*i/20)) {
+for (let v of Array.from({length: 20}, (x,i) => 2*Math.PI*i/20)) {
     svg.append("path")
         .attr("d", lineFunction(transv_polar(v)))
         .style("stroke-width", 1)
@@ -131,7 +128,7 @@ for (v of Array.from({length: 20}, (x,i) => 2*Math.PI*i/20)) {
         .attr("fill", "none");
 }
 
-for (v of [0.4, 0.6, 0.8]) {
+for (let v of [0.4, 0.6, 0.8]) {
     svg.append("path")
         .attr("d", lineFunction(long_helix(v)))
         .style("stroke-width", 1)
@@ -139,7 +136,7 @@ for (v of [0.4, 0.6, 0.8]) {
         .attr("fill", "none");
 }
 
-for (v of [0.2, 1]) {
+for (let v of [0.2, 1]) {
     svg.append("path")
         .attr("d", lineFunction(long_helix(v)))
         .style("stroke-width", 2)
@@ -147,7 +144,7 @@ for (v of [0.2, 1]) {
         .attr("fill", "none");
 }
 
-for (v of Array.from({length: 201}, (x,i) => 2*Math.PI*(i-100)/20)) {
+for (let v of Array.from({length: 201}, (x,i) => 2*Math.PI*(i-100)/20)) {
     svg.append("path")
         .attr("d", lineFunction(transv_helix(v)))
         .style("stroke-width", 1)
@@ -187,8 +184,8 @@ var drag_handler = d3.drag()
         start_y = y.invert(height) + d3.event.y;
     })
     .on("drag", function(d) {
-        xx = start_x + x.invert(d3.event.x);
-        yy = start_y + y.invert(d3.event.y);
+        let xx = start_x + x.invert(d3.event.x);
+        let yy = start_y + y.invert(d3.event.y);
         d.x = xx/Math.max(Math.sqrt(xx*xx+yy*yy),Math.min(1,5*Math.sqrt(xx*xx+yy*yy))) 
         d.y = yy/Math.max(Math.sqrt(xx*xx+yy*yy),Math.min(1,5*Math.sqrt(xx*xx+yy*yy))) 
         d3.select(this)
@@ -205,10 +202,11 @@ var drag_handler = d3.drag()
             d.x+0.17*Math.cos(u),d.y+0.17*Math.sin(u))});
         point_neighborhood
             .attr("d", lineFunction(point_neigh_coords))
-        for (k of Array.from({length: 11}, (x,i) => i)) {
+        for (let k of Array.from({length: 11}, (x,i) => i)) {
             lifts_neighborhoods[k]
                 .attr("d", lineFunction(point_neigh_coords.map(function(u) { 
-                    atan = Math.atan2(u.y,u.x);
+                    let atan = Math.atan2(u.y,u.x);
+                    let angle;
                     if (Math.abs(atan+2*Math.PI-arg)<Math.abs(atan-arg)) {
                         angle = atan+2*Math.PI
                     } else if (Math.abs(atan-arg)<Math.abs(atan-2*Math.PI-arg)) {
@@ -221,5 +219,3 @@ var drag_handler = d3.drag()
     }); 
         
 drag_handler(point);
-
-});

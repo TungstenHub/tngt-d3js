@@ -1,164 +1,48 @@
-d3require(
-    "utils/triangle_coordinates.js",
-    "utils/material_color.js",
-).then(d3m => {
+import {WorkPlane} from "../utils/init_canvas.js";
 
-const color = d3m.mdColor;
+import {DPoint, FPoint} from "../basic_objects/point.js";
+import {PolyLine} from "../basic_objects/polyline.js";
 
-point_coords = [{x:238, y:486}, {x:445, y:139}, {x:677,y:368}];
+import {orthocenter_coords} from "../utils/triangle_coordinates.js";
+import {mdColor as color} from "../utils/material_color.js";
 
 const
-vertex_color = color.blue.w800,
-side_color = color.blue.w500,
-triangle_color = color.blue.w100,
-orthocenter_color = color.deeppurple.w800;
-altitude_color = color.deeppurple.w500;
+wp = WorkPlane.with("#orthocenter", 100),
 
-var svg = d3.select(".d3svg"),
-width = +svg.attr("width"),
-height = +svg.attr("height");
+a = new DPoint(0,2),
+b = new DPoint(-2.5,-2),
+c = new DPoint(2.5,-1),
 
-var lineFunction = d3.line()
-    .x(function(d) { return d.x; })
-    .y(function(d) { return d.y; });
+t = new PolyLine([a,b,c,a]),
+inn_t = new PolyLine([a,b,c,a]),
 
-var triangle = svg.append("path")
-    .attr("d", lineFunction(point_coords))
-    .attr("stroke", "none")
-    .attr("fill", triangle_color);
+h = new FPoint(orthocenter_coords, [a,b,c]),
+p = FPoint.int_ab_cd(a,h,b,c),
+q = FPoint.int_ab_cd(b,h,c,a),
+r = FPoint.int_ab_cd(c,h,a,b),
 
-function dist(p, q){
-    var dx = p.x - q.x;
-    var dy = p.y - q.y;
-    return Math.sqrt(dx*dx + dy*dy);
-}
+a_cev = new PolyLine([a,p]),
+b_cev = new PolyLine([b,q]),
+c_cev = new PolyLine([c,r]),
 
-function pedal_point(p,q,r){
-    da = dist(q,r);
-    db = dist(r,p);
-    dc = dist(p,q);
-    return {x: ((da*da+db*db-dc*dc)*q.x+(da*da-db*db+dc*dc)*r.x)/(2*da*da),
-            y: ((da*da+db*db-dc*dc)*q.y+(da*da-db*db+dc*dc)*r.y)/(2*da*da)}
-}
+a_cev_aux = new PolyLine([a,h]),
+b_cev_aux = new PolyLine([b,h]),
+c_cev_aux = new PolyLine([c,h]);
 
-function orthocenter_coords(p, q, r){
-    da = dist(q,r);
-    db = dist(r,p);
-    dc = dist(p,q);
-    aa = (da*da+db*db-dc*dc)*(da*da-db*db+dc*dc)
-    bb = (db*db+dc*dc-da*da)*(db*db-dc*dc+da*da)
-    cc = (dc*dc+da*da-db*db)*(dc*dc-da*da+db*db)
-    return {x: (aa*p.x+bb*q.x+cc*r.x)/(aa+bb+cc),
-            y: (aa*p.y+bb*q.y+cc*r.y)/(aa+bb+cc)}
-}
+wp.append(inn_t, {"fill": color.blue.w100});
 
-a = point_coords[0];
-b = point_coords[1];
-c = point_coords[2];
+wp.append([a_cev,b_cev,c_cev], {"stroke": color.deeppurple.w500});
 
-var a_altitude_d = svg.append("path")
-    .attr("d", lineFunction([a,orthocenter_coords(a,b,c)]))
-    .attr("stroke-width", 4.5)
-    .attr("stroke-dasharray", ("10, 10"))
-    .attr("stroke", altitude_color);
-
-var b_altitude_d = svg.append("path")
-    .attr("d", lineFunction([b,orthocenter_coords(a,b,c)]))
-    .attr("stroke-width", 4.5)
-    .attr("stroke-dasharray", ("10, 10"))
-    .attr("stroke", altitude_color);
-
-var c_altitude_d = svg.append("path")
-    .attr("d", lineFunction([c,orthocenter_coords(a,b,c)]))
-    .attr("stroke-width", 4.5)
-    .attr("stroke-dasharray", ("10, 10"))
-    .attr("stroke", altitude_color);
-
-var a_altitude = svg.append("path")
-    .attr("d", lineFunction([a,pedal_point(a,b,c)]))
-    .attr("stroke-width", 5)
-    .attr("stroke", altitude_color);
-
-var b_altitude = svg.append("path")
-    .attr("d", lineFunction([b,pedal_point(b,c,a)]))
-    .attr("stroke-width", 5)
-    .attr("stroke", altitude_color);
-
-var c_altitude = svg.append("path")
-    .attr("d", lineFunction([c,pedal_point(c,a,b)]))
-    .attr("stroke-width", 5)
-    .attr("stroke", altitude_color);
-
-var a_side = svg.append("path")
-    .attr("d", lineFunction([b,c]))
-    .attr("stroke-width", 5)
-    .attr("stroke", side_color);
-
-var b_side = svg.append("path")
-    .attr("d", lineFunction([c,a]))
-    .attr("stroke-width", 5)
-    .attr("stroke", side_color);
-
-var c_side = svg.append("path")
-    .attr("d", lineFunction([a,b]))
-    .attr("stroke-width", 5)
-    .attr("stroke", side_color);
-
-var orthocenter = svg
-    .append("circle")
-    .attr("cx", orthocenter_coords(a,b,c).x)
-    .attr("cy", orthocenter_coords(a,b,c).y)
-    .attr("r", 7)
-    .attr("fill", orthocenter_color);
-
-var vertices = svg
-    .append("g")
-    .attr("class", "vertices")
-        .selectAll(".vertices")
-        .data(point_coords)
-        .enter()
-        .append("circle")
-        .attr("class", "vertex")
-        .attr("cx", function(d) {return(d.x)})
-        .attr("cy", function(d) {return(d.y)})
-        .attr("r", 7)
-        .attr("fill", vertex_color);
-
-var drag_handler = d3.drag()
-    .on("drag", function() {
-        d3.select(this)
-            .data([{x : d3.event.x, y : d3.event.y}])
-            .attr("cx", function(d) {return(d.x)})
-            .attr("cy", function(d) {return(d.y)});
-        a = vertices.data()[0];
-        b = vertices.data()[1];
-        c = vertices.data()[2];
-        triangle
-            .attr("d", lineFunction([a,b,c]));
-        a_side
-            .attr("d", lineFunction([b,c]));
-        b_side
-            .attr("d", lineFunction([c,a]));
-        c_side
-            .attr("d", lineFunction([a,b]));
-        circ_coords = orthocenter_coords(a,b,c);
-        a_altitude_d
-            .attr("d", lineFunction([a,circ_coords]));
-        b_altitude_d
-            .attr("d", lineFunction([b,circ_coords]));
-        c_altitude_d
-            .attr("d", lineFunction([c,circ_coords]));
-        a_altitude
-            .attr("d", lineFunction([a,pedal_point(a,b,c)]));
-        b_altitude
-            .attr("d", lineFunction([b,pedal_point(b,c,a)]));
-        c_altitude
-            .attr("d", lineFunction([c,pedal_point(c,a,b)]));
-        orthocenter
-            .attr("cx", circ_coords.x)
-            .attr("cy", circ_coords.y)
-    });
-
-drag_handler(vertices);
-
+wp.append([a_cev_aux,b_cev_aux,c_cev_aux], {
+    "stroke": color.deeppurple.w500,
+    "stroke-width": 4.5, 
+    "stroke-dasharray": ("10, 10")
 });
+
+wp.append(t, {"stroke": color.blue.w500});
+
+wp.append(h, {"fill": color.deeppurple.w800});
+
+wp.append([a,b,c], {"fill": color.blue.w800});
+
+wp.end();

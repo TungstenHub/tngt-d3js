@@ -1,122 +1,38 @@
-d3require(
-    "utils/triangle_coordinates.js",
-    "utils/material_color.js",
-).then(d3m => {
+import {WorkPlane} from "../utils/init_canvas.js";
 
-const color = d3m.mdColor;
+import {DPoint, FPoint} from "../basic_objects/point.js";
+import {PolyLine} from "../basic_objects/polyline.js";
 
-point_coords = [{x:238, y:486}, {x:445, y:139}, {x:677,y:368}];
+import {centroid_coords} from "../utils/triangle_coordinates.js";
+import {mdColor as color} from "../utils/material_color.js";
 
 const
-vertex_color = color.blue.w800,
-side_color = color.blue.w500,
-triangle_color = color.blue.w100,
-centroid_color = color.green.w800,
-median_color = color.green.w500;
+wp = WorkPlane.with("#centroid", 100),
 
-var svg = d3.select(".d3svg"),
-width = +svg.attr("width"),
-height = +svg.attr("height");
+a = new DPoint(0,2),
+b = new DPoint(-2.5,-2),
+c = new DPoint(2.5,-1),
 
-var lineFunction = d3.line()
-    .x(function(d) { return d.x; })
-    .y(function(d) { return d.y; });
+t = new PolyLine([a,b,c,a]),
+inn_t = new PolyLine([a,b,c,a]),
 
-var triangle = svg.append("path")
-    .attr("d", lineFunction(point_coords))
-    .attr("stroke", "none")
-    .attr("fill", triangle_color);
+cent = new FPoint(centroid_coords, [a,b,c]),
+p = FPoint.int_ab_cd(a,cent,b,c),
+q = FPoint.int_ab_cd(b,cent,c,a),
+r = FPoint.int_ab_cd(c,cent,a,b),
 
-function mid_point(p, q){
-    return {x:(p.x+q.x)/2, y:(p.y+q.y)/2}
-}
+a_cev = new PolyLine([a,p]),
+b_cev = new PolyLine([b,q]),
+c_cev = new PolyLine([c,r]);
 
-function centroid_coords(p, q, r){
-    return {x:(p.x+q.x+r.x)/3, y:(p.y+q.y+r.y)/3}
-}
+wp.append(inn_t, {"fill": color.blue.w100});
 
-a = point_coords[0];
-b = point_coords[1];
-c = point_coords[2];
+wp.append([a_cev,b_cev,c_cev], {"stroke": color.green.w500});
 
-var a_median = svg.append("path")
-    .attr("d", lineFunction([a,mid_point(b,c)]))
-    .attr("stroke-width", 5)
-    .attr("stroke", median_color);
+wp.append(t, {"stroke": color.blue.w500});
 
-var b_median = svg.append("path")
-    .attr("d", lineFunction([b,mid_point(c,a)]))
-    .attr("stroke-width", 5)
-    .attr("stroke", median_color);
+wp.append(cent, {"fill": color.green.w800});
 
-var c_median = svg.append("path")
-    .attr("d", lineFunction([c,mid_point(a,b)]))
-    .attr("stroke-width", 5)
-    .attr("stroke", median_color);
+wp.append([a,b,c], {"fill": color.blue.w800});
 
-var a_side = svg.append("path")
-    .attr("d", lineFunction([b,c]))
-    .attr("stroke-width", 5)
-    .attr("stroke", side_color);
-
-var b_side = svg.append("path")
-    .attr("d", lineFunction([c,a]))
-    .attr("stroke-width", 5)
-    .attr("stroke", side_color);
-
-var c_side = svg.append("path")
-    .attr("d", lineFunction([a,b]))
-    .attr("stroke-width", 5)
-    .attr("stroke", side_color);
-
-var centroid = svg
-    .append("circle")
-    .attr("cx", centroid_coords(a,b,c).x)
-    .attr("cy", centroid_coords(a,b,c).y)
-    .attr("r", 7)
-    .attr("fill", centroid_color);
-
-var vertices = svg
-    .append("g")
-    .attr("class", "vertices")
-        .selectAll(".vertices")
-        .data(point_coords)
-        .enter()
-        .append("circle")
-        .attr("class", "vertex")
-        .attr("cx", function(d) {return(d.x)})
-        .attr("cy", function(d) {return(d.y)})
-        .attr("r", 7)
-        .attr("fill", vertex_color); 
-
-var drag_handler = d3.drag()
-    .on("drag", function() {
-        d3.select(this)
-            .data([{x : d3.event.x, y : d3.event.y}])
-            .attr("cx", function(d) {return(d.x)})
-            .attr("cy", function(d) {return(d.y)});
-        a = vertices.data()[0];
-        b = vertices.data()[1];
-        c = vertices.data()[2];
-        triangle
-            .attr("d", lineFunction([a,b,c]));
-        a_side
-            .attr("d", lineFunction([b,c]));
-        b_side
-            .attr("d", lineFunction([c,a]));
-        c_side
-            .attr("d", lineFunction([a,b]));
-        a_median
-            .attr("d", lineFunction([a,mid_point(b,c)]));
-        b_median
-            .attr("d", lineFunction([b,mid_point(c,a)]));
-        c_median
-            .attr("d", lineFunction([c,mid_point(a,b)]));
-        centroid
-            .attr("cx", centroid_coords(a,b,c).x)
-            .attr("cy", centroid_coords(a,b,c).y)
-    }); 
-        
-drag_handler(vertices);  
-
-});
+wp.end();

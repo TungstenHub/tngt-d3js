@@ -1,18 +1,14 @@
-d3require(
-    "utils/material_color.js",
-).then(d3m => {
+import {mdColor as color} from "../utils/material_color.js";
 
-const color = d3m.mdColor;
+let c = {x:0, y:0};
+let e = {x:0.5, y:0};
+let vector = {x:e.x-c.x,y:e.y-c.y};
 
-c = {x:0, y:0};
-e = {x:0.5, y:0};
-vector = {x:e.x-c.x,y:e.y-c.y};
-
-var svg = d3.select(".d3svg"),
+var svg = d3.select("#geodesics_poincare_disk"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
-radius = height/2;
+let radius = height/2;
 
 const
 arrow_color = color.blue.w500,
@@ -35,12 +31,12 @@ var image = svg.append("svg:image")
     .attr("opacity", 0.2)
 	.attr("xlink:href", "http://bulatov.org/math/1201/images/circle_limit_i_01.jpg")
 
-arrow = svg.append("path")
+let arrow = svg.append("path")
     .attr("d", lineFunction([c,{x:c.x+vector.x,y:c.y+vector.y}]))
     .attr("stroke-width", 5)
     .attr("stroke", arrow_color);
-angle = Math.atan2(vector.y,vector.x);
-marker = svg.append("path")
+let angle = Math.atan2(vector.y,vector.x);
+let marker = svg.append("path")
 .attr("d", lineFunction([{x:0.03*Math.cos(0*Math.PI/3+angle),y:0.03*Math.sin(0*Math.PI/3+angle)},
                          {x:0.03*Math.cos(2*Math.PI/3+angle),y:0.03*Math.sin(2*Math.PI/3+angle)},
                          {x:0.03*Math.cos(4*Math.PI/3+angle),y:0.03*Math.sin(4*Math.PI/3+angle)}]))
@@ -48,21 +44,21 @@ marker = svg.append("path")
 .attr("stroke", 'none')
 .attr("fill", arrow_color);
 
-num_iter = 1000
-save_every = 10
-step = 0.01
+let num_iter = 1000
+let save_every = 10
+let step = 0.01
 
-trace_coords = [];
-p = {x:c.x,y:c.y};
-v = {x:vector.x,y:vector.y};
-for (i = 0; i < num_iter; i++) {
-    t_x = p.x ;
-	t_y = p.y;
-	t = 2/(1-t_x*t_x-t_y*t_y);
+let trace_coords = [];
+let p = {x:c.x,y:c.y};
+let v = {x:vector.x,y:vector.y};
+for (let i = 0; i < num_iter; i++) {
+    let t_x = p.x ;
+	let t_y = p.y;
+	let t = 2/(1-t_x*t_x-t_y*t_y);
     p.x += (p.x*p.x+p.y*p.y<0.99)*step*v.x;
     p.y += (p.x*p.x+p.y*p.y<0.99)*step*v.y;
-    delta_x = t*(t_x*v.x*v.x+t_y*v.x*v.y+t_y*v.y*v.x-t_x*v.y*v.y);
-	delta_y = t*(-t_y*v.x*v.x+t_x*v.x*v.y+t_x*v.y*v.x+t_y*v.y*v.y);
+    let delta_x = t*(t_x*v.x*v.x+t_y*v.x*v.y+t_y*v.y*v.x-t_x*v.y*v.y);
+	let delta_y = t*(-t_y*v.x*v.x+t_x*v.x*v.y+t_x*v.y*v.x+t_y*v.y*v.y);
 	v.x -= step*delta_x;
     v.y -= step*delta_y;
     if (i%save_every==0) {trace_coords.push({x:p.x,y:p.y})}
@@ -115,8 +111,8 @@ var drag_handler = d3.drag()
 		start_y = y.invert(height) + d3.event.y;
 	})
 	.on("drag", function(d) {
-		xx = start_x + x.invert(d3.event.x);
-		yy = start_y + y.invert(d3.event.y);
+		let xx = start_x + x.invert(d3.event.x);
+		let yy = start_y + y.invert(d3.event.y);
 		d.x = xx/Math.max(1,1.01*Math.sqrt(xx*xx+yy*yy)) 
 		d.y = yy/Math.max(1,1.01*Math.sqrt(xx*xx+yy*yy)) 
 		d3.select(this)
@@ -128,14 +124,14 @@ var drag_handler = d3.drag()
         trace_coords = [];
         p = {x:c.x,y:c.y};
         v = {x:vector.x,y:vector.y};
-        for (i = 0; i < num_iter; i++) {
-            t_x = p.x ;
-            t_y = p.y;
-            t = 2/(1-t_x*t_x-t_y*t_y);
+        for (let i = 0; i < num_iter; i++) {
+            let t_x = p.x ;
+            let t_y = p.y;
+            let t = 2/(1-t_x*t_x-t_y*t_y);
             p.x += (p.x*p.x+p.y*p.y<0.99)*step*v.x;
             p.y += (p.x*p.x+p.y*p.y<0.99)*step*v.y;
-            delta_x = t*(t_x*v.x*v.x+t_y*v.x*v.y+t_y*v.y*v.x-t_x*v.y*v.y);
-            delta_y = t*(-t_y*v.x*v.x+t_x*v.x*v.y+t_x*v.y*v.x+t_y*v.y*v.y);
+            let delta_x = t*(t_x*v.x*v.x+t_y*v.x*v.y+t_y*v.y*v.x-t_x*v.y*v.y);
+            let delta_y = t*(-t_y*v.x*v.x+t_x*v.x*v.y+t_x*v.y*v.x+t_y*v.y*v.y);
             v.x -= step*delta_x;
             v.y -= step*delta_y;
             if (i%save_every==0) {trace_coords.push({x:p.x,y:p.y})}
@@ -157,5 +153,3 @@ var drag_handler = d3.drag()
 		
 drag_handler(pivot);
 drag_handler(end_pivot);
-
-});

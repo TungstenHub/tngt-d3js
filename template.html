@@ -6,6 +6,7 @@
     <title>D3 Template</title>
 
 	<script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.1.1/math.min.js"></script>
   </head>
 
 
@@ -13,18 +14,14 @@
 
     <svg 
         class="d3svg" 
+        id="gergonne_point"
         height="640" 
         width="960"
         style="border: 2px solid black; display: block; margin: auto;">
     </svg>
-
-    <script src="https://unpkg.com/d3-require@1"></script>
-    <script>
-      const d3require = d3.requireFrom(async name => {return `${name}`;});
-    </script>
     <script 
-        src="./scripts/isotomic_conjugate.js" 
-        type="text/javascript">
+        src="./scripts/gergonne_point.js" 
+        type="module">
     </script>
 
   </body>

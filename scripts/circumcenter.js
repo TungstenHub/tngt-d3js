@@ -1,153 +1,41 @@
-d3require(
-    "utils/material_color.js",
-).then(d3m => {
+import {WorkPlane} from "../utils/init_canvas.js";
 
-const color = d3m.mdColor;
+import {FQuantity} from "../basic_objects/quantity.js";
+import {DPoint, FPoint} from "../basic_objects/point.js";
+import {PolyLine} from "../basic_objects/polyline.js";
+import {CirclePR} from "../basic_objects/circle.js";
 
-point_coords = [{x:238, y:486}, {x:445, y:139}, {x:677,y:368}];
+import {circumcenter_coords, circumcenter_radius} from "../utils/triangle_coordinates.js";
+import {mdColor as color} from "../utils/material_color.js";
 
 const
-vertex_color = color.blue.w800,
-side_color = color.blue.w500,
-triangle_color =color.blue.w100,
-circumcenter_color = color.red.w800,
-circumcircle_color = color.red.w800,
-perp_bisec_color = color.red.w500;
+wp = WorkPlane.with("#circumcenter", 100),
 
-var svg = d3.select(".d3svg"),
-width = +svg.attr("width"),
-height = +svg.attr("height");
+a = new DPoint(0,2),
+b = new DPoint(-2.5,-2),
+c = new DPoint(2.5,-1),
 
-var lineFunction = d3.line()
-    .x(function(d) { return d.x; })
-    .y(function(d) { return d.y; });
+t = new PolyLine([a,b,c,a]),
+inn_t = new PolyLine([a,b,c,a]),
 
-var triangle = svg.append("path")
-    .attr("d", lineFunction(point_coords))
-    .attr("stroke", "none")
-    .attr("fill", triangle_color);
+circ = new FPoint(circumcenter_coords, [a,b,c]),
 
-function dist(p, q){
-    var dx = p.x - q.x;
-    var dy = p.y - q.y;
-    return Math.sqrt(dx*dx + dy*dy);
-}
+a_perp = new PolyLine([FPoint.midp(b,c),circ]),
+b_perp = new PolyLine([FPoint.midp(c,a),circ]),
+c_perp = new PolyLine([FPoint.midp(a,b),circ]),
 
-function mid_point(p, q){
-    return {x:(p.x+q.x)/2, y:(p.y+q.y)/2}
-}
+rad = new FQuantity(circumcenter_radius, [a,b,c]),
+circc = new CirclePR(circ,rad);
 
-function circumcenter_coords(p, q, r){
-    da = dist(q,r);
-    db = dist(r,p);
-    dc = dist(p,q);
-    aa = da*da*(da*da-db*db-dc*dc)
-    bb = db*db*(db*db-dc*dc-da*da)
-    cc = dc*dc*(dc*dc-da*da-db*db)
-    return {x: (aa*p.x+bb*q.x+cc*r.x)/(aa+bb+cc),
-            y: (aa*p.y+bb*q.y+cc*r.y)/(aa+bb+cc)}
-}
+wp.append(inn_t, {"fill": color.blue.w100});
 
-function radius(p, q, r){
-    return (dist(p,q)*dist(q,r)*dist(r,p))/(2*Math.abs(-p.y*q.x + p.x*q.y + p.y*r.x - q.y*r.x - p.x*r.y + q.x*r.y))
-}
+wp.append([a_perp,b_perp,c_perp], {"stroke": color.red.w500});
 
-a = point_coords[0];
-b = point_coords[1];
-c = point_coords[2];
+wp.append(t, {"stroke": color.blue.w500});
 
-var a_perp_bisec = svg.append("path")
-    .attr("d", lineFunction([circumcenter_coords(a,b,c),mid_point(b,c)]))
-    .attr("stroke-width", 5)
-    .attr("stroke", perp_bisec_color);
+wp.append(circc, {"stroke": color.red.w800});
+wp.append(circ, {"fill": color.red.w800});
 
-var b_perp_bisec = svg.append("path")
-    .attr("d", lineFunction([circumcenter_coords(a,b,c),mid_point(c,a)]))
-    .attr("stroke-width", 5)
-    .attr("stroke", perp_bisec_color);
+wp.append([a,b,c], {"fill": color.blue.w800});
 
-var c_perp_bisec = svg.append("path")
-    .attr("d", lineFunction([circumcenter_coords(a,b,c),mid_point(a,b)]))
-    .attr("stroke-width", 5)
-    .attr("stroke", perp_bisec_color);
-
-var a_side = svg.append("path")
-    .attr("d", lineFunction([b,c]))
-    .attr("stroke-width", 5)
-    .attr("stroke", side_color);
-
-var b_side = svg.append("path")
-    .attr("d", lineFunction([c,a]))
-    .attr("stroke-width", 5)
-    .attr("stroke", side_color);
-
-var c_side = svg.append("path")
-    .attr("d", lineFunction([a,b]))
-    .attr("stroke-width", 5)
-    .attr("stroke", side_color);
-
-var circumcenter = svg
-    .append("circle")
-    .attr("cx", circumcenter_coords(a,b,c).x)
-    .attr("cy", circumcenter_coords(a,b,c).y)
-    .attr("r", 7)
-    .attr("fill", circumcenter_color);
-
-var circumcircle = svg
-    .append("circle")
-    .attr("cx", circumcenter_coords(a,b,c).x)
-    .attr("cy", circumcenter_coords(a,b,c).y)
-    .attr("r", radius(a,b,c))
-    .style("stroke-width", 5)
-    .style("stroke", circumcircle_color)
-    .style("fill", "none");
-
-var vertices = svg
-    .append("g")
-    .attr("class", "vertices")
-        .selectAll(".vertices")
-        .data(point_coords)
-        .enter()
-        .append("circle")
-        .attr("class", "vertex")
-        .attr("cx", function(d) {return(d.x)})
-        .attr("cy", function(d) {return(d.y)})
-        .attr("r", 7)
-        .attr("fill", vertex_color);
-
-var drag_handler = d3.drag()
-    .on("drag", function() {
-        d3.select(this)
-            .data([{x : d3.event.x, y : d3.event.y}])
-            .attr("cx", function(d) {return(d.x)})
-            .attr("cy", function(d) {return(d.y)});
-        a = vertices.data()[0];
-        b = vertices.data()[1];
-        c = vertices.data()[2];
-        triangle
-            .attr("d", lineFunction([a,b,c]));
-        a_side
-            .attr("d", lineFunction([b,c]));
-        b_side
-            .attr("d", lineFunction([c,a]));
-        c_side
-            .attr("d", lineFunction([a,b]));
-        circ_coords = circumcenter_coords(a,b,c);
-        a_perp_bisec
-            .attr("d", lineFunction([circ_coords,mid_point(b,c)]));
-        b_perp_bisec
-            .attr("d", lineFunction([circ_coords,mid_point(c,a)]));
-        c_perp_bisec
-            .attr("d", lineFunction([circ_coords,mid_point(a,b)]));
-        circumcenter
-            .attr("cx", circ_coords.x)
-            .attr("cy", circ_coords.y)
-        circumcircle
-            .attr("cx", circ_coords.x)
-            .attr("cy", circ_coords.y)
-            .attr("r", radius(a,b,c))
-    });
-
-drag_handler(vertices);
-
-});
+wp.end();

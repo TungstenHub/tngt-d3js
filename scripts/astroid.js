@@ -1,10 +1,6 @@
-d3require(
-    "utils/material_color.js",
-).then(d3m => {
+import {mdColor as color} from "../utils/material_color.js";
 
-const color = d3m.mdColor;
-
-radius = 125
+let radius = 125
 
 const
 astroid_border_color = color.blue.w500, 
@@ -20,18 +16,18 @@ pivot_color = 'white',
 tangent_point_color = color.lime.w500, 
 tangent_color = color.lime.w500; 
 
-pivot_coord  = [{x:Math.cos(0.4)/2, y:Math.sin(0.4)/2}];
+let pivot_coord  = [{x:Math.cos(0.4)/2, y:Math.sin(0.4)/2}];
 
-offset = 2.5
+let offset = 2.5
 
-array = Array.from({length: 501}, (x,i) => 2*Math.PI*i/500);
+let array = Array.from({length: 501}, (x,i) => 2*Math.PI*i/500);
 
-astroid_points = array.map(function(k) { return {x: Math.pow(Math.cos(k),3), y: Math.pow(Math.sin(k),3)}});
-gear24_points = array.map(function(k) { return {x: (1+Math.cbrt(Math.cos(24*k))/24)*Math.cos(k), y: (1+Math.cbrt(Math.cos(24*k))/24)*Math.sin(k)}});
-gear12_points = array.map(function(k) { return {x: 0.5*(1+Math.cbrt(Math.cos(12*k))/12)*Math.cos(k), y: 0.5*(1+Math.cbrt(Math.cos(12*k))/12)*Math.sin(k)}});
-gear6_points = array.map(function(k) { return {x: 0.25*(1+Math.cbrt(Math.cos(6*k))/6)*Math.cos(k), y: 0.25*(1+Math.cbrt(Math.cos(6*k))/6)*Math.sin(k)}});
+let astroid_points = array.map(function(k) { return {x: Math.pow(Math.cos(k),3), y: Math.pow(Math.sin(k),3)}});
+let gear24_points = array.map(function(k) { return {x: (1+Math.cbrt(Math.cos(24*k))/24)*Math.cos(k), y: (1+Math.cbrt(Math.cos(24*k))/24)*Math.sin(k)}});
+let gear12_points = array.map(function(k) { return {x: 0.5*(1+Math.cbrt(Math.cos(12*k))/12)*Math.cos(k), y: 0.5*(1+Math.cbrt(Math.cos(12*k))/12)*Math.sin(k)}});
+let gear6_points = array.map(function(k) { return {x: 0.25*(1+Math.cbrt(Math.cos(6*k))/6)*Math.cos(k), y: 0.25*(1+Math.cbrt(Math.cos(6*k))/6)*Math.sin(k)}});
 
-var svg = d3.select(".d3svg"),
+var svg = d3.select("#astroid"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
@@ -44,9 +40,9 @@ var lineFunction = d3.line()
     .x(function(d) { return x(d.x); })
     .y(function(d) { return y(d.y); });
         
-c = pivot_coord[0];	
-angle = Math.PI/2-Math.atan2(c.x,c.y);
-t = {x: Math.pow(Math.cos(angle),3), y: Math.pow(Math.sin(angle),3)}
+let c = pivot_coord[0];	
+let angle = Math.PI/2-Math.atan2(c.x,c.y);
+let t = {x: Math.pow(Math.cos(angle),3), y: Math.pow(Math.sin(angle),3)}
 
 var x_axis = svg.append("path")
     .attr("d", lineFunction([{x: -1.1, y: 0}, {x: 1.1, y: 0}]))
@@ -163,8 +159,8 @@ var drag_handler = d3.drag()
         start_y = y.invert(height) + d3.event.y;
     })
     .on("drag", function(d) {
-        xx = start_x + x.invert(d3.event.x);
-        yy = start_y + y.invert(d3.event.y);
+        let xx = start_x + x.invert(d3.event.x);
+        let yy = start_y + y.invert(d3.event.y);
         d.x = xx/(2*Math.sqrt(xx*xx+yy*yy));
         d.y = yy/(2*Math.sqrt(xx*xx+yy*yy));
         d3.select(this)
@@ -191,5 +187,3 @@ var drag_handler = d3.drag()
     }); 
         
 drag_handler(pivot);   
-
-});

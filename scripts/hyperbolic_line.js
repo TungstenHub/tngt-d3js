@@ -1,18 +1,14 @@
-d3require(
-    "utils/material_color.js",
-).then(d3m => {
+import {mdColor as color} from "../utils/material_color.js";
 
-const color = d3m.mdColor;
+let radius = 200
 
-radius = 200
-
-point_coords = [{x:0.6, y:0.1}, {x:-0.2, y:0.7}];
+let point_coords = [{x:0.6, y:0.1}, {x:-0.2, y:0.7}];
 
 const
 vertex_color = color.blue.w800,
 side_color = color.blue.w500;
 
-var svg = d3.select(".d3svg"),
+var svg = d3.select("#hyperbolic_line"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
@@ -25,25 +21,25 @@ var lineFunction = d3.line()
     .x(function(d) { return x(d.x); })
     .y(function(d) { return y(d.y); });
 
-hypLineFunction = function(a,b) {
-    norm_a = a.x*a.x+a.y*a.y;
-    norm_b = b.x*b.x+b.y*b.y;
-    bk_ax = 2*a.x/(1+norm_a) // Beltrami-Klein model
-    bk_ay = 2*a.y/(1+norm_a) 
-    bk_bx = 2*b.x/(1+norm_b) 
-    bk_by = 2*b.y/(1+norm_b) 
-    list = [a];
-    for (i = 1; i <= 100; i++) { 
-        px = (100-i)/100*bk_ax+i/100*bk_bx;
-        py = (100-i)/100*bk_ay+i/100*bk_by;
-        new_p = {x:px/(1+Math.sqrt(1-px*px-py*py)), y:py/(1+Math.sqrt(1-px*px-py*py))}; // back to Poincaré model
+let hypLineFunction = function(a,b) {
+    let norm_a = a.x*a.x+a.y*a.y;
+    let norm_b = b.x*b.x+b.y*b.y;
+    let bk_ax = 2*a.x/(1+norm_a) // Beltrami-Klein model
+    let bk_ay = 2*a.y/(1+norm_a) 
+    let bk_bx = 2*b.x/(1+norm_b) 
+    let bk_by = 2*b.y/(1+norm_b) 
+    let list = [a];
+    for (let i = 1; i <= 100; i++) { 
+        let px = (100-i)/100*bk_ax+i/100*bk_bx;
+        let py = (100-i)/100*bk_ay+i/100*bk_by;
+        let new_p = {x:px/(1+Math.sqrt(1-px*px-py*py)), y:py/(1+Math.sqrt(1-px*px-py*py))}; // back to Poincaré model
         list.push(new_p);
     }
     return list
 }
         
-a = point_coords[0];
-b = point_coords[1];
+let a = point_coords[0];
+let b = point_coords[1];
         
 var circle = svg
     .append("circle")
@@ -79,8 +75,8 @@ var drag_handler = d3.drag()
         start_y = y.invert(height) + d3.event.y;
     })
     .on("drag", function(d) {
-        xx = start_x + x.invert(d3.event.x);
-        yy = start_y + y.invert(d3.event.y);
+        let xx = start_x + x.invert(d3.event.x);
+        let yy = start_y + y.invert(d3.event.y);
         d.x = xx/Math.max(1,1.001*Math.sqrt(xx*xx+yy*yy)) 
         d.y = yy/Math.max(1,1.001*Math.sqrt(xx*xx+yy*yy)) 
         d3.select(this)
@@ -93,5 +89,3 @@ var drag_handler = d3.drag()
     }); 
         
 drag_handler(vertices);
-
-});

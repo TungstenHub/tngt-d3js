@@ -1,12 +1,8 @@
-d3require(
-    "utils/material_color.js",
-).then(d3m => {
+import {mdColor as color} from "../utils/material_color.js";
 
-const color = d3m.mdColor;
+let radius = 200
 
-radius = 200
-
-point_coords = [
+let point_coords = [
     {x:Math.cos(5*Math.PI/4), y:Math.sin(5*Math.PI/4)}, 
     {x:Math.cos(3*Math.PI/4), y:Math.sin(3*Math.PI/4)},
     {x:Math.cos(1*Math.PI/4), y:Math.sin(1*Math.PI/4)},
@@ -21,7 +17,7 @@ cr_label_color = color.green.w800,
 cross_ratio_guides = color.gray.w500,
 cross_ratio_color = color.gray.w800;
 
-var svg = d3.select(".d3svg"),
+var svg = d3.select("#cross_ratio_circle"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
@@ -34,10 +30,10 @@ var lineFunction = d3.line()
     .x(function(d) { return x(d.x); })
     .y(function(d) { return y(d.y); });
         
-a = point_coords[0];
-b = point_coords[1];
-c = point_coords[2];
-d = point_coords[3];
+let a = point_coords[0];
+let b = point_coords[1];
+let c = point_coords[2];
+let d = point_coords[3];
 
 var circle = svg
     .append("circle")
@@ -104,7 +100,7 @@ var cross_ratio = function(A, B, C, D) {
     return ((C-A)*(D-B))/((C-B)*(D-A));
 }
 
-update = function() {
+let update = function() {
     cross_ratio_text
         .attr("x", function(d, i) { return i==3 ? x(1.5*d.x) : x(0.6*d.x); })
         .attr("y", function(d, i) { return i==3 ? (d.y<0 ? y(1.5*d.y+0.2) : y(1.5*d.y-0.2)) : y(0.6*d.y); })
@@ -160,8 +156,8 @@ var drag_handler_base_points = d3.drag()
         start_y = y.invert(height) + d3.event.y;
     })
     .on("drag", function(d) {
-        xx = start_x + x.invert(d3.event.x);
-        yy = start_y + y.invert(d3.event.y);
+        let xx = start_x + x.invert(d3.event.x);
+        let yy = start_y + y.invert(d3.event.y);
         d.x = xx/Math.sqrt(xx*xx+yy*yy)
         d.y = yy/Math.sqrt(xx*xx+yy*yy)
         d3.select(this)
@@ -176,5 +172,3 @@ var drag_handler_base_points = d3.drag()
     }); 
 
 drag_handler_base_points(base_points);
-
-});

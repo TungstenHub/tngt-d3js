@@ -1,8 +1,4 @@
-d3require(
-    "utils/material_color.js",
-).then(d3m => {
-
-const color = d3m.mdColor;
+import {mdColor as color} from "../utils/material_color.js";
 
 const
 point_color = color.teal.w800,
@@ -11,40 +7,40 @@ disc_color = color.teal.w200,
 lift_point_color = color.pink.w800,
 lift_path_color = color.pink.w500;
 
-radius = 200
+let radius = 200
 
-offset = -1
+let offset = -1
 
-point_coords = [{x:0.6, y:0.0}];
-angle = 0;
+let point_coords = [{x:0.6, y:0.0}];
+let angle = 0;
 
-array = Array.from({length: 401}, (x,i) => 2*Math.PI*(i-200)/40);
+let array = Array.from({length: 401}, (x,i) => 2*Math.PI*(i-200)/40);
 
-p = 0.5;
-q = 0.1;
-r = 0.05;
+let p = 0.5;
+let q = 0.1;
+let r = 0.05;
 
-polar = function(u,v) {
+let polar = function(u,v) {
     return {x: v*Math.cos(u), y: v*Math.sin(u)};
 }
 
-transv_polar = function(u){
+let transv_polar = function(u){
     return [polar(u,0.2), polar(u,1)];
 }
 
-helix = function(u,v) {
+let helix = function(u,v) {
     return {x: 2+p*v*Math.cos(u), y: q*v*Math.sin(u)+r*u};
 }
 
-long_helix = function(v){
+let long_helix = function(v){
     return array.map(function(u) { return helix(u,v)});
 }
 
-transv_helix = function(u){
+let transv_helix = function(u){
     return [helix(u,0.2), helix(u,1)];
 }
 
-var svg = d3.select(".d3svg"),
+var svg = d3.select("#line_circle_covering_path_lifting"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
@@ -75,7 +71,7 @@ var circle2 = svg
     .style("stroke", "black")   
     .style("fill", "white");
 
-for (v of [0.4, 0.6, 0.8]) {
+for (let v of [0.4, 0.6, 0.8]) {
     svg.append("circle")
         .attr("cx", x(0))
         .attr("cy", y(0))
@@ -85,7 +81,7 @@ for (v of [0.4, 0.6, 0.8]) {
         .style("fill", "none");
 }
 
-for (v of Array.from({length: 20}, (x,i) => 2*Math.PI*i/20)) {
+for (let v of Array.from({length: 20}, (x,i) => 2*Math.PI*i/20)) {
     svg.append("path")
         .attr("d", lineFunction(transv_polar(v)))
         .style("stroke-width", 1)
@@ -93,7 +89,7 @@ for (v of Array.from({length: 20}, (x,i) => 2*Math.PI*i/20)) {
         .attr("fill", "none");
 }
 
-for (v of [0.4, 0.6, 0.8]) {
+for (let v of [0.4, 0.6, 0.8]) {
     svg.append("path")
         .attr("d", lineFunction(long_helix(v)))
         .style("stroke-width", 1)
@@ -101,7 +97,7 @@ for (v of [0.4, 0.6, 0.8]) {
         .attr("fill", "none");
 }
 
-for (v of [0.2, 1]) {
+for (let v of [0.2, 1]) {
     svg.append("path")
         .attr("d", lineFunction(long_helix(v)))
         .style("stroke-width", 2)
@@ -109,7 +105,7 @@ for (v of [0.2, 1]) {
         .attr("fill", "none");
 }
 
-for (v of Array.from({length: 201}, (x,i) => 2*Math.PI*(i-100)/20)) {
+for (let v of Array.from({length: 201}, (x,i) => 2*Math.PI*(i-100)/20)) {
     svg.append("path")
         .attr("d", lineFunction(transv_helix(v)))
         .style("stroke-width", 1)
@@ -117,7 +113,7 @@ for (v of Array.from({length: 201}, (x,i) => 2*Math.PI*(i-100)/20)) {
         .attr("fill", "none");
 }
 
-path_data = [];
+let path_data = [];
 
 var path = svg.append("path")
     .attr("d", lineFunction(path_data))
@@ -138,7 +134,7 @@ var point = svg
         .attr("r", 7)
         .attr("fill", point_color);
 
-lift_path_data = [];
+let lift_path_data = [];
 
 var lift_path = svg.append("path")
     .attr("d", lineFunction(lift_path_data))
@@ -173,10 +169,10 @@ var drag_handler = d3.drag()
         start_y = y.invert(height) + d3.event.y;
     })
     .on("drag", function(d) {
-        xx = start_x + x.invert(d3.event.x);
-        yy = start_y + y.invert(d3.event.y);
-        rev = Math.floor(angle/(2*Math.PI))
-        alpha = Math.atan2(yy,xx)+2*Math.PI*rev;
+        let xx = start_x + x.invert(d3.event.x);
+        let yy = start_y + y.invert(d3.event.y);
+        let rev = Math.floor(angle/(2*Math.PI))
+        let alpha = Math.atan2(yy,xx)+2*Math.PI*rev;
         if (Math.abs(alpha-angle)<Math.abs(alpha+2*Math.PI-angle)) {
             angle = alpha
         } else {
@@ -190,8 +186,8 @@ var drag_handler = d3.drag()
         path_data.push({x: d.x, y: d.y});
         path
             .attr("d", lineFunction(path_data))
-        lx = helix(angle,Math.sqrt(d.x*d.x+d.y*d.y)).x;
-        ly = helix(angle,Math.sqrt(d.x*d.x+d.y*d.y)).y;
+        let lx = helix(angle,Math.sqrt(d.x*d.x+d.y*d.y)).x;
+        let ly = helix(angle,Math.sqrt(d.x*d.x+d.y*d.y)).y;
         lift
             .attr("cx", x(lx))
             .attr("cy", y(ly))
@@ -201,5 +197,3 @@ var drag_handler = d3.drag()
     }); 
         
 drag_handler(point);
-
-});

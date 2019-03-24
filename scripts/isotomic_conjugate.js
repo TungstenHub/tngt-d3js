@@ -1,229 +1,72 @@
-d3require(
-    "utils/init_canvas.js",
-    "utils/triangle_coordinates.js",
-    "utils/material_color.js",
-).then(d3m => {
+import {WorkPlane} from "../utils/init_canvas.js";
 
-const color = d3m.mdColor;
+import {DPoint, FPoint} from "../basic_objects/point.js";
+import {PolyLine} from "../basic_objects/polyline.js";
+
+import {isotomic_conjugate} from "../utils/triangle_coordinates.js";
+
+import {mdColor as color} from "../utils/material_color.js";
 
 const
-vertex_color = color.blue.w800, 
-side_color = color.blue.w500, 
-triangle_color = color.blue.w100, 
-anchor_color = color.bluegray.w800, 
-anchor_cev_color = color.bluegray.w500, 
-isot_color = color.yellow.a700, 
-isot_cev_color = color.yellow.w500; 
+wp = WorkPlane.with("#isotomic_conjugate", 300),
 
-const svg = d3.select(".d3svg");
-const [width, height, x, y] = d3m.init_canvas(svg, 300);
+a = new DPoint(Math.cos( 3*Math.PI/6), Math.sin( 3*Math.PI/6)-0.25),
+b = new DPoint(Math.cos( 7*Math.PI/6), Math.sin( 7*Math.PI/6)-0.25),
+c = new DPoint(Math.cos(11*Math.PI/6), Math.sin(11*Math.PI/6)-0.25),
 
-var start_x, start_y; 
+t = new PolyLine([a,b,c,a]),
+inn_t = new PolyLine([a,b,c,a]),
 
-var lineFunction = d3.line()
-    .x(function(d) { return x(d.x); })
-    .y(function(d) { return y(d.y); });
+d = new DPoint(0.12, -0.1),
+e = new FPoint(isotomic_conjugate, [a,b,c,d]),
 
-point_coords = [
-    {x:Math.cos( 3*Math.PI/6), y:Math.sin( 3*Math.PI/6)-0.25}, 
-    {x:Math.cos( 7*Math.PI/6), y:Math.sin( 7*Math.PI/6)-0.25}, 
-    {x:Math.cos(11*Math.PI/6), y:Math.sin(11*Math.PI/6)-0.25}
-];
+pd = FPoint.int_ab_cd(a,d,b,c),
+qd = FPoint.int_ab_cd(b,d,c,a),
+rd = FPoint.int_ab_cd(c,d,a,b),
+ad_cev = new PolyLine([a,pd]),
+bd_cev = new PolyLine([b,qd]),
+cd_cev = new PolyLine([c,rd]),
+ad_aux = new PolyLine([a,d]),
+bd_aux = new PolyLine([b,d]),
+cd_aux = new PolyLine([c,d]),
 
-anchor_coords = [
-    {x:0.12, y:-0.1}
-];
+pe = FPoint.int_ab_cd(a,e,b,c),
+qe = FPoint.int_ab_cd(b,e,c,a),
+re = FPoint.int_ab_cd(c,e,a,b),
+ae_cev = new PolyLine([a,pe]),
+be_cev = new PolyLine([b,qe]),
+ce_cev = new PolyLine([c,re]),
+ae_aux = new PolyLine([a,e]),
+be_aux = new PolyLine([b,e]),
+ce_aux = new PolyLine([c,e]);
 
-var triangle = svg.append("path")
-    .attr("d", lineFunction(point_coords))
-    .attr("stroke", "none")
-    .attr("fill", triangle_color);
 
-/**
- * Computes the barycentric coordinates of the isotomic conjugate
- * @param {number[]} bar - barycentric coordinates
- * @return {number[]} - isotomic conjugate barycentric coordinates
- */
-function isot_conj(bar){
-    let [p, q, r] = bar;
-    return [q*r, r*p, p*q];
-}
+wp.append(inn_t, {"fill": color.blue.w100});
 
-a = point_coords[0];
-b = point_coords[1];
-c = point_coords[2];
-
-o = anchor_coords[0];
-i = d3m.from_bar_coords(a,b,c,isot_conj(d3m.get_bar_coords(a,b,c,o)));
-
-var a_cev_aux = svg.append("path")
-    .attr("d", lineFunction([a,o]))
-    .attr("stroke-width", 3)
-    .attr("stroke-dasharray", ("10, 10"))
-    .attr("stroke", anchor_cev_color);
-
-var b_cev_aux = svg.append("path")
-    .attr("d", lineFunction([b,o]))
-    .attr("stroke-width", 3)
-    .attr("stroke-dasharray", ("10, 10"))
-    .attr("stroke", anchor_cev_color);
-
-var c_cev_aux = svg.append("path")
-    .attr("d", lineFunction([c,o]))
-    .attr("stroke-width", 3)
-    .attr("stroke-dasharray", ("10, 10"))
-    .attr("stroke", anchor_cev_color);
-
-var a_isot_aux = svg.append("path")
-    .attr("d", lineFunction([a,i]))
-    .attr("stroke-width", 3)
-    .attr("stroke-dasharray", ("10, 10"))
-    .attr("stroke", isot_cev_color);
-
-var b_isot_aux = svg.append("path")
-    .attr("d", lineFunction([b,i]))
-    .attr("stroke-width", 3)
-    .attr("stroke-dasharray", ("10, 10"))
-    .attr("stroke", isot_cev_color);
-
-var c_isot_aux = svg.append("path")
-    .attr("d", lineFunction([c,i]))
-    .attr("stroke-width", 3)
-    .attr("stroke-dasharray", ("10, 10"))
-    .attr("stroke", isot_cev_color);
-
-var a_cev = svg.append("path")
-    .attr("d", lineFunction([a,d3m.cevian_int(a,b,c,o)]))
-    .attr("stroke-width", 3.5)
-    .attr("stroke", anchor_cev_color);
-
-var b_cev = svg.append("path")
-    .attr("d", lineFunction([b,d3m.cevian_int(b,c,a,o)]))
-    .attr("stroke-width", 3.5)
-    .attr("stroke", anchor_cev_color);
-
-var c_cev = svg.append("path")
-    .attr("d", lineFunction([c,d3m.cevian_int(c,a,b,o)]))
-    .attr("stroke-width", 3.5)
-    .attr("stroke", anchor_cev_color);
-
-var a_isot = svg.append("path")
-    .attr("d", lineFunction([a,d3m.cevian_int(a,b,c,i)]))
-    .attr("stroke-width", 3.5)
-    .attr("stroke", isot_cev_color);
-
-var b_isot = svg.append("path")
-    .attr("d", lineFunction([b,d3m.cevian_int(b,c,a,i)]))
-    .attr("stroke-width", 3.5)
-    .attr("stroke", isot_cev_color);
-
-var c_isot = svg.append("path")
-    .attr("d", lineFunction([c,d3m.cevian_int(c,a,b,i)]))
-    .attr("stroke-width", 3.5)
-    .attr("stroke", isot_cev_color);
-
-var a_side = svg.append("path")
-    .attr("d", lineFunction([b,c]))
-    .attr("stroke-width", 5)
-    .attr("stroke", side_color);
-
-var b_side = svg.append("path")
-    .attr("d", lineFunction([c,a]))
-    .attr("stroke-width", 5)
-    .attr("stroke", side_color);
-
-var c_side = svg.append("path")
-    .attr("d", lineFunction([a,b]))
-    .attr("stroke-width", 5)
-    .attr("stroke", side_color);
-
-var isotomic = svg
-    .append("circle")
-    .attr("cx", x(i.x))
-    .attr("cy", y(i.y))
-    .attr("r", 7)
-    .attr("fill", isot_color);
-
-var vertices = svg
-    .append("g")
-    .attr("class", "vertices")
-        .selectAll(".vertices")
-        .data(point_coords)
-        .enter()
-        .append("circle")
-        .attr("class", "vertex")
-        .attr("cx", function(d) {return(x(d.x))})
-        .attr("cy", function(d) {return(y(d.y))})
-        .attr("r", 7)
-        .attr("fill", vertex_color); 
-
-var anchor = svg
-    .append("g")
-    .attr("class", "anchor")
-        .selectAll(".anchor")
-        .data(anchor_coords)
-        .enter()
-        .append("circle")
-        .attr("class", "anchor")
-        .attr("cx", function(d) {return(x(d.x))})
-        .attr("cy", function(d) {return(y(d.y))})
-        .attr("r", 7)
-        .attr("fill", anchor_color); 
-
-var drag_handler = d3.drag()
-    .on("start", function(d) {
-        start_x = x.invert(width) + d3.event.x;
-        start_y = y.invert(height) + d3.event.y;
-    })
-    .on("drag", function(d) {
-        d.x = start_x + x.invert(d3.event.x);
-        d.y = start_y + y.invert(d3.event.y); 
-        d3.select(this)
-            .attr("cx", function(d) {return(x(d.x))})
-            .attr("cy", function(d) {return(y(d.y))});
-        a = vertices.data()[0];
-        b = vertices.data()[1];
-        c = vertices.data()[2];
-        o = anchor.data()[0];
-        i = d3m.from_bar_coords(a,b,c,isot_conj(d3m.get_bar_coords(a,b,c,o)));
-        triangle
-            .attr("d", lineFunction([a,b,c]));
-        a_side
-            .attr("d", lineFunction([b,c]));
-        b_side
-            .attr("d", lineFunction([c,a]));
-        c_side
-            .attr("d", lineFunction([a,b]));
-        a_cev
-            .attr("d", lineFunction([a,d3m.cevian_int(a,b,c,o)]));
-        b_cev
-            .attr("d", lineFunction([b,d3m.cevian_int(b,c,a,o)]));
-        c_cev
-            .attr("d", lineFunction([c,d3m.cevian_int(c,a,b,o)]));
-        a_isot
-            .attr("d", lineFunction([a,d3m.cevian_int(a,b,c,i)]));
-        b_isot
-            .attr("d", lineFunction([b,d3m.cevian_int(b,c,a,i)]));
-        c_isot
-            .attr("d", lineFunction([c,d3m.cevian_int(c,a,b,i)]));
-        a_cev_aux
-            .attr("d", lineFunction([a,o]));
-        b_cev_aux
-            .attr("d", lineFunction([b,o]));
-        c_cev_aux
-            .attr("d", lineFunction([c,o]));
-        a_isot_aux
-            .attr("d", lineFunction([a,i]));
-        b_isot_aux
-            .attr("d", lineFunction([b,i]));
-        c_isot_aux
-            .attr("d", lineFunction([c,i]));
-        isotomic
-            .attr("cx", x(i.x))
-            .attr("cy", y(i.y))
-    }); 
-        
-drag_handler(vertices);   
-drag_handler(anchor);  
-
+wp.append([ae_aux,be_aux,ce_aux], {
+    "stroke": color.yellow.w500, 
+    "stroke-width": 3.5, 
+    "stroke-dasharray": ("10, 10")
 });
+wp.append([ad_aux,bd_aux,cd_aux], {
+    "stroke": color.bluegray.w500, 
+    "stroke-width": 3.5, 
+    "stroke-dasharray": ("10, 10")
+});
+wp.append([ae_cev,be_cev,ce_cev], {
+    "stroke": color.yellow.w500, 
+    "stroke-width": 3.5
+});
+wp.append([ad_cev,bd_cev,cd_cev], {
+    "stroke": color.bluegray.w500, 
+    "stroke-width": 3.5
+});
+
+wp.append(t, {"stroke": color.blue.w500});
+
+wp.append(e, {"fill": color.yellow.a700});
+wp.append(d, {"fill": color.bluegray.w800});
+
+wp.append([a,b,c], {"fill": color.blue.w800});
+
+wp.end();

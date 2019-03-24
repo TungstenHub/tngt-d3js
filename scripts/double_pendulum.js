@@ -1,15 +1,11 @@
-d3require(
-    "utils/material_color.js",
-).then(d3m => {
+import {mdColor as color} from "../utils/material_color.js";
 
-const color = d3m.mdColor;
-
-radius = 200
+let radius = 200
 	
-pendulum_color = color.blue.w500;
-track_color = color.blue.w200;
+let pendulum_color = color.blue.w500;
+let track_color = color.blue.w200;
 
-var svg = d3.select(".d3svg"),
+var svg = d3.select("#double_pendulum"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
@@ -47,8 +43,8 @@ var track = svg.append("path")
     .attr("fill", 'none');
 
 function update() {
-    s = Math.sin(a1-a2);
-    c = Math.cos(a1-a2);
+    let s = Math.sin(a1-a2);
+    let c = Math.cos(a1-a2);
     a1 += t*(b1);
     b1 += t*((-b1*b1*s*c -   b2*b2*s +   Math.sin(a2)*c - 2*Math.sin(a1))/(2-c*c));
     a2 += t*(b2);
@@ -71,5 +67,3 @@ var interval = setInterval(function() {
     iter++;
     update();
 }, 2);
-
-});

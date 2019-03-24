@@ -1,8 +1,4 @@
-d3require(
-    "utils/material_color.js",
-).then(d3m => {
-
-const color = d3m.mdColor;
+import {mdColor as color} from "../utils/material_color.js";
 
 const
 point_color = color.teal.w800,
@@ -13,28 +9,28 @@ lemn_1 = color.blue.w500,
 lemn_2 = color.amber.w500,
 lemn_join = color.gray.w500;
 
-radius = 120
+const radius = 120
 
-offset = -1.7
+const offset = -1.7
 
-point_coords = [{x:Math.sqrt(2), y:0.0}];
-angle = 0;
+let point_coords = [{x:Math.sqrt(2), y:0.0}];
+let angle = 0;
 
-neigh_array = Array.from({length: 61}, (x,i) => 2*Math.PI*i/60);
+let neigh_array = Array.from({length: 61}, (x,i) => 2*Math.PI*i/60);
 
-unfold = function(p,k) {
-    u = Math.atan2(p.y,p.x+0.95)+k*2*Math.PI;
-    v = Math.sqrt((p.x+0.95)*(p.x+0.95)+p.y*p.y);
+const unfold = function(p,k) {
+    const u = Math.atan2(p.y,p.x+0.95)+k*2*Math.PI;
+    const v = Math.sqrt((p.x+0.95)*(p.x+0.95)+p.y*p.y);
     return {x: 1.2*Math.sqrt(v-0.2)*Math.cos(u/3)+3, y: 1.2*Math.sqrt(v-0.2)*Math.sin(u/3)};
 }
 
-lemn_paramet = function(u){
+const lemn_paramet = function(u){
     return {x: Math.sqrt(2)*Math.cos(u)/(1+Math.sin(u)*Math.sin(u)), y: Math.sqrt(2)*Math.cos(u)*Math.sin(u)/(1+Math.sin(u)*Math.sin(u))};
 }
 
 
 
-var svg = d3.select(".d3svg"),
+var svg = d3.select("#figure_8_3_fold_covering_neighborhoods"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
@@ -56,17 +52,18 @@ var lineFunction = d3.line()
 //		 x == -1/2*l - 1/2*sqrt(2*l^2 - 2*(l^3 + 4*l)/sqrt(l^2 + 2*sqrt(l^2 + 4) + 4) - 2*sqrt(l^2 + 4) + 8) + 1/2*sqrt(l^2 + 2*sqrt(l^2 + 4) + 4), 
 //		 x == -1/2*l + 1/2*sqrt(2*l^2 - 2*(l^3 + 4*l)/sqrt(l^2 + 2*sqrt(l^2 + 4) + 4) - 2*sqrt(l^2 + 4) + 8) + 1/2*sqrt(l^2 + 2*sqrt(l^2 + 4) + 4)]
 
-to_lemn = function(px,py) { 
+const to_lemn = function(px,py) { 
     if (Math.abs(px)<0.001 || (Math.abs(py)<0.001 && Math.abs(px)<1)){
         return {x:0, y:0};
     }
     if (Math.abs(py)<0.001){
         return {x:Math.sqrt(2)*Math.sign(px), y:0};
     }
-    a = Math.abs(px);
-    b = Math.abs(py);
-    l = (a*a-b*b-1)/(a*b);
-    s = -1/2*l - 1/2*Math.sqrt(2*l*l - 2*(l*l*l + 4*l)/Math.sqrt(l*l + 2*Math.sqrt(l*l + 4) + 4) - 2*Math.sqrt(l*l + 4) + 8) + 1/2*Math.sqrt(l*l + 2*Math.sqrt(l*l + 4) + 4);
+    let a = Math.abs(px);
+    let b = Math.abs(py);
+    let l = (a*a-b*b-1)/(a*b);
+    let s = -1/2*l - 1/2*Math.sqrt(2*l*l - 2*(l*l*l + 4*l)/Math.sqrt(l*l + 2*Math.sqrt(l*l + 4) + 4) - 2*Math.sqrt(l*l + 4) + 8) + 1/2*Math.sqrt(l*l + 2*Math.sqrt(l*l + 4) + 4);
+    let t;
     if (px>=0 && py>=0) {
         t = Math.asin(s);
     } else if (px>=0 && py<=0) {
@@ -101,14 +98,13 @@ svg.append("path")
     .attr("stroke", lemn_2)
     .attr("fill", "none");
 
-svg
-    .append("circle")
+svg.append("circle")
     .attr("cx", x(0))
     .attr("cy", y(0))
     .attr("r", 5)
     .attr("fill", lemn_join);
 
-for (k of [0,1,2]) {
+for (let k of [0,1,2]) {
     svg.append("path")
         .attr("d", lineFunction(Array.from({length: 26}, (x,i) => unfold(lemn_paramet(Math.PI*(i-25)/50),k))))
         .style("stroke-width", 7)
@@ -137,7 +133,7 @@ for (k of [0,1,2]) {
         .attr("fill", lemn_join);
 }
 
-point_neigh_coords = neigh_array.map(function(u) { return to_lemn(
+let point_neigh_coords = neigh_array.map(function(u) { return to_lemn(
     point_coords[0].x+0.25*Math.cos(u),point_coords[0].y+0.25*Math.sin(u))});
 
 var point_neighborhood = svg.append("path")
@@ -159,9 +155,9 @@ var point = svg
         .attr("r", 7)
         .attr("fill", point_color);
 
-lifts_neighborhoods = Array.from({length: 5}, (x,i) => 'none')
+let lifts_neighborhoods = Array.from({length: 5}, (x,i) => 'none')
 
-for (k of Array.from({length: 3}, (x,i) => i)) {
+for (let k of Array.from({length: 3}, (x,i) => i)) {
     lifts_neighborhoods[k] = svg.append("path")
     .attr("d", lineFunction(point_neigh_coords.map(function(u) { 
         return unfold(u,k)})))
@@ -170,7 +166,7 @@ for (k of Array.from({length: 3}, (x,i) => i)) {
     .style("fill", 'none');
 }			
 
-lift_coords = [unfold(point_coords[0],0),
+let lift_coords = [unfold(point_coords[0],0),
                 unfold(point_coords[0],1),
                 unfold(point_coords[0],2)];
 
@@ -193,8 +189,8 @@ var drag_handler = d3.drag()
         start_y = y.invert(height) + d3.event.y;
     })
     .on("drag", function(d) {
-        xx = start_x + x.invert(d3.event.x);
-        yy = start_y + y.invert(d3.event.y);
+        let xx = start_x + x.invert(d3.event.x);
+        let yy = start_y + y.invert(d3.event.y);
         
         d.x = to_lemn(xx,yy).x
         d.y = to_lemn(xx,yy).y
@@ -212,11 +208,12 @@ var drag_handler = d3.drag()
             .data(lift_coords)
             .attr("cx", function(d) {return(x(d.x))})
             .attr("cy", function(d) {return(y(d.y))})
-        for (k of Array.from({length: 3}, (x,i) => i)) {
+        for (let k of Array.from({length: 3}, (x,i) => i)) {
             lifts_neighborhoods[k]
                 .attr("d", lineFunction(point_neigh_coords.map(function(u) { 
-                    a1 = Math.atan2(d.y,d.x+0.95)
-                    a2 = Math.atan2(u.y,u.x+0.95)
+                    let a1 = Math.atan2(d.y,d.x+0.95)
+                    let a2 = Math.atan2(u.y,u.x+0.95)
+                    let kk;
                     if (Math.abs(a2+2*Math.PI-a1)<Math.abs(a2-a1)) {
                         kk = 1
                     } else if (Math.abs(a2-a1)<Math.abs(a2-2*Math.PI-a1)) {
@@ -229,5 +226,3 @@ var drag_handler = d3.drag()
     }); 
         
 drag_handler(point); 
-
-});

@@ -1,17 +1,13 @@
-d3require(
-    "utils/material_color.js",
-).then(d3m => {
+import {mdColor as color} from "../utils/material_color.js";
 
-const color = d3m.mdColor;
-
-radius = 100
+let radius = 100
 
 const
 source_color = color.yellow.w800,
 ray_color = color.yellow.w500,
 target_color = color.cyan.w800;
 
-var svg = d3.select(".d3svg"),
+var svg = d3.select("#convex_lens"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
@@ -22,10 +18,10 @@ var start_x, start_y;
 
 var source_coords = {x:-3,y:1};
 
-xx = source_coords.x;
-yy = source_coords.y;
-target_x = xx/(xx+1);
-target_y = yy/(xx+1);
+let xx = source_coords.x;
+let yy = source_coords.y;
+let target_x = xx/(xx+1);
+let target_y = yy/(xx+1);
 
 var lineFunction = d3.line()
 	.x(function(d) { return x(d.x); })
@@ -183,5 +179,3 @@ var source = svg
 	}); 
 		
 drag_handler(source);
-
-});

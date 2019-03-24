@@ -1,141 +1,44 @@
-d3require(
-    "utils/material_color.js",
-    "utils/basic_objects.js",
-    "utils/triangle_coordinates.js",
-).then(d3m => {
+import {WorkPlane} from "../utils/init_canvas.js";
 
-const color = d3m.mdColor;
+import {FQuantity} from "../basic_objects/quantity.js";
+import {DPoint, FPoint} from "../basic_objects/point.js";
+import {PolyLine} from "../basic_objects/polyline.js";
+import {CirclePR} from "../basic_objects/circle.js";
+
+import {incenter_coords, incenter_radius} from "../utils/triangle_coordinates.js";
+import {mdColor as color} from "../utils/material_color.js";
 
 const
-vertex_color = color.blue.w800,
-side_color = color.blue.w500,
-triangle_color =color.blue.w100,
-incenter_color = color.amber.w800,
-incircle_color = color.amber.w800,
-bisec_color = color.amber.w500;
+wp = WorkPlane.with("#incenter", 100),
 
-var svg = d3.select(".d3svg"),
-width = +svg.attr("width"),
-height = +svg.attr("height");
+a = new DPoint(0,2),
+b = new DPoint(-2.5,-2),
+c = new DPoint(2.5,-1),
 
-var lineFunction = d3.line()
-    .x(function(d) { return d.x; })
-    .y(function(d) { return d.y; });
+t = new PolyLine([a,b,c,a]),
+inn_t = new PolyLine([a,b,c,a]),
 
-function bar_incenter(A, B, C) {
-    return [dist(B,C),dist(C,A),dist(A,B)];
-}
+i = new FPoint(incenter_coords, [a,b,c]),
+p = FPoint.int_ab_cd(a,i,b,c),
+q = FPoint.int_ab_cd(b,i,c,a),
+r = FPoint.int_ab_cd(c,i,a,b),
 
-function in_radius(A, B, C){
-    return Math.abs(
-        - A.y*B.x + A.x*B.y 
-        + A.y*C.x - B.y*C.x 
-        - A.x*C.y + B.x*C.y
-        )/(dist(A,B)+dist(B,C)+dist(C,A))
-}
+a_cev = new PolyLine([a,p]),
+b_cev = new PolyLine([b,q]),
+c_cev = new PolyLine([c,r]),
 
-let a = Point.with(238,486);
-let b = Point.with(445,139);
-let c = Point.with(677,368);
-let i = from_bar_coords(a,b,c,bar_incenter(a,b,c));
+rad = new FQuantity(incenter_radius, [a,b,c]),
+ic = new CirclePR(i,rad);
 
-var triangle = svg.append("path")
-    .attr("d", lineFunction([a,b,c]))
-    .attr("stroke", "none")
-    .attr("fill", triangle_color);
+wp.append(inn_t, {"fill": color.blue.w100});
 
-var a_bisec = svg.append("path")
-    .attr("d", lineFunction([a,cevian_int(a,b,c,i)]))
-    .attr("stroke-width", 5)
-    .attr("stroke", bisec_color);
+wp.append([a_cev,b_cev,c_cev], {"stroke": color.amber.w500});
 
-var b_bisec = svg.append("path")
-    .attr("d", lineFunction([b,cevian_int(b,c,a,i)]))
-    .attr("stroke-width", 5)
-    .attr("stroke", bisec_color);
+wp.append(t, {"stroke": color.blue.w500});
 
-var c_bisec = svg.append("path")
-    .attr("d", lineFunction([c,cevian_int(c,a,b,i)]))
-    .attr("stroke-width", 5)
-    .attr("stroke", bisec_color);
+wp.append(ic, {"stroke": color.amber.w800});
+wp.append(i, {"fill": color.amber.w800});
 
-var a_side = svg.append("path")
-    .attr("d", lineFunction([b,c]))
-    .attr("stroke-width", 5)
-    .attr("stroke", side_color);
+wp.append([a,b,c], {"fill": color.blue.w800});
 
-var b_side = svg.append("path")
-    .attr("d", lineFunction([c,a]))
-    .attr("stroke-width", 5)
-    .attr("stroke", side_color);
-
-var c_side = svg.append("path")
-    .attr("d", lineFunction([a,b]))
-    .attr("stroke-width", 5)
-    .attr("stroke", side_color);
-
-var incenter = svg
-    .append("circle")
-    .attr("cx", i.x)
-    .attr("cy", i.y)
-    .attr("r", 7)
-    .attr("fill", incenter_color);
-
-var incircle = svg
-    .append("circle")
-    .attr("cx", i.x)
-    .attr("cy", i.y)
-    .attr("r", in_radius(a,b,c))
-    .style("stroke-width", 5)
-    .style("stroke", incircle_color)   
-    .style("fill", "none"); 
-
-var vertices = svg
-    .append("g")
-    .attr("class", "vertices")
-        .selectAll(".vertices")
-        .data([a,b,c])
-        .enter()
-        .append("circle")
-        .attr("class", "vertex")
-        .attr("cx", function(d) {return(d.x)})
-        .attr("cy", function(d) {return(d.y)})
-        .attr("r", 7)
-        .attr("fill", vertex_color); 
-
-var drag_handler = d3.drag()
-    .on("drag", function() {
-        d3.select(this)
-            .data([{x : d3.event.x, y : d3.event.y}])
-            .attr("cx", function(d) {return(d.x)})
-            .attr("cy", function(d) {return(d.y)});
-        a = vertices.data()[0];
-        b = vertices.data()[1];
-        c = vertices.data()[2];
-        i = from_bar_coords(a,b,c,bar_incenter(a,b,c));
-        triangle
-            .attr("d", lineFunction([a,b,c]));
-        a_side
-            .attr("d", lineFunction([b,c]));
-        b_side
-            .attr("d", lineFunction([c,a]));
-        c_side
-            .attr("d", lineFunction([a,b]));
-        a_bisec
-            .attr("d", lineFunction([a,cevian_int(a,b,c,i)]));
-        b_bisec
-            .attr("d", lineFunction([b,cevian_int(b,c,a,i)]));
-        c_bisec
-            .attr("d", lineFunction([c,cevian_int(c,a,b,i)]));
-        incenter
-            .attr("cx", i.x)
-            .attr("cy", i.y)
-        incircle
-            .attr("cx", i.x)
-            .attr("cy", i.y)
-            .attr("r", in_radius(a,b,c))
-    }); 
-        
-drag_handler(vertices);   
-
-});
+wp.end();

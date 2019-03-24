@@ -1,32 +1,4 @@
-(function (global, factory) {
-typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-typeof define === 'function' && define.amd ? define(['exports'], factory) :
-(factory((global.d3 = global.d3 || {})));
-}(this, (function (exports) { 'use strict';
-
-/** Point */
-class Point {
-    constructor (x, y) {
-        this.x = x
-        this.y = y
-    }
-
-    static with(x, y) {
-        return new Point(x, y);
-    }
-}
-
-/**
- * Distance between points
- * @param {Point} A 
- * @param {Point} B
- * @return {number} 
- */
-function dist(A, B){
-    var dx = A.x - B.x;
-    var dy = A.y - B.y;
-    return Math.sqrt(dx*dx + dy*dy);
-}
+import {Point} from "../basic_objects/point.js";
 
 /**
  * Returns a point from its barycentric coordinates
@@ -38,7 +10,7 @@ function dist(A, B){
  */
 function from_bar_coords(A, B, C, bar){
     let [p, q, r] = bar;
-    return Point.with((p*A.x+q*B.x+r*C.x)/(p+q+r),
+    return new Point((p*A.x+q*B.x+r*C.x)/(p+q+r),
                       (p*A.y+q*B.y+r*C.y)/(p+q+r));
 }
 
@@ -57,26 +29,77 @@ function get_bar_coords(A, B, C, D){
     return [l1/l, l2/l, 1-(l1+l2)/l];
 }
 
-/**
- * Intersection of cevian AD with side BC
- * @param {Point} A - triangle vertex
- * @param {Point} B - triangle vertex
- * @param {Point} C - triangle vertex
- * @param {Point} D - anchor
- * @return {Point} - intersection
- */
-function cevian_int(A, B, C, D){
-    let [, q, r] = get_bar_coords(A, B, C, D);
-    return Point.with((q*B.x+r*C.x)/(q+r),
-                      (q*B.y+r*C.y)/(q+r));
+function centroid_coords(A, B, C) {
+    const bar = [1,1,1];
+    return from_bar_coords(A,B,C,bar);
 }
 
-exports.Point = Point;
-exports.dist = dist;
-exports.from_bar_coords = from_bar_coords;
-exports.get_bar_coords = get_bar_coords;
-exports.cevian_int = cevian_int;
+function incenter_coords(A, B, C) {
+    const bar = [Point.dist(B,C),Point.dist(C,A),Point.dist(A,B)];
+    return from_bar_coords(A,B,C,bar);
+}
 
-Object.defineProperty(exports, '__esModule', { value: true });
+function incenter_radius(A, B, C){
+    return Math.abs(
+        - A.y*B.x + A.x*B.y 
+        + A.y*C.x - B.y*C.x 
+        - A.x*C.y + B.x*C.y
+        )/(Point.dist(A,B)+Point.dist(B,C)+Point.dist(C,A))
+}
 
-})));
+function circumcenter_coords(A, B, C){
+    const a = Point.dist(B,C);
+    const b = Point.dist(C,A);
+    const c = Point.dist(A,B);
+    const aa = a*a*(a*a-b*b-c*c);
+    const bb = b*b*(b*b-c*c-a*a);
+    const cc = c*c*(c*c-a*a-b*b);
+    const bar = [aa, bb, cc];
+    return from_bar_coords(A,B,C,bar);
+}
+
+function circumcenter_radius(A, B, C){
+    return (Point.dist(A,B)*Point.dist(B,C)*Point.dist(C,A))/
+    (2*Math.abs(-A.y*B.x + A.x*B.y + A.y*C.x - B.y*C.x - A.x*C.y + B.x*C.y));
+}
+
+function orthocenter_coords(A, B, C) {
+    const a = Point.dist(B,C);
+    const b = Point.dist(C,A);
+    const c = Point.dist(A,B);
+    const aa = (a*a+b*b-c*c)*(a*a-b*b+c*c);
+    const bb = (b*b+c*c-a*a)*(b*b-c*c+a*a);
+    const cc = (c*c+a*a-b*b)*(c*c-a*a+b*b);
+    const bar = [aa, bb, cc];
+    return from_bar_coords(A,B,C,bar);
+}
+
+function gergonne_coords(A, B, C) {
+    const a = Point.dist(B,C);
+    const b = Point.dist(C,A);
+    const c = Point.dist(A,B);
+    const aa = b+c-a;
+    const bb = c+a-b;
+    const cc = a+b-c;
+    const bar = [bb*cc, cc*aa, aa*bb];
+    return from_bar_coords(A,B,C,bar);
+}
+
+function isotomic_conjugate(A, B, C, D) {
+    const [p,q,r] = get_bar_coords(A,B,C,D);
+    const bar = [q*r, r*p, p*q];
+    return from_bar_coords(A,B,C,bar);
+}
+
+export {
+    from_bar_coords, 
+    get_bar_coords, 
+    centroid_coords,
+    incenter_coords,
+    incenter_radius,
+    circumcenter_coords,
+    circumcenter_radius,
+    orthocenter_coords,
+    gergonne_coords,
+    isotomic_conjugate
+};

@@ -1,22 +1,19 @@
-d3require(
-    "utils/material_color.js",
-).then(d3m => {
-
-const color = d3m.mdColor;
+import {mdColor as color} from "../utils/material_color.js";
 
 const
 pivot_color = color.yellow.w500;
 
-radius = 312.75 // to adjust the photo
-offset = 218.25
+let radius = 312.75 // to adjust the photo
+let offset = 218.25
 
-pivot_coord  = [{x:0.12, y:0.59}];
+let pivot_coord  = [{x:0.12, y:0.59}];
 
-iterates = function(a,b) {
-    z = {x:0, y:0};
-    list = [{p: [z,z], c:1}];
-    out = false;
-    for (i = 0; i < 100; i++) {
+let iterates = function(a,b) {
+    let z = {x:0, y:0};
+    let list = [{p: [z,z], c:1}];
+    let out = false;
+    let prev_z;
+    for (let i = 0; i < 100; i++) {
         if (!out) {
             prev_z = z
             z = {x:z.x*z.x-z.y*z.y+a, y:2*z.x*z.y+b}
@@ -29,7 +26,7 @@ iterates = function(a,b) {
     return list
 }
 
-var svg = d3.select(".d3svg"),
+var svg = d3.select("#mandelbrot_set_iterations"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
@@ -42,7 +39,7 @@ var lineFunction = d3.line()
     .x(function(d) { return x(d.x); })
     .y(function(d) { return y(d.y); });
         
-c = pivot_coord[0];	
+let c = pivot_coord[0];	
 
 var mand = svg.append("svg:image")
     .attr('x', 0)
@@ -102,5 +99,3 @@ var drag_handler = d3.drag()
     }); 
         
 drag_handler(pivot);
-
-});
