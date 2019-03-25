@@ -94,6 +94,12 @@ class DPointOnLine extends DPoint {
     }
 }
 
+const inverse_coords = (a,circ) => {
+    const d = (a.x-circ.p.x)*(a.x-circ.p.x)+(a.y-circ.p.y)*(a.y-circ.p.y);
+    return {x:circ.p.x+circ.r*circ.r*(a.x-circ.p.x)/d, 
+            y:circ.p.y+circ.r*circ.r*(a.y-circ.p.y)/d};
+}
+
 /** Functional Point */
 class FPoint extends Point {
     constructor (f, array) {
@@ -141,12 +147,33 @@ class FPoint extends Point {
     }
 
     static inverse(A, c){
+        return new FPoint(inverse_coords, [A,c]);
+    }
+
+    static tangency_points(A, c){
         const f = (a,circ) => {
-            const d = (a.x-circ.p.x)*(a.x-circ.p.x)+(a.y-circ.p.y)*(a.y-circ.p.y);
-            return {x:circ.p.x+circ.r*circ.r*(a.x-circ.p.x)/d, 
-                    y:circ.p.y+circ.r*circ.r*(a.y-circ.p.y)/d};
+            const d = Point.dist(a,circ.p);
+            if (d>circ.r) {
+                const inv = inverse_coords(a,circ);
+                const factor = circ.r*Math.sqrt(1-circ.r*circ.r/(d*d))/d;
+                return {x:inv.x+(a.y-circ.p.y)*factor, 
+                    y:inv.y-(a.x-circ.p.x)*factor};
+            } else {
+                return {x:a.x, y:a.y};
+            }
         }
-        return new FPoint(f, [A,c]);
+        const g = (a,circ) => {
+            const d = Point.dist(a,circ.p);
+            if (d>circ.r) {
+                const inv = inverse_coords(a,circ);
+                const factor = circ.r*Math.sqrt(1-circ.r*circ.r/(d*d))/d;
+                return {x:inv.x-(a.y-circ.p.y)*factor, 
+                    y:inv.y+(a.x-circ.p.x)*factor};
+            } else {
+                return {x:a.x, y:a.y};
+            }
+        }
+        return [new FPoint(f, [A,c]), new FPoint(g, [A,c])];
     }
 
     update() {
