@@ -1,9 +1,9 @@
 import {WorkPlane} from "../utils/init_canvas.js";
 
-import {DPoint, FPoint, Point, DPointOnCircle, DPointOnLine} from "../basic_objects/point.js";
+import {FPoint, Point, DPointOnLine} from "../basic_objects/point.js";
 import {FQuantity} from "../basic_objects/quantity.js";
 import {Line} from "../basic_objects/line.js";
-import {Circle, CirclePP, CirclePR} from "../basic_objects/circle.js";
+import {Circle, CirclePR} from "../basic_objects/circle.js";
 
 import {mdColor as color} from "../utils/material_color.js";
 import { Vector } from "../basic_objects/vector.js";

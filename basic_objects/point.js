@@ -94,6 +94,14 @@ class DPointOnLine extends DPoint {
     }
 }
 
+const proj_a_bc_coords = (a,b,c) => {
+    const da = Point.dist(b,c)*Point.dist(b,c);
+    const db = Point.dist(c,a)*Point.dist(c,a);
+    const dc = Point.dist(a,b)*Point.dist(a,b);
+    return {x: ((da+db-dc)*b.x+(da-db+dc)*c.x)/(2*da),
+            y: ((da+db-dc)*b.y+(da-db+dc)*c.y)/(2*da)}
+}
+
 const inverse_coords = (a,circ) => {
     const d = (a.x-circ.p.x)*(a.x-circ.p.x)+(a.y-circ.p.y)*(a.y-circ.p.y);
     return {x:circ.p.x+circ.r*circ.r*(a.x-circ.p.x)/d, 
@@ -119,14 +127,7 @@ class FPoint extends Point {
     }
 
     static proj_a_bc(A, B, C){
-        const f = (a,b,c) => {
-            const da = Point.dist(b,c)*Point.dist(b,c);
-            const db = Point.dist(c,a)*Point.dist(c,a);
-            const dc = Point.dist(a,b)*Point.dist(a,b);
-            return {x: ((da+db-dc)*B.x+(da-db+dc)*C.x)/(2*da),
-                    y: ((da+db-dc)*B.y+(da-db+dc)*C.y)/(2*da)}
-        }
-        return new FPoint(f, [A,B,C]);
+        return new FPoint(proj_a_bc_coords, [A,B,C]);
     }
 
     /**
@@ -174,6 +175,13 @@ class FPoint extends Point {
             }
         }
         return [new FPoint(f, [A,c]), new FPoint(g, [A,c])];
+    }
+
+    static pole(l, c){
+        return new FPoint((l,circ) => {
+            const base = proj_a_bc_coords(circ.p,l.p,{x:l.p.x+l.v.x,y:l.p.y+l.v.y});
+            return inverse_coords(base,circ);
+        }, [l,c]);
     }
 
     update() {

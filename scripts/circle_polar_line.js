@@ -3,9 +3,9 @@ import {WorkPlane} from "../utils/init_canvas.js";
 import {DPoint, Point, FPoint} from "../basic_objects/point.js";
 import {Circle} from "../basic_objects/circle.js";
 import {PolyLine} from "../basic_objects/polyline.js";
+import {Line} from "../basic_objects/line.js";
 
 import {mdColor as color} from "../utils/material_color.js";
-import { Line } from "../basic_objects/line.js";
 
 const
 wp = WorkPlane.with("#circle_polar_line", 150),

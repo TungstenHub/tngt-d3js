@@ -32,4 +32,18 @@ class FQuantity extends Quantity {
     }
 }
 
-export{Quantity, FQuantity}
+class Time extends Quantity {
+    constructor (lapse) {
+        super(0);
+        this.lapse = lapse
+        this.sInt = setInterval(() => {
+            this.v++;
+            this.update_total();
+        }, lapse);
+    }
+
+    clear() {clearInterval(this.sInt);}
+
+}
+
+export{Quantity, FQuantity, Time}
