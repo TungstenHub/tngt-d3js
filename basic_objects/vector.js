@@ -63,6 +63,13 @@ class FVector extends Vector {
         return new FVector(f, [v]);
     }
 
+    static multiply(v,q){
+        const f = (v,q) => {
+            return {x:v.x*q.v, y:v.y*q.v}
+        }
+        return new FVector(f, [v,q]);
+    }
+
     update() {
         this.x = this.f(...this.array).x;
         this.y = this.f(...this.array).y;

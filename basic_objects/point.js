@@ -184,6 +184,37 @@ class FPoint extends Point {
         }, [l,c]);
     }
 
+    static ext_point(c, d){
+        const f = (c,d) => {
+            const r = c.r/(d.r-c.r);
+            return {x:c.p.x+r*(c.p.x-d.p.x), y:c.p.y+r*(c.p.y-d.p.y)}
+        }
+        return new FPoint(f, [c,d]);
+    }
+
+    static int_point(c, d){
+        const f = (c,d) => {
+            const r = c.r/(d.r+c.r);
+            return {x:c.p.x+r*(d.p.x-c.p.x), y:c.p.y+r*(d.p.y-c.p.y)}
+        }
+        return new FPoint(f, [c,d]);
+    }
+
+    static add_vector(A, v){
+        const f = (A,v) => {
+            return {x:A.x+v.x, y:A.y+v.y}
+        }
+        return new FPoint(f, [A,v]);
+    }
+
+    static reflect_in_line(A, l){
+        const f = (A,l) => {
+            const p = proj_a_bc_coords(A,l.p,{x:l.p.x+l.v.x,y:l.p.y+l.v.y});
+            return {x:2*p.x-A.x, y:2*p.y-A.y} 
+        }
+        return new FPoint(f, [A,l]);
+    }
+
     update() {
         this.x = this.f(...this.array).x;
         this.y = this.f(...this.array).y;

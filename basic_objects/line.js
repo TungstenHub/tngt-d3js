@@ -18,7 +18,13 @@ class Line extends Element{
     }
 
     draw() {
-        if (this.v.x != 0) {
+        if (this.v.x == 0 && this.v.y == 0) {
+            this.phys
+                .attr("x1", this.wp.x(this.p.x))
+                .attr("x2", this.wp.x(this.p.x))
+                .attr("y1", this.wp.y(this.p.y))
+                .attr("y2", this.wp.y(this.p.y));
+        } else if (this.v.x != 0) {
             const slope = this.v.y/this.v.x;
             const limit = this.wp.width/this.wp.radius+0.1;
             this.phys
