@@ -40,7 +40,7 @@ class DPoint extends Point {
         super(x, y);
         this.default_attrs = {"r": 6, "stroke": "black", "stroke-width": 2};
     }
-
+    
     insertInto(wp, attrs={}) {
         this.calibrate();
         super.insertInto(wp, attrs);
@@ -69,6 +69,7 @@ class DPointOnCircle extends DPoint {
         super(x, y);
         this.c = c;
         c.dependents.push(this);
+        this.calibrate();
     }
 
     calibrate() {
@@ -84,6 +85,7 @@ class DPointOnLine extends DPoint {
         super(x, y);
         this.l = l;
         l.dependents.push(this);
+        this.calibrate();
     }
 
     calibrate() {
@@ -100,6 +102,12 @@ const proj_a_bc_coords = (a,b,c) => {
     const dc = Point.dist(a,b)*Point.dist(a,b);
     return {x: ((da+db-dc)*b.x+(da-db+dc)*c.x)/(2*da),
             y: ((da+db-dc)*b.y+(da-db+dc)*c.y)/(2*da)}
+}
+
+const int_ab_cd_coords = (a,b,c,d) => {
+    const l1 = (c.y-d.y)*(a.x-c.x) + (d.x-c.x)*(a.y-c.y);
+    const l2 = (a.y-b.y)*(d.x-c.x) - (a.x-b.x)*(d.y-c.y);
+    return {x:(l1/l2*b.x+(1-l1/l2)*a.x), y:(l1/l2*b.y+(1-l1/l2)*a.y)}
 }
 
 const inverse_coords = (a,circ) => {
@@ -139,12 +147,12 @@ class FPoint extends Point {
      * @return {Point} - intersection
      */
     static int_ab_cd(A, B, C, D){
-        const f = (a,b,c,d) => {
-            const l1 = (c.y-d.y)*(a.x-c.x) + (d.x-c.x)*(a.y-c.y);
-            const l2 = (a.y-b.y)*(d.x-c.x) - (a.x-b.x)*(d.y-c.y);
-            return {x:(l1/l2*b.x+(1-l1/l2)*a.x), y:(l1/l2*b.y+(1-l1/l2)*a.y)};
-        }
-        return new FPoint(f, [A,B,C,D]);
+        return new FPoint(int_ab_cd_coords, [A,B,C,D]);
+    }
+
+    static int_lines(l,k){
+        return new FPoint(
+            (l,k) => int_ab_cd_coords(l.p,l.q(),k.p,k.q()), [l,k]);
     }
 
     static inverse(A, c){

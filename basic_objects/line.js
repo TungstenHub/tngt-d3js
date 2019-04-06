@@ -1,5 +1,5 @@
 import {Element} from "./element.js";
-import {FPoint} from "./point.js";
+import {FPoint, Point} from "./point.js";
 import { FVector, VectorPP } from "./vector.js";
 
 class Line extends Element{
@@ -42,9 +42,22 @@ class Line extends Element{
         }
     }
 
+    q() {return {x: this.p.x+this.v.x, y:this.p.y+this.v.y}}
+
     static polar(p,c) {
         const i = FPoint.inverse(p,c);
         return new Line(i,FVector.perp(new VectorPP(p,i)));
+    }
+
+    static radical_axis(c,d) {
+        const i = new FPoint(
+            (c,d) => {
+                let k = (d.r*d.r-c.r*c.r)/(Point.dist(c.p,d.p)*Point.dist(c.p,d.p));
+                return {x: (c.p.x+d.p.x-k*(d.p.x-c.p.x))/2, y: (c.p.y+d.p.y-k*(d.p.y-c.p.y))/2}
+            },
+            [c,d]
+        );
+        return new Line(i,FVector.perp(new VectorPP(i,d.p)));
     }
 }
 
