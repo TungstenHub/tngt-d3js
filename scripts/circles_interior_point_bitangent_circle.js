@@ -41,7 +41,7 @@ q = new FPoint(
 
 bit_p = FPoint.int_ab_cd(a1,p,a2,q),
 bit_c = new CirclePP(bit_p,p),
-r=FPoint.reflect_in_line(p,t1),
+
 l = new LinePP(p,q);
 
 wp.append([t1,t2], {"stroke-width": 4, "stroke": color.green.w500});
@@ -52,6 +52,6 @@ wp.append(bit_c,{"stroke-width": 4, "stroke": color.pink.w500});
 wp.append(e, {"fill": color.green.w800});
 wp.append([b1,b2], {"fill": color.yellow.w100});
 wp.append([a1,a2], {"fill": color.blue.w800});
-wp.append([p,q,r], {"fill": color.pink.w800});
+wp.append([p,q], {"fill": color.pink.w800});
 
 wp.end();
