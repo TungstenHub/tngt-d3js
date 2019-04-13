@@ -4,7 +4,7 @@ import {DPoint, FPoint} from "../basic_objects/point.js";
 import {CirclePP} from "../basic_objects/circle.js";
 import {Line,LinePP,SemiLinePP} from "../basic_objects/line.js";
 
-import {apollonius_factory} from "../utils/apollonius_function.js"
+import {apollonius_factory} from "../utils/apollonius_function.js";
 
 import {mdColor as color} from "../utils/material_color.js";
 

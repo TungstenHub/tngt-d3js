@@ -3,7 +3,7 @@ import {WorkPlane} from "../utils/init_canvas.js";
 import {DPoint} from "../basic_objects/point.js";
 import {CirclePP} from "../basic_objects/circle.js";
 
-import {apollonius_factory} from "../utils/apollonius_function.js"
+import {apollonius_factory} from "../utils/apollonius_function.js";
 
 import {mdColor as color} from "../utils/material_color.js";
 
