@@ -16,7 +16,7 @@ b = new DPoint(0,1),
 
 c = new Parabola(b, l);
 
-wp.append(l, {"fill": color.blue.w500});
+wp.append(l, {"stroke": color.bluegray.w800});
 wp.append(c, {"stroke": color.teal.w500});
 wp.append([a1,a2], {"fill": color.blue.w800});
 wp.append(b, {"fill": color.amber.w800});
