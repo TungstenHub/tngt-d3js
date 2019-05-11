@@ -96,6 +96,63 @@ class DPointOnLine extends DPoint {
     }
 }
 
+class DPointOnConic extends DPoint {
+    constructor (x, y, cn) {
+        super(x, y);
+        this.cn = cn;
+        cn.dependents.push(this);
+        this.calibrate();
+    }
+
+    calibrate() {
+        const x=this.x, y=this.y, q=this.cn.q, m=this.cn.m;
+
+        if (this.cn.m > 0.00001) {          // Ellipse
+            const {a,b,c,d,e,f} = q;
+            const cx = (b*e-c*d)/m;
+            const cy = (b*d-a*e)/m;
+            const dx = x-cx, dy = y-cy;
+            const R = -this.cn.M/m/(a*dx*dx+2*b*dx*dy+c*dy*dy);
+            const r = Math.sqrt(R);
+            this.x = cx+r*dx;
+            this.y = cy+r*dy;
+        } else if (this.cn.m < -0.00001) {  // Hyperbola
+            const {a,b,c,d,e,f} = q;
+            const cx = (b*e-c*d)/m;
+            const cy = (b*d-a*e)/m;
+            const D = Math.sqrt((a-c)*(a-c)+4*b*b);
+            const vx = D+a-c;
+            const vy = 2*b;
+            const w = proj_a_bc_coords({x:this.x,y:this.y},{x:cx,y:cy},{x:cx-vy,y:cy+vx});
+            const wx = w.x-cx;
+            const wy = w.y-cy;
+            const A = a*vx*vx+2*b*vx*vy+c*vy*vy;
+            const C = this.cn.M/m + a*wx*wx+2*b*wx*wy+c*wy*wy;
+            let t = Math.sqrt(-C/A);
+            if ((this.x-wx)*vx+(this.y-wy)*vy < 0) t=-t;
+            this.x = cx+wx+t*vx;
+            this.y = cy+wy+t*vy;
+        } else {                            // Parabola
+            let {a,b,c,d,e,f} = q;
+            if (a<0) [a,b,c,d,e,f] = [-a,-b,-c,-d,-e,-f];
+            const 
+                aq = (b<0 ? -1 : 1)*Math.sqrt(a),
+                cq = Math.sqrt(c),
+                l = -(2*aq*cq*d*e - (a+2*c)*d*d - 
+                    (2*a+c)*e*e + (a+c)*(a+c)*f) /
+                    (2*(a+c)*(a+c)*(cq*d-aq*e)),
+                vx = -d/(a+c) + l*cq,
+                vy = -e/(a+c) - l*aq,
+                wx= -2*cq*(cq*d-aq*e)/((a+c)*(a+c)),
+                wy=  2*aq*(cq*d-aq*e)/((a+c)*(a+c));
+            const p = proj_a_bc_coords({x:this.x,y:this.y},{x:vx,y:vy},{x:vx+wy,y:vy-wx});
+            const t = wy!=0 ? (p.x-vx)/wy : -(p.y-vy)/wx;
+            this.x = vx + t*wy + t*t*wx;
+            this.y = vy - t*wx + t*t*wy;
+        }
+    }
+}
+
 const proj_a_bc_coords = (a,b,c) => {
     const da = Point.dist(b,c)*Point.dist(b,c);
     const db = Point.dist(c,a)*Point.dist(c,a);
@@ -215,6 +272,13 @@ class FPoint extends Point {
         return new FPoint(f, [A,v]);
     }
 
+    static proj_in_line(A, l){
+        const f = (A,l) => {
+            return proj_a_bc_coords(A,l.p,{x:l.p.x+l.v.x,y:l.p.y+l.v.y});
+        }
+        return new FPoint(f, [A,l]);
+    }
+
     static reflect_in_line(A, l){
         const f = (A,l) => {
             const p = proj_a_bc_coords(A,l.p,{x:l.p.x+l.v.x,y:l.p.y+l.v.y});
@@ -234,5 +298,6 @@ export{
     DPoint,
     DPointOnCircle,
     DPointOnLine,
+    DPointOnConic,
     FPoint
 }

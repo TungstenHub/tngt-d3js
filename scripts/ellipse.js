@@ -4,7 +4,6 @@ import {Ellipse} from "../basic_objects/conic.js";
 import {DPoint} from "../basic_objects/point.js";
 
 import {mdColor as color} from "../utils/material_color.js";
-import { LinePP } from "../basic_objects/line.js";
 
 const
 wp = WorkPlane.with("#ellipse", 100),
