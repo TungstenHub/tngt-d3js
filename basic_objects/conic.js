@@ -129,26 +129,26 @@ class Hyperbola extends Conic{
 
 }
 
-const focusDirQuadForm = (f0, l) => {
+const focusDirQuadForm = (f0, l, e) => {
     let a = l.v.y;
     let b = -l.v.x;
     let c = -l.v.y*l.p.x+l.v.x*l.p.y;
-    let ab = a * a + b * b;
+    let K = (a * a + b * b)/(e.v*e.v);
     let px = f0.x;
     let py = f0.y;
     return {
-        a: b * b,
-        b:-a * b,
-        c: a * a,
-        d: -c * a - ab * px,
-        e: -c * b - ab * py,
-        f: -(c * c - ab * (px * px + py * py))
+        a: K - a*a,
+        b: -a*b,
+        c: K - b*b,
+        d: -K*px -a*c,
+        e: -K*py -b*c,
+        f: K*(px*px + py*py) - c*c
     }
 }
 
 class Parabola extends Conic{
     constructor (f0, l) {
-        super(focusDirQuadForm(f0, l));
+        super(focusDirQuadForm(f0, l, {v: 1}));
         this.f0 = f0;
         this.l = l;
         f0.dependents.push(this);
@@ -156,7 +156,24 @@ class Parabola extends Conic{
     }
 
     update() {
-        this.q = focusDirQuadForm(this.f0, this.l);
+        this.q = focusDirQuadForm(this.f0, this.l, {v: 1});
+        super.update();
+    }
+}
+
+class EccConic extends Conic{
+    constructor (f0, l, ecc) {
+        super(focusDirQuadForm(f0, l, ecc));
+        this.f0 = f0;
+        this.l = l;
+        this.ecc = ecc;
+        f0.dependents.push(this);
+        l.dependents.push(this);
+        ecc.dependents.push(this);
+    }
+
+    update() {
+        this.q = focusDirQuadForm(this.f0, this.l, this.ecc);
         super.update();
     }
 }
@@ -166,4 +183,5 @@ export{
     Ellipse,
     Hyperbola,
     Parabola,
+    EccConic
 }
