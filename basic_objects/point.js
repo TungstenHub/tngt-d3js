@@ -96,6 +96,26 @@ class DPointOnLine extends DPoint {
     }
 }
 
+class DPointOnSegment extends DPoint {
+    constructor (x, y, p, q) {
+        super(x, y);
+        this.p = p;
+        this.q = q;
+        p.dependents.push(this);
+        q.dependents.push(this);
+        this.calibrate();
+    }
+
+    calibrate() {
+        const x=this.x, y=this.y, p=this.p, v={x:this.q.x-this.p.x, y:this.q.y-this.p.y};
+        let t = ((x-p.x)*v.x+(y-p.y)*v.y)/(v.x*v.x+v.y*v.y);
+        if (t<0) t=0;
+        if (t>1) t=1;
+        this.x = p.x+t*v.x;
+        this.y = p.y+t*v.y;
+    }
+}
+
 class DPointOnConic extends DPoint {
     constructor (x, y, cn) {
         super(x, y);
@@ -298,6 +318,7 @@ export{
     DPoint,
     DPointOnCircle,
     DPointOnLine,
+    DPointOnSegment,
     DPointOnConic,
     FPoint
 }
