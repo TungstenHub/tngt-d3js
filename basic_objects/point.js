@@ -141,15 +141,19 @@ class DPointOnConic extends DPoint {
             const cx = (b*e-c*d)/m;
             const cy = (b*d-a*e)/m;
             const D = Math.sqrt((a-c)*(a-c)+4*b*b);
-            const vx = D+a-c;
-            const vy = 2*b;
+            let vx = D+a-c;
+            let vy = 2*b;
+            let A = a*vx*vx+2*b*vx*vy+c*vy*vy;
+            if (-this.cn.M/m/A<0) {
+                [vx,vy] = [-vy,vx];
+                A = a*vx*vx+2*b*vx*vy+c*vy*vy;
+            }
             const w = proj_a_bc_coords({x:this.x,y:this.y},{x:cx,y:cy},{x:cx-vy,y:cy+vx});
             const wx = w.x-cx;
             const wy = w.y-cy;
-            const A = a*vx*vx+2*b*vx*vy+c*vy*vy;
             const C = this.cn.M/m + a*wx*wx+2*b*wx*wy+c*wy*wy;
             let t = Math.sqrt(-C/A);
-            if ((this.x-wx)*vx+(this.y-wy)*vy < 0) t=-t;
+            if ((this.x-wx-cx)*vx+(this.y-wy-cy)*vy < 0) t=-t;
             this.x = cx+wx+t*vx;
             this.y = cy+wy+t*vy;
         } else {                            // Parabola
