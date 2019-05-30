@@ -49,6 +49,27 @@ class Line extends Element{
         return new Line(i,FVector.perp(new VectorPP(p,i)));
     }
 
+
+
+    static polar_conic(p,k) {
+        const b = new FPoint(
+            (p,k) => {
+                const [D,E,F] = polar_conic_f(p,k);
+                const t = -F/(D*D+E*E);
+                return {x:t*D, y:t*E};
+            },
+            [p,k]
+        );
+        const v = new FVector(
+            (p,k) => {
+                const [D,E,F] = polar_conic_f(p,k);
+                return {x:-E, y:D};
+            },
+            [p,k]
+        );
+        return new Line(b, v);
+    }
+
     static radical_axis(c,d) {
         const i = new FPoint(
             (c,d) => {
@@ -59,6 +80,16 @@ class Line extends Element{
         );
         return new Line(i,FVector.perp(new VectorPP(i,d.p)));
     }
+}
+
+const polar_conic_f = (p,k) => {
+    const x = p.x;
+    const y = p.y;
+    const {a,b,c,d,e,f} = k.q;
+    const D = a*x+b*y+d;
+    const E = b*x+c*y+e;
+    const F = d*x+e*y+f;
+    return [D,E,F];
 }
 
 class LinePP extends Line{
