@@ -27,8 +27,8 @@ p = Line.polar_conic(d,c),
 alpha1 = new ArcQPl(a1,d,p),
 alpha2 = new ArcQPl(a2,d,p);
 
-wp.append([alpha1,alpha2], {"fill": color.pink.w800});
 wp.append(c, {"stroke": color.teal.w500});
+wp.append([alpha1,alpha2], {"fill": color.pink.w800});
 wp.append(t, {"stroke": color.blue.w500});
 wp.append([a1,a2], {"fill": color.blue.w800});
 wp.append(b, {"fill": color.blue.w800});
