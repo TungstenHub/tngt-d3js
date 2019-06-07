@@ -1,5 +1,5 @@
 import {Element} from "./element.js";
-import { Point } from "./point.js";
+import { Point, FPoint } from "./point.js";
 
 var lineFunction = (wp) => d3.line()
     .x(function(d) { return wp.x(d.x); })
@@ -56,9 +56,13 @@ class PolygonCP extends PolyLine{
     }
 }
 
-const pqPoints = (p,q,n) => {
+const pqCenter = (p,q,n) => {
     const t = Math.tan(Math.PI/2-Math.PI/n)/2;
-    const c = {x:(p.x+q.x)/2-t*(q.y-p.y), y:(p.y+q.y)/2+t*(q.x-p.x)};
+    return {x:(p.x+q.x)/2-t*(q.y-p.y), y:(p.y+q.y)/2+t*(q.x-p.x)};
+}
+
+const pqPoints = (p,q,n) => {
+    const c = pqCenter(p,q,n);
     const vx = p.x-c.x;
     const vy = p.y-c.y;
     let points = [];
@@ -85,6 +89,13 @@ class PolygonPQ extends PolyLine{
 
     update() {
         this.points = pqPoints(this.p,this.q,this.n);
+    }
+
+    center(){
+        const f = polygon => {
+            return pqCenter(polygon.p,polygon.q,polygon.n)
+        }
+        return new FPoint(f, [this]);
     }
 }
 
