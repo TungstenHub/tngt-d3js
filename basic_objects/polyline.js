@@ -54,6 +54,14 @@ class PolygonCP extends PolyLine{
     update() {
         this.points = cpPoints(this.c,this.p,this.n);
     }
+
+    nvertex(k){
+        const f = polygon => {
+            const vertex = polygon.points[k];
+            return {x:vertex.x, y:vertex.y}
+        }
+        return new FPoint(f, [this]);
+    }
 }
 
 const pqCenter = (p,q,n) => {
@@ -63,18 +71,7 @@ const pqCenter = (p,q,n) => {
 
 const pqPoints = (p,q,n) => {
     const c = pqCenter(p,q,n);
-    const vx = p.x-c.x;
-    const vy = p.y-c.y;
-    let points = [];
-    let alpha;
-    for (let k = 0; k<=n; k++) {
-        alpha = 2*Math.PI*k/n;
-        points.push(new Point(
-            c.x + vx*Math.cos(alpha) - vy*Math.sin(alpha), 
-            c.y + vy*Math.cos(alpha) + vx*Math.sin(alpha))
-        )
-    }
-    return points;
+    return cpPoints(c,p,n);
 }
 
 class PolygonPQ extends PolyLine{
@@ -89,6 +86,14 @@ class PolygonPQ extends PolyLine{
 
     update() {
         this.points = pqPoints(this.p,this.q,this.n);
+    }
+
+    nvertex(k){
+        const f = polygon => {
+            const vertex = polygon.points[k];
+            return {x:vertex.x, y:vertex.y}
+        }
+        return new FPoint(f, [this]);
     }
 
     center(){
