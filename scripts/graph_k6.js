@@ -2,11 +2,21 @@ import {mdColor as color} from "../utils/material_color.js";
 
 const node_color = color.red.w800;
 
-var svg = d3.select("#graph_k6"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
-
 var radius = 300;
+
+let chartDiv = document.getElementById("graph_k6");
+let svg = d3.select(chartDiv).append("svg")
+            .style("position", "absolute")
+            .style("top", 0)
+            .style("left", 0)
+            .style("bottom", 0)
+            .style("right", 0);
+let width = chartDiv.clientWidth;
+let height = chartDiv.clientHeight;
+svg
+    .attr("width", width)
+    .attr("height", height);
+radius = radius*Math.min(width/960, height/640);
 
 var x = d3.scaleLinear().domain([0, width/(2*radius)]).range([width/2, width]);
 var y = d3.scaleLinear().domain([0, height/(2*radius)]).range([height/2, 0]);

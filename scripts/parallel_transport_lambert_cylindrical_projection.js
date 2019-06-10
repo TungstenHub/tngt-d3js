@@ -2,9 +2,18 @@ import {mdColor as color} from "../utils/material_color.js";
 
 let pivot_coord  = [{x:0, y:0}];
 
-var svg = d3.select("#parallel_transport_lambert_cylindrical_projection"),
-width = +svg.attr("width"),
-height = +svg.attr("height");
+let chartDiv = document.getElementById("parallel_transport_lambert_cylindrical_projection");
+let svg = d3.select(chartDiv).append("svg")
+            .style("position", "absolute")
+            .style("top", 0)
+            .style("left", 0)
+            .style("bottom", 0)
+            .style("right", 0);
+let width = chartDiv.clientWidth;
+let height = chartDiv.clientHeight;
+svg
+    .attr("width", width)
+    .attr("height", height);
 
 let radius = width/(2*Math.PI);
 

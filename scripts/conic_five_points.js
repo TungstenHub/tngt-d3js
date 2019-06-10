@@ -6,9 +6,18 @@ const
 point_color = color.green.w800,
 conic_color = color.green.w500;
 
-var svg = d3.select("#conic_five_points"),
-width = +svg.attr("width"),
-height = +svg.attr("height");
+let chartDiv = document.getElementById("conic_five_points");
+let svg = d3.select(chartDiv).append("svg")
+            .style("position", "absolute")
+            .style("top", 0)
+            .style("left", 0)
+            .style("bottom", 0)
+            .style("right", 0);
+let width = chartDiv.clientWidth;
+let height = chartDiv.clientHeight;
+svg
+    .attr("width", width)
+    .attr("height", height);
 
 let array = Array.from({length: 200}, (x,i) => [Math.tan(Math.PI*(i/200-0.5)),Math.tan(Math.PI*((i+1)/200-0.5))]);
 

@@ -6,11 +6,21 @@ grid_color = color.orange.w500,
 circles_color = color.blue.w500,
 rays_color = color.pink.w500;
 
-var svg = d3.select("#projective_transformation"),
-width = +svg.attr("width"),
-height = +svg.attr("height");
+let radius = 100;
 
-let radius = 100
+let chartDiv = document.getElementById("projective_transformation");
+let svg = d3.select(chartDiv).append("svg")
+            .style("position", "absolute")
+            .style("top", 0)
+            .style("left", 0)
+            .style("bottom", 0)
+            .style("right", 0);
+let width = chartDiv.clientWidth;
+let height = chartDiv.clientHeight;
+svg
+    .attr("width", width)
+    .attr("height", height);
+radius = radius*Math.min(width/960, height/640);
 
 var x = d3.scaleLinear().domain([0, width/(2*radius)]).range([width/2, width]);
 var y = d3.scaleLinear().domain([0, height/(2*radius)]).range([height/2, 0]);

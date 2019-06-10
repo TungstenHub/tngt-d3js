@@ -26,9 +26,19 @@ let iterates = function(a,b) {
     return list
 }
 
-var svg = d3.select("#mandelbrot_set_iterations"),
-width = +svg.attr("width"),
-height = +svg.attr("height");
+let chartDiv = document.getElementById("mandelbrot_set_iterations");
+let svg = d3.select(chartDiv).append("svg")
+            .style("position", "absolute")
+            .style("top", 0)
+            .style("left", 0)
+            .style("bottom", 0)
+            .style("right", 0);
+let width = chartDiv.clientWidth;
+let height = chartDiv.clientHeight;
+svg
+    .attr("width", width)
+    .attr("height", height);
+radius = radius*Math.min(width/960, height/640);
 
 var x = d3.scaleLinear().domain([0, width/(2*radius)]).range([offset+width/2, offset+width]);
 var y = d3.scaleLinear().domain([0, height/(2*radius)]).range([height/2, 0]);

@@ -9,7 +9,7 @@ lemn_1 = color.blue.w500,
 lemn_2 = color.amber.w500,
 lemn_join = color.gray.w500;
 
-const radius = 120
+let radius = 120
 
 const offset = -1.7
 
@@ -28,11 +28,19 @@ const lemn_paramet = function(u){
     return {x: Math.sqrt(2)*Math.cos(u)/(1+Math.sin(u)*Math.sin(u)), y: Math.sqrt(2)*Math.cos(u)*Math.sin(u)/(1+Math.sin(u)*Math.sin(u))};
 }
 
-
-
-var svg = d3.select("#figure_8_3_fold_covering_neighborhoods"),
-width = +svg.attr("width"),
-height = +svg.attr("height");
+let chartDiv = document.getElementById("figure_8_3_fold_covering_neighborhoods");
+let svg = d3.select(chartDiv).append("svg")
+            .style("position", "absolute")
+            .style("top", 0)
+            .style("left", 0)
+            .style("bottom", 0)
+            .style("right", 0);
+let width = chartDiv.clientWidth;
+let height = chartDiv.clientHeight;
+svg
+    .attr("width", width)
+    .attr("height", height);
+radius = radius*Math.min(width/960, height/640);
 
 var x = d3.scaleLinear().domain([0, width/(2*radius)]).range([width/2+radius*offset, width+radius*offset]);
 var y = d3.scaleLinear().domain([0, height/(2*radius)]).range([height/2, 0]);
