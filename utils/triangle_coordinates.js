@@ -10,8 +10,8 @@ import {Point} from "../basic_objects/point.js";
  */
 function from_bar_coords(A, B, C, bar){
     let [p, q, r] = bar;
-    return new Point((p*A.x+q*B.x+r*C.x)/(p+q+r),
-                      (p*A.y+q*B.y+r*C.y)/(p+q+r));
+    return {x:(p*A.x+q*B.x+r*C.x)/(p+q+r),
+            y:(p*A.y+q*B.y+r*C.y)/(p+q+r)};
 }
 
 /**
