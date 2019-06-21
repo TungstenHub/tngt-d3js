@@ -1,6 +1,8 @@
 import {Element} from "./element.js";
 import {Point} from "./point.js";
 
+import {circumcenter_coords, circumcenter_radius} from "../utils/triangle_coordinates.js";
+
 class Circle extends Element{
     constructor (p, r) {
         super();
@@ -50,8 +52,28 @@ class CirclePP extends Circle{
 
 }
 
+class Circle3P extends Circle{
+    constructor (p1, p2, p3) {
+        super(
+            circumcenter_coords(p1,p2,p3), 
+            circumcenter_radius(p1,p2,p3)
+        );
+        this.points = [p1,p2,p3];
+        p1.dependents.push(this);
+        p2.dependents.push(this);
+        p3.dependents.push(this);
+    }
+
+    update() {
+        this.p = circumcenter_coords(...this.points);
+        this.r = circumcenter_radius(...this.points);
+    }
+
+}
+
 export{
     Circle,
     CirclePR,
-    CirclePP
+    CirclePP,
+    Circle3P
 }
