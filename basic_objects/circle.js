@@ -1,5 +1,5 @@
 import {Element} from "./element.js";
-import {Point} from "./point.js";
+import {Point, FPoint} from "./point.js";
 
 import {circumcenter_coords, circumcenter_radius} from "../utils/triangle_coordinates.js";
 
@@ -67,6 +67,13 @@ class Circle3P extends Circle{
     update() {
         this.p = circumcenter_coords(...this.points);
         this.r = circumcenter_radius(...this.points);
+    }
+
+    center(){
+        const f = circle => {
+            return circle.p;
+        }
+        return new FPoint(f, [this]);
     }
 
 }
