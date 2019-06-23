@@ -4,6 +4,7 @@ import {DPoint, FPoint} from "../basic_objects/point.js";
 import {Circle3P, CirclePP} from "../basic_objects/circle.js";
 
 import {mdColor as color} from "../utils/material_color.js";
+import {int_pair} from "../utils/circle_utils.js";
 
 const
 wp = WorkPlane.with("#clifford_theorem", 100),
@@ -14,15 +15,6 @@ a = new DPoint(-1,-1),
 b = new DPoint(-1, 1),
 c = new DPoint( 1,-1),
 d = new DPoint( 1, 1),
-
-int_pair = (P,Q,O) => {
-    const a = P.x-O.x;
-    const b = P.y-O.y;
-    const c = Q.x-O.x;
-    const d = Q.y-O.y;
-    const t = 2*(a*d-b*c)/((a-c)*(a-c)+(b-d)*(b-d));
-    return {x: O.x + t*(d-b), y: O.y + t*(a-c)}
-},
 
 iab = new FPoint(int_pair, [a,b,o]),
 iac = new FPoint(int_pair, [a,c,o]),
