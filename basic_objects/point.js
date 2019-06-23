@@ -233,7 +233,7 @@ class FPoint extends Point {
 
     static int_lines(l,k){
         return new FPoint(
-            (l,k) => int_ab_cd_coords(l.p,l.q(),k.p,k.q()), [l,k]);
+            (l,k) => int_ab_cd_coords(l.p,l.get_q(),k.p,k.get_q()), [l,k]);
     }
 
     static inverse(A, c){

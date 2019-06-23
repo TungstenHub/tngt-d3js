@@ -42,7 +42,7 @@ class Line extends Element{
         }
     }
 
-    q() {return {x: this.p.x+this.v.x, y:this.p.y+this.v.y}}
+    get_q() {return {x: this.p.x+this.v.x, y:this.p.y+this.v.y}}
 
     static polar(p,c) {
         const i = FPoint.inverse(p,c);
@@ -97,6 +97,8 @@ class LinePP extends Line{
         super(p, new VectorPP(p,q)); 
         this.q = q;
     }
+
+    get_q() {return this.q}
 }
 
 class SemiLine extends Line{
