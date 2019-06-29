@@ -177,6 +177,22 @@ class DPointOnConic extends DPoint {
     }
 }
 
+class DPointWithFunc extends DPoint {
+    constructor (x, y, f, elems) {
+        super(x, y);
+        this.f = f;
+        this.elems = elems;
+        for (let e of elems) {
+            e.dependents.push(this);
+        }
+        this.calibrate();
+    }
+
+    calibrate() {
+        ({x: this.x, y: this.y} = this.f({x:this.x,y:this.y},this.elems));
+    }
+}
+
 const proj_a_bc_coords = (a,b,c) => {
     const da = Point.dist(b,c)*Point.dist(b,c);
     const db = Point.dist(c,a)*Point.dist(c,a);
@@ -324,5 +340,6 @@ export{
     DPointOnLine,
     DPointOnSegment,
     DPointOnConic,
+    DPointWithFunc,
     FPoint
 }
