@@ -7,6 +7,10 @@ class Vector extends Element {
         this.x = x;
         this.y = y;
     }
+
+    dot(w) {
+        return this.x*w.x + this.y*w.y;
+    }
 }
 
 var lineFunction = (wp) => d3.line()
