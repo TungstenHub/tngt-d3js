@@ -7,8 +7,16 @@ var lineFunction = (wp) => d3.line()
 class Conic extends Element {
     constructor (q) {
         super();
-        this.q = q;
-        const {a,b,c,d,e,f} = q;
+        let {a,b,c,d,e,f} = q;
+        // normalizing
+        const s = Math.sqrt(a*a+b*b+c*c+d*d+e*e+f*f);
+        a = a/s;
+        b = b/s;
+        c = c/s;
+        d = d/s;
+        e = e/s;
+        f = f/s;
+        this.q = {a,b,c,d,e,f};
         this.M = a*c*f+2*b*d*e-c*d*d-a*e*e-b*b*f; // Major determinant
         this.m = a*c-b*b;                         // Minor determinant
         this.default_attrs = {"stroke-width": 5, "stroke": "black", "fill": "none"};
@@ -33,8 +41,8 @@ class Conic extends Element {
             const cx = (b*e-c*d)/this.m;
             const cy = (b*d-a*e)/this.m;
             let t;
-            for (let k=0; k<=128; k++) {
-                t = 2*Math.PI*k/128;
+            for (let k=0; k<=512; k++) {
+                t = 2*Math.PI*k/512;
                 const
                     ct = Math.cos(t),
                     st = Math.sin(t),
