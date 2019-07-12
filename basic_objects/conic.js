@@ -186,10 +186,84 @@ class EccConic extends Conic{
     }
 }
 
+/**
+ * Returns coefficients for the line passing through p and q
+ * in the form ax + by + c = 0
+ * 
+ * @param {Point} p 
+ * @param {Point} q 
+ */
+const lineCoeffs = (p,q) => {
+    const a = -q.y+p.y;
+    const b =  q.x-p.x;
+    const c = -a*p.x-b*p.y;
+    return [a,b,c]
+}
+
+/**
+ * Returns coefficients for the conic 
+ * passing through five given points
+ * 
+ * @param {Point} p1 
+ * @param {Point} p2 
+ * @param {Point} p3 
+ * @param {Point} p4 
+ * @param {Point} p5 
+ */
+const fivePointQuadForm = (p1,p2,p3,p4,p5) => {
+
+    const [a1,b1,c1] = lineCoeffs(p1,p2);
+    const [a2,b2,c2] = lineCoeffs(p3,p4);
+    const [a3,b3,c3] = lineCoeffs(p1,p3);
+    const [a4,b4,c4] = lineCoeffs(p2,p4);
+
+    // basis for the conics through p1, p2, p3, p4
+    // in the form a*x*x + b'*x*y + c*y*y + d'*x + e'*y + f
+
+    // (a1*x + b1*y + c1)*(a2*x + b2*y + c2)
+    const k1 = [a1*a2, a1*b2+a2*b1, b1*b2, a1*c2+a2*c1, b1*c2+b2*c1, c1*c2];
+
+    // (a3*x + b3*y + c3)*(a4*x + b4*y + c4)
+    const k2 = [a3*a4, a3*b4+a4*b3, b3*b4, a3*c4+a4*c3, b3*c4+b4*c3, c3*c4];
+
+    // evaluation of the basis in p5
+    const e1 = k1[0]*p5.x*p5.x + k1[1]*p5.x*p5.y + k1[2]*p5.y*p5.y + k1[3]*p5.x + k1[4]*p5.y + k1[5];
+    const e2 = k2[0]*p5.x*p5.x + k2[1]*p5.x*p5.y + k2[2]*p5.y*p5.y + k2[3]*p5.x + k2[4]*p5.y + k2[5];
+
+    // linear combination k = e2*k1 - e1*k2
+    return {
+        a:  e2*k1[0] - e1*k2[0],
+        b: (e2*k1[1] - e1*k2[1])/2,
+        c:  e2*k1[2] - e1*k2[2],
+        d: (e2*k1[3] - e1*k2[3])/2,
+        e: (e2*k1[4] - e1*k2[4])/2,
+        f:  e2*k1[5] - e1*k2[5]
+    }
+}
+
+class Conic5P extends Conic{
+    constructor (p1,p2,p3,p4,p5) {
+        super(fivePointQuadForm(p1,p2,p3,p4,p5));
+        this.points = [p1,p2,p3,p4,p5];
+        p1.dependents.push(this);
+        p2.dependents.push(this);
+        p3.dependents.push(this);
+        p4.dependents.push(this);
+        p5.dependents.push(this);
+    }
+
+    update() {
+        this.q = fivePointQuadForm(...this.points);
+        super.update();
+    }
+
+}
+
 export{
     Conic,
     Ellipse,
     Hyperbola,
     Parabola,
-    EccConic
+    EccConic,
+    Conic5P
 }
