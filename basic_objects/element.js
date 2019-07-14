@@ -4,6 +4,7 @@ class Element {
         this.phys = null;
         this.default_attrs = {};
         this.wp = null;
+        this._visible = true;
     }
 
     insertInto(wp, attrs) {
@@ -32,6 +33,18 @@ class Element {
         for (let dep of this.dependents) {
             dep.update_total();
         }
+    }
+
+    setVisible(visible) {
+        this._visible = visible;
+        if (this.phys != null) {
+            if (!visible) this.phys.style("opacity", 0.0)
+            else          this.phys.style("opacity", 1.0)
+        }
+    }
+
+    toggleVisible() {
+        this.setVisible(!this._visible)
     }
 }
 

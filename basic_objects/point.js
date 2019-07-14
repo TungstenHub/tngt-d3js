@@ -48,9 +48,11 @@ class DPoint extends Point {
     }
 
     drag() {
-        this.x = this.wp.start_x + this.wp.x.invert(d3.event.x);
-        this.y = this.wp.start_y + this.wp.y.invert(d3.event.y);
-        this.update_total();
+        if (this._visible) {
+            this.x = this.wp.start_x + this.wp.x.invert(d3.event.x);
+            this.y = this.wp.start_y + this.wp.y.invert(d3.event.y);
+            this.update_total();
+        }
     }
 
     update() {
