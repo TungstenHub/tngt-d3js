@@ -49,10 +49,6 @@ q = new LinePP(p1,p3);
 
 wp.append([r,s], {"stroke": color.bluegray.w500});
 
-wp.append([cd,fa], {"stroke": color.green.w500});
-wp.append([ae,db], {"stroke": color.pink.w500});
-wp.append([ec,bf], {"stroke": color.blue.w500});
-
 wp.append([p2_aux1,p2_aux2], {
     "stroke": color.green.w500, 
     "stroke-width": 4, 
@@ -68,6 +64,10 @@ wp.append([p3_aux1,p3_aux2], {
     "stroke-width": 4, 
     "stroke-dasharray": ("10, 10") 
 });
+
+wp.append([cd,fa], {"stroke": color.green.w500});
+wp.append([ae,db], {"stroke": color.pink.w500});
+wp.append([ec,bf], {"stroke": color.blue.w500});
 
 wp.append(q, {"stroke": color.amber.w500});
 
