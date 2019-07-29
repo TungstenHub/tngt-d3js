@@ -14,6 +14,8 @@ class WorkPlane {
           .attr("width", this.width)
           .attr("height", this.height);
         this.radius = radius*Math.min(this.width/960, this.height/640);
+        this.off_x = off_x;
+        this.off_y = off_y;
         this.x = d3.scaleLinear().domain([off_x, off_x+this.width/(2*this.radius)]).range([this.width/2, this.width]);
         this.y = d3.scaleLinear().domain([off_y, off_y+this.height/(2*this.radius)]).range([this.height/2, 0]);
         this.start_x = 0;
@@ -65,8 +67,8 @@ class WorkPlane {
         this.svg.selectAll(".draggable").call(
             d3.drag()
                 .on("start", function(d) {
-                    d.wp.start_x = d.wp.x.invert(d.wp.width) + d3.event.x;
-                    d.wp.start_y = d.wp.y.invert(d.wp.height) + d3.event.y;
+                    d.wp.start_x = d.wp.x.invert(d.wp.width) + d3.event.x - 2*d.wp.off_x;
+                    d.wp.start_y = d.wp.y.invert(d.wp.height) + d3.event.y - 2*d.wp.off_y;
                 })
                 .on("drag", function(d) {
                     d.drag();
