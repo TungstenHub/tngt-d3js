@@ -46,10 +46,8 @@ class Line extends Element{
 
     static polar(p,c) {
         const i = FPoint.inverse(p,c);
-        return new Line(i,FVector.perp(new VectorPP(p,i)));
+        return new Line(i,FVector.perp(new VectorPP(p,c.center())));
     }
-
-
 
     static polar_conic(p,k) {
         const b = new FPoint(

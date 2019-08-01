@@ -22,6 +22,13 @@ class Circle extends Element{
             .attr("cy", this.wp.y(this.p.y))
             .attr("r", this.wp.radius*this.r);
     }
+
+    center(){
+        const f = circle => {
+            return circle.p;
+        }
+        return new FPoint(f, [this]);
+    }
 }
 
 class CirclePR extends Circle{
@@ -67,13 +74,6 @@ class Circle3P extends Circle{
     update() {
         this.p = circumcenter_coords(...this.points);
         this.r = circumcenter_radius(...this.points);
-    }
-
-    center(){
-        const f = circle => {
-            return circle.p;
-        }
-        return new FPoint(f, [this]);
     }
 
 }
