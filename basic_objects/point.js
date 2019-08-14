@@ -259,29 +259,18 @@ class FPoint extends Point {
     }
 
     static tangency_points(A, c){
-        const f = (a,circ) => {
+        const f = s => (a,circ) => {
             const d = Point.dist(a,circ.p);
             if (d>circ.r) {
                 const inv = inverse_coords(a,circ);
                 const factor = circ.r*Math.sqrt(1-circ.r*circ.r/(d*d))/d;
-                return {x:inv.x+(a.y-circ.p.y)*factor, 
-                    y:inv.y-(a.x-circ.p.x)*factor};
+                return {x:inv.x+s*(a.y-circ.p.y)*factor, 
+                    y:inv.y-s*(a.x-circ.p.x)*factor};
             } else {
                 return {x:a.x, y:a.y};
             }
         }
-        const g = (a,circ) => {
-            const d = Point.dist(a,circ.p);
-            if (d>circ.r) {
-                const inv = inverse_coords(a,circ);
-                const factor = circ.r*Math.sqrt(1-circ.r*circ.r/(d*d))/d;
-                return {x:inv.x-(a.y-circ.p.y)*factor, 
-                    y:inv.y+(a.x-circ.p.x)*factor};
-            } else {
-                return {x:a.x, y:a.y};
-            }
-        }
-        return [new FPoint(f, [A,c]), new FPoint(g, [A,c])];
+        return [new FPoint(f(1), [A,c]), new FPoint(f(-1), [A,c])];
     }
 
     static pole(l, c){
