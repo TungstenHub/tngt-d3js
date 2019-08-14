@@ -254,6 +254,21 @@ class FPoint extends Point {
             (l,k) => int_ab_cd_coords(l.p,l.get_q(),k.p,k.get_q()), [l,k]);
     }
 
+    static int_line_circle(l, c){
+        const f = s => (l,circ) => {
+            const base = proj_a_bc_coords(circ.p,l.p,{x:l.p.x+l.v.x,y:l.p.y+l.v.y});
+            const d = Point.dist(base,circ.p);
+            if (d<circ.r) {
+                const factor = Math.sqrt(circ.r*circ.r-d*d);
+                return {x:base.x+s*l.v.x*factor/Math.sqrt(l.v.x*l.v.x+l.v.y*l.v.y), 
+                        y:base.y+s*l.v.y*factor/Math.sqrt(l.v.x*l.v.x+l.v.y*l.v.y)};
+            } else {
+                return {x:circ.p.x, y:circ.p.y};
+            }
+        }
+        return [new FPoint(f(1), [l,c]), new FPoint(f(-1), [l,c])];
+    }
+
     static inverse(A, c){
         return new FPoint(inverse_coords, [A,c]);
     }
