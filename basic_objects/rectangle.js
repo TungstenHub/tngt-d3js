@@ -7,7 +7,7 @@ class Rectangle extends Element{
         this.y = y;
         this.w = w;
         this.h = h;
-        this.default_attrs = {"stroke-width": 5, "stroke": "black", "fill": "none"};
+        this.default_attrs = {"stroke-width": 5, "stroke": "none", "fill": "none"};
     }
 
     insertInto(wp, attrs={}) {

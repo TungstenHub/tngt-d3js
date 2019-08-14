@@ -19,7 +19,7 @@ class Conic extends Element {
         this.q = {a,b,c,d,e,f};
         this.M = a*c*f+2*b*d*e-c*d*d-a*e*e-b*b*f; // Major determinant
         this.m = a*c-b*b;                         // Minor determinant
-        this.default_attrs = {"stroke-width": 5, "stroke": "black", "fill": "none"};
+        this.default_attrs = {"stroke-width": 5, "stroke": "none", "fill": "none"};
     }
 
     insertInto(wp, attrs={}) {

@@ -7,7 +7,7 @@ class Implicit extends Element{
         this.f = f;
         this.default_attrs = {
             "stroke-width": 0.5, 
-            "stroke": "black", 
+            "stroke": "none", 
             "stroke-linejoin": "round",
             "fill": "none"
         };

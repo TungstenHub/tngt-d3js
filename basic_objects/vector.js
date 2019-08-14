@@ -26,7 +26,7 @@ class VectorPP extends Vector {
         q.dependents.push(this);
         this.default_attrs = {
             "stroke-width": 5, 
-            "stroke": "black", 
+            "stroke": "none", 
             "fill": "none", 
             "marker-end":"url(#arrow)"};
 

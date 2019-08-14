@@ -12,7 +12,7 @@ class PolyLine extends Element{
         for (let p of points) {
             p.dependents.push(this);
         }
-        this.default_attrs = {"stroke-width": 5, "stroke": "black", "fill": "none"};
+        this.default_attrs = {"stroke-width": 5, "stroke": "none", "fill": "none"};
     }
 
     insertInto(wp, attrs={}) {

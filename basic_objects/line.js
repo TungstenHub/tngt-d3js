@@ -9,7 +9,7 @@ class Line extends Element{
         this.v = v;
         p.dependents.push(this);
         v.dependents.push(this);
-        this.default_attrs = {"stroke-width": 5, "stroke": "black", "fill": "none"};
+        this.default_attrs = {"stroke-width": 5, "stroke": "none", "fill": "none"};
     }
 
     insertInto(wp, attrs={}) {

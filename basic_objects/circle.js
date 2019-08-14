@@ -8,7 +8,7 @@ class Circle extends Element{
         super();
         this.p = p;
         this.r = r;
-        this.default_attrs = {"stroke-width": 5, "stroke": "black", "fill": "none"};
+        this.default_attrs = {"stroke-width": 5, "stroke": "none", "fill": "none"};
     }
 
     insertInto(wp, attrs={}) {
