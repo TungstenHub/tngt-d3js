@@ -31,7 +31,7 @@ b = FPoint.pole(b_polar,base_c),
 t1 = new PolyLine([tp1,b]),
 t2 = new PolyLine([tp2,b]);
 
-wp.append(base_c);
+wp.append(base_c, {"stroke": "black"});
 
 wp.append([t1,t2], { 
     "stroke": color.green.w500, 
