@@ -13,7 +13,7 @@ a = new DPoint(0,-0.6),
 c = new Circle(new Point(0,0),1),
 i = FPoint.inverse(a,c);
 
-wp.append(c);
+wp.append(c, {"stroke": "black"});
 
 wp.append(i, {"fill": color.green.w800});
 wp.append(a, {"fill": color.blue.w800});

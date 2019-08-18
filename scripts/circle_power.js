@@ -61,11 +61,10 @@ lvb = new PolyLine([v,vb]),
 lvc = new PolyLine([v,vc]);
 
 
-wp.append(base_c);
+wp.append(base_c, {"stroke": "black"});
 
 wp.append(rect, { 
-    "fill": color.lime.w200, 
-    "stroke": null,
+    "fill": color.lime.w200
 });
 
 wp.append([lb,lvb], { 

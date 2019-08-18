@@ -21,7 +21,7 @@ p = Line.polar(a,c),
 t1 = new PolyLine([a,tp1]),
 t2 = new PolyLine([a,tp2]);
 
-wp.append(c);
+wp.append(c, {"stroke": "black"});
 wp.append([t1,t2], { 
     "stroke": color.green.w500, 
     "stroke-width": 4.5, 

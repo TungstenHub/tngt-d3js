@@ -17,7 +17,7 @@ a_polar = Line.polar(a,c),
 b = new DPointOnLine(0.6, -1/0.6, a_polar),
 b_polar = Line.polar(b,c);
 
-wp.append(c);
+wp.append(c, {"stroke": "black"});
 wp.append(b_polar, {"stroke": color.green.w500});
 wp.append(a_polar, {"stroke": color.blue.w500});
 wp.append(b, {"fill": color.green.w800});
