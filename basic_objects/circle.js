@@ -1,5 +1,6 @@
 import {Element} from "./element.js";
 import {Point, FPoint} from "./point.js";
+import {FQuantity} from "./quantity.js";
 
 import {circumcenter_coords, circumcenter_radius} from "../utils/triangle_coordinates.js";
 
@@ -28,6 +29,13 @@ class Circle extends Element{
             return circle.p;
         }
         return new FPoint(f, [this]);
+    }
+    
+    radius(){
+        const f = circle => {
+            return circle.r;
+        }
+        return new FQuantity(f, [this]);
     }
 }
 
