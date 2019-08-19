@@ -324,6 +324,13 @@ class FPoint extends Point {
         }
         return new FPoint(f, [A,l]);
     }
+    
+    static reflect_over_point(A, B){
+        const f = (A,B) => {
+            return {x:2*B.x-A.x, y:2*B.y-A.y} 
+        }
+        return new FPoint(f, [A,B]);
+    }
 
     static reflect_in_line(A, l){
         const f = (A,l) => {
