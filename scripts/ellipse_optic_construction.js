@@ -4,7 +4,7 @@ import {Ellipse} from "../basic_objects/conic.js";
 import {Point, DPointOnSegment, DPointOnConic, FPoint} from "../basic_objects/point.js";
 import {Line} from "../basic_objects/line.js";
 import {PolyLine} from "../basic_objects/polyline.js";
-import {ArcQPl} from "../basic_objects/arc.js";
+import {AngleQPl} from "../basic_objects/angle.js";
 import {Circle} from "../basic_objects/circle.js";
 
 import {mdColor as color} from "../utils/material_color.js";
@@ -27,11 +27,11 @@ t1 = new PolyLine([a1,d]),
 t2 = new PolyLine([d,a2]),
 t3 = new PolyLine([d,dd]),
 
-alpha1 = new ArcQPl(a1,d,p),
-alpha2 = new ArcQPl(a2,d,p);
+alpha1 = new AngleQPl(a1,d,p),
+alpha2 = new AngleQPl(a2,d,p);
 
 wp.append(c, {"stroke": color.teal.w500});
-wp.append(e, {"stroke-width": 3});
+wp.append(e, {"stroke": 'black', "stroke-width": 3});
 wp.append([alpha1,alpha2], {
     "fill": color.lightblue.w900,
     "in_r": 0,

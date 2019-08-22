@@ -1,6 +1,6 @@
 import {Element} from "./element.js";
 
-class Arc extends Element{
+class Angle extends Element{
     constructor (p, [alpha, beta]) {
         super();
         this.p = p;
@@ -36,7 +36,7 @@ const minor_angle = (a,b) => {
     return [c,d]
 }
 
-class ArcQPR extends Arc {
+class AngleQPR extends Angle {
     constructor (q,p,r) {
         super(p, minor_angle(Math.atan2(q.y-p.y,q.x-p.x), Math.atan2(r.y-p.y,r.x-p.x)));
         this.q = q;
@@ -54,7 +54,7 @@ class ArcQPR extends Arc {
 
 }
 
-class ArcQPl extends Arc {
+class AngleQPl extends Angle {
     constructor (q,p,l) {
         let [vx,vy] = [l.v.x,l.v.y];
         if ((q.x-p.x)*vx+(q.y-p.y)*vy < 0) [vx,vy] = [-vx,-vy]
@@ -78,7 +78,7 @@ class ArcQPl extends Arc {
 }
 
 export{
-    Arc,
-    ArcQPR,
-    ArcQPl
+    Angle,
+    AngleQPR,
+    AngleQPl
 }

@@ -2,7 +2,7 @@ import {WorkPlane} from "../utils/init_canvas.js";
 
 import {DPoint, FPoint, Point} from "../basic_objects/point.js";
 import {PolyLine} from "../basic_objects/polyline.js";
-import {ArcQPR} from "../basic_objects/arc.js";
+import {AngleQPR} from "../basic_objects/angle.js";
 
 import {from_bar_coords} from "../utils/triangle_coordinates.js";
 import {mdColor as color} from "../utils/material_color.js";
@@ -34,17 +34,17 @@ mbac = new PolyLine([mb,a,mc]),
 macb = new PolyLine([ma,c,mb]),
 mcba = new PolyLine([mc,b,ma]),
 
-alpha1 = new ArcQPR(b,a,mc),
-alpha2 = new ArcQPR(mc,a,mb),
-alpha3 = new ArcQPR(mb,a,c),
+alpha1 = new AngleQPR(b,a,mc),
+alpha2 = new AngleQPR(mc,a,mb),
+alpha3 = new AngleQPR(mb,a,c),
 
-beta1 = new ArcQPR(c,b,ma),
-beta2 = new ArcQPR(ma,b,mc),
-beta3 = new ArcQPR(mc,b,a),
+beta1 = new AngleQPR(c,b,ma),
+beta2 = new AngleQPR(ma,b,mc),
+beta3 = new AngleQPR(mc,b,a),
 
-gamma1 = new ArcQPR(a,c,mb),
-gamma2 = new ArcQPR(mb,c,ma),
-gamma3 = new ArcQPR(ma,c,b),
+gamma1 = new AngleQPR(a,c,mb),
+gamma2 = new AngleQPR(mb,c,ma),
+gamma3 = new AngleQPR(ma,c,b),
 
 mt = new PolyLine([ma,mb,mc,ma]);
 
