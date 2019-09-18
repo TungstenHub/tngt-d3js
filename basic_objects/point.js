@@ -66,6 +66,24 @@ class DPoint extends Point {
 
 }
 
+class DPointSnapGrid extends DPoint {
+    constructor (x, y, div=1) {
+        super(x, y);
+        this.div = div;
+        this.calibrate();
+    }
+
+    calibrate() {
+        const x=this.x, y=this.y, d=this.div;
+        const sn_x = Math.round(x*d)/d;
+        const sn_y = Math.round(y*d)/d;
+        const dist = Math.sqrt((x-sn_x)*(x-sn_x) + (y-sn_y)*(y-sn_y));
+        let r = 1;
+        if (this.wp) r = this.wp.radius;
+        if (dist*r < 20) [this.x, this.y] = [sn_x, sn_y];
+    }
+}
+
 class DPointOnCircle extends DPoint {
     constructor (x, y, c) {
         super(x, y);
@@ -349,6 +367,7 @@ class FPoint extends Point {
 export{
     Point,
     DPoint,
+    DPointSnapGrid,
     DPointOnCircle,
     DPointOnLine,
     DPointOnSegment,
