@@ -54,6 +54,30 @@ class AngleQPR extends Angle {
 
 }
 
+const anticlock_angle = (a,b) => {
+    let c,d;
+    if (a<=b) {[c,d] = [a,b]} else {[c,d] = [a-2*Math.PI,b]};
+    return [c,d]
+}
+
+class AngleQPROr extends Angle {
+    constructor (q,p,r) {
+        super(p, anticlock_angle(Math.atan2(q.y-p.y,q.x-p.x), Math.atan2(r.y-p.y,r.x-p.x)));
+        this.q = q;
+        this.r = r;
+        p.dependents.push(this);
+        q.dependents.push(this);
+        r.dependents.push(this);
+    }
+
+    update() {
+        const alpha = Math.atan2(this.q.y-this.p.y,this.q.x-this.p.x);
+        const beta = Math.atan2(this.r.y-this.p.y,this.r.x-this.p.x); 
+        [this.alpha, this.beta] = anticlock_angle(alpha, beta);
+    }
+
+}
+
 class AngleQPl extends Angle {
     constructor (q,p,l) {
         let [vx,vy] = [l.v.x,l.v.y];
@@ -80,5 +104,6 @@ class AngleQPl extends Angle {
 export{
     Angle,
     AngleQPR,
+    AngleQPROr,
     AngleQPl
 }
