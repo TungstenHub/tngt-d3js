@@ -358,6 +358,17 @@ class FPoint extends Point {
         return new FPoint(f, [A,l]);
     }
 
+    static rotate(A, B, a){
+        const f = (A,B) => {
+            const x = A.x - B.x;
+            const y = A.y - B.y;
+            return {
+                x: B.x + Math.cos(a)*x - Math.sin(a)*y, 
+                y: B.y + Math.sin(a)*x + Math.cos(a)*y} 
+        }
+        return new FPoint(f, [A,B]);
+    }
+
     update() {
         this.x = this.f(...this.array).x;
         this.y = this.f(...this.array).y;

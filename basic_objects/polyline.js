@@ -1,7 +1,7 @@
 import {Element} from "./element.js";
 import { Point, FPoint } from "./point.js";
 
-var lineFunction = (wp) => d3.line()
+const lineFunction = (wp) => d3.line()
     .x(function(d) { return wp.x(d.x); })
     .y(function(d) { return wp.y(d.y); });
 
@@ -104,8 +104,26 @@ class PolygonPQ extends PolyLine{
     }
 }
 
+const translate_polyline = (pol,v) => {
+    return new PolyLine(
+        pol.points.map(
+            p => FPoint.add_vector(p,v)
+        )
+    )
+}
+
+const rotate_polyline = (pol,q,a) => {
+    return new PolyLine(
+        pol.points.map(
+            p => FPoint.rotate(p,q,a)
+        )
+    )
+}
+
 export{
     PolyLine,
     PolygonCP,
-    PolygonPQ
+    PolygonPQ,
+    translate_polyline,
+    rotate_polyline
 }
