@@ -1,8 +1,8 @@
 import {WorkPlane} from "../utils/init_canvas.js";
 
 import {Point, DPointWithFunc, FPoint} from "../basic_objects/point.js";
-import {PolyLine, PolygonPQ} from "../basic_objects/polyline.js";
-import { Vector, VectorPP } from "../basic_objects/vector.js";
+import {PolyLine, PolygonPQ, translate_polyline} from "../basic_objects/polyline.js";
+import {Vector, VectorPP} from "../basic_objects/vector.js";
 
 import {snapToUpperQuarter} from "../utils/pythagorean_decomposition_utils.js";
 
@@ -30,28 +30,6 @@ m3 = m.nvertex(3),
 p2 = p.nvertex(2),
 p3 = p.nvertex(3),
 
-q2 = q.nvertex(2),
-q3 = q.nvertex(3),
-
-qm = new VectorPP(qo,mo),
-
-i0 = FPoint.add_vector(c,qm),
-i1 = FPoint.add_vector(b,qm),
-i2 = FPoint.add_vector(q2,qm),
-i3 = FPoint.add_vector(q3,qm),
-
-t0 = FPoint.midp(a,m2),
-t1 = FPoint.midp(m2,m3),
-t2 = FPoint.midp(m3,b),
-t3 = FPoint.midp(b,a),
-
-pol0 = new PolyLine([i0,t0,m2,t1,i0]),
-pol1 = new PolyLine([i1,t1,m3,t2,i1]),
-pol2 = new PolyLine([i2,t2,b,t3,i2]),
-pol3 = new PolyLine([i3,t3,a,t0,i3]),
-
-pol = new PolyLine([i0,i1,i2,i3,i0]),
-
 l0 = FPoint.add_vector(po, new Vector(1,0)),
 l1 = FPoint.add_vector(po, new Vector(0,1)),
 
@@ -60,16 +38,27 @@ k1 = FPoint.int_ab_cd(po,l0,c,p2),
 k2 = FPoint.int_ab_cd(po,l1,p2,p3),
 k3 = FPoint.int_ab_cd(po,l0,p3,a),
 
-quad_0 = new PolyLine([po,k0,c,k1,po]),
-quad_1 = new PolyLine([po,k1,p2,k2,po]),
-quad_2 = new PolyLine([po,k2,p3,k3,po]),
-quad_3 = new PolyLine([po,k3,a,k0,po]);
+t0 = new PolyLine([po,k0,c,k1,po]),
+tt0 = translate_polyline(t0, new VectorPP(po,a)),
 
-wp.append([pol,q], {"fill": color.blue.w300, "stroke": 'black', "stroke-width":3});
-wp.append([pol0,quad_1], {"fill": color.pink.w300, "stroke": 'black', "stroke-width":3});
-wp.append([pol1,quad_2], {"fill": color.green.w300, "stroke": 'black', "stroke-width":3});
-wp.append([pol2,quad_3], {"fill": color.purple.w300, "stroke": 'black', "stroke-width":3});
-wp.append([pol3,quad_0], {"fill": color.amber.w300, "stroke": 'black', "stroke-width":3});
-wp.append(c, {"fill": 'white'});
+t1 = new PolyLine([po,k1,p2,k2,po]),
+tt1 = translate_polyline(t1, new VectorPP(po,m2)),
+
+t2 = new PolyLine([po,k2,p3,k3,po]),
+tt2 = translate_polyline(t2, new VectorPP(po,m3)),
+
+t3 = new PolyLine([po,k3,a,k0,po]),
+tt3 = translate_polyline(t3, new VectorPP(po,b)),
+
+qt = translate_polyline(q, new VectorPP(qo,mo));
+
+const attrs = {"stroke":"black", "stroke-width":3, "stroke-linejoin":"round"};
+
+wp.append([q,qt], {"fill": color.blue.w300, ...attrs});
+wp.append([t0,tt0], {"fill": color.amber.w300, ...attrs});
+wp.append([t1,tt1], {"fill": color.pink.w300, ...attrs});
+wp.append([t2,tt2], {"fill": color.green.w300, ...attrs});
+wp.append([t3,tt3], {"fill": color.purple.w300, ...attrs});
+wp.append(c, {"fill": "white"});
 
 wp.end();

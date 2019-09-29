@@ -31,7 +31,7 @@ q3 = q.nvertex(3),
 
 h = FPoint.int_ab_cd(p3,FPoint.add_vector(p3, new Vector(1,0)),c,p2),
 k = FPoint.int_ab_cd(h,FPoint.add_vector(h, new Vector(0,1)),a,c),
-l = FPoint.int_ab_cd(b,FPoint.add_vector(b, new Vector(0,1)),q3,c),
+l = FPoint.int_ab_cd(b,FPoint.add_vector(b, new Vector(0,1)),q3,c,()=>b),
 
 t0 = new PolyLine([p3,h,k,a,p3]),
 tt0 = translate_polyline(t0, new VectorPP(h,b)),
