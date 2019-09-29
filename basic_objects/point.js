@@ -221,10 +221,11 @@ const proj_a_bc_coords = (a,b,c) => {
             y: ((da+db-dc)*b.y+(da-db+dc)*c.y)/(2*da)}
 }
 
-const int_ab_cd_coords = (a,b,c,d) => {
+const int_ab_cd_coords = fun => (a,b,c,d) => {
     const l1 = (c.y-d.y)*(a.x-c.x) + (d.x-c.x)*(a.y-c.y);
     const l2 = (a.y-b.y)*(d.x-c.x) - (a.x-b.x)*(d.y-c.y);
-    return {x:(l1/l2*b.x+(1-l1/l2)*a.x), y:(l1/l2*b.y+(1-l1/l2)*a.y)}
+    if (l2 == 0 && fun) return fun(a,b,c,d)
+    else return {x:(l1/l2*b.x+(1-l1/l2)*a.x), y:(l1/l2*b.y+(1-l1/l2)*a.y)}
 }
 
 const inverse_coords = (a,circ) => {
@@ -263,13 +264,13 @@ class FPoint extends Point {
      * @param {Point} D - anchor
      * @return {Point} - intersection
      */
-    static int_ab_cd(A, B, C, D){
-        return new FPoint(int_ab_cd_coords, [A,B,C,D]);
+    static int_ab_cd(A, B, C, D, fun){
+        return new FPoint(int_ab_cd_coords(fun), [A,B,C,D]);
     }
 
-    static int_lines(l,k){
+    static int_lines(l,k,fun){
         return new FPoint(
-            (l,k) => int_ab_cd_coords(l.p,l.get_q(),k.p,k.get_q()), [l,k]);
+            (l,k) => int_ab_cd_coords(fun)(l.p,l.get_q(),k.p,k.get_q()), [l,k]);
     }
 
     static int_line_circle(l, c){
