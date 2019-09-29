@@ -1,16 +1,18 @@
 import {Element} from "./element.js";
-import { Point, FPoint } from "./point.js";
+import {FPoint} from "./point.js";
 
 const lineFunction = (wp) => d3.line()
     .x(function(d) { return wp.x(d.x); })
     .y(function(d) { return wp.y(d.y); });
 
 class PolyLine extends Element{
-    constructor (points) {
+    constructor (points, noPropagate) {
         super();
         this.points = points;
-        for (let p of points) {
-            p.dependents.push(this);
+        if (!noPropagate) {
+            for (let p of points) {
+                p.dependents.push(this);
+            }
         }
         this.default_attrs = {"stroke-width": 5, "stroke": "none", "fill": "none"};
     }
@@ -26,24 +28,23 @@ class PolyLine extends Element{
     }
 }
 
-const cpPoints = (c,p,n) => {
+const cpPoint = (c,p,n,k) => {
     const vx = p.x-c.x;
     const vy = p.y-c.y;
-    let points = [];
-    let alpha;
-    for (let k = 0; k<=n; k++) {
-        alpha = 2*Math.PI*k/n;
-        points.push(new Point(
-            c.x + vx*Math.cos(alpha) - vy*Math.sin(alpha), 
-            c.y + vy*Math.cos(alpha) + vx*Math.sin(alpha))
-        )
+    const alpha = 2*Math.PI*k/n;
+    return {
+        x: c.x + vx*Math.cos(alpha) - vy*Math.sin(alpha), 
+        y: c.y + vy*Math.cos(alpha) + vx*Math.sin(alpha)
     }
-    return points;
 }
 
 class PolygonCP extends PolyLine{
     constructor (c,p,n) {
-        super(cpPoints(c,p,n));
+        let points = [];
+        for (let k=0; k<=n; k++) {
+            points.push(new FPoint((c,p)=>cpPoint(c,p,n,k),[c,n]))
+        }
+        super(points, true);
         this.c = c;
         this.p = p;
         this.n = n;
@@ -51,16 +52,8 @@ class PolygonCP extends PolyLine{
         p.dependents.push(this);
     }
 
-    update() {
-        this.points = cpPoints(this.c,this.p,this.n);
-    }
-
     nvertex(k){
-        const f = polygon => {
-            const vertex = polygon.points[k];
-            return {x:vertex.x, y:vertex.y}
-        }
-        return new FPoint(f, [this]);
+        return this.points[k]
     }
 }
 
@@ -69,14 +62,18 @@ const pqCenter = (p,q,n) => {
     return {x:(p.x+q.x)/2-t*(q.y-p.y), y:(p.y+q.y)/2+t*(q.x-p.x)};
 }
 
-const pqPoints = (p,q,n) => {
+const pqPoint = (p,q,n,k) => {
     const c = pqCenter(p,q,n);
-    return cpPoints(c,p,n);
+    return cpPoint(c,p,n,k);
 }
 
 class PolygonPQ extends PolyLine{
     constructor (p,q,n) {
-        super(pqPoints(p,q,n));
+        let points = [];
+        for (let k=0; k<=n; k++) {
+            points.push(new FPoint((p,q)=>pqPoint(p,q,n,k),[p,q]))
+        }
+        super(points, true);
         this.p = p;
         this.q = q;
         this.n = n;
@@ -84,16 +81,8 @@ class PolygonPQ extends PolyLine{
         q.dependents.push(this);
     }
 
-    update() {
-        this.points = pqPoints(this.p,this.q,this.n);
-    }
-
     nvertex(k){
-        const f = polygon => {
-            const vertex = polygon.points[k];
-            return {x:vertex.x, y:vertex.y}
-        }
-        return new FPoint(f, [this]);
+        return this.points[k]
     }
 
     center(){
