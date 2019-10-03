@@ -17,19 +17,64 @@ class Complex extends Element {
         return new FPoint(c => c, [this])
     }
 
+    static conj = a => {return {x: a.x, y: -a.y}}
+    static add = (a,b) => {return {x: a.x + b.x, y: a.y + b.y}}
+    static sub = (a,b) => {return {x: a.x - b.x, y: a.y - b.y}}
+    static mul = (a,b) => {return {x: a.x*b.x - a.y*b.y, y: a.x*b.y + a.y*b.x}}
+
+    static div = (a,b) => {
+        let d = b.x*b.x + b.y*b.y; 
+        return {x: (a.x*b.x + a.y*b.y)/d, y: (-a.x*b.y + a.y*b.x)/d}}
+
+    static pow = (a,n) => {
+        let u = {x: 1, y: 0}
+        for (let i=0; i<n; i++) {
+            u = Complex.mul(u,a)
+        }
+        return u
+    }
+
     ////
+
+    conj() {
+        return new FComplex(
+            Complex.conj, 
+            [this]
+        )
+    }
 
     add(other) {
         return new FComplex(
-            (a,b) => {return {x: a.x + b.x, y: a.y + b.y}}, 
+            Complex.add, 
+            [this,other]
+        )
+    }
+
+    sub(other) {
+        return new FComplex(
+            Complex.sub, 
             [this,other]
         )
     }
 
     mul(other) {
         return new FComplex(
-            (a,b) => {return {x: a.x*b.x - a.y*b.y, y: a.x*b.y + a.y*b.x}}, 
+            Complex.mul, 
             [this,other]
+        )
+    }
+
+    div(other) {
+        return new FComplex(
+            Complex.div, 
+            [this,other]
+        )
+    }
+
+    pow(n) {
+        return new FComplex(
+            a => Complex.pow(a,n), 
+            [this]
         )
     }
 
