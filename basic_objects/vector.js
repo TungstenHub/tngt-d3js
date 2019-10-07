@@ -47,6 +47,21 @@ class VectorPP extends Vector {
         this.y = this.q.y-this.p.y;
     }
 
+    ////
+
+    // static perp = (vect) => {
+    //     return {x:-vect.y, y:vect.x}
+    // }
+
+    // ////
+
+    // perp() {
+    //     return new FVector(
+    //         v => FVector.perp(v), 
+    //         [this]
+    //     )
+    // }
+
 }
 
 /** Functional Vector */
