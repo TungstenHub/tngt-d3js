@@ -54,21 +54,20 @@ class Time extends Quantity {
 
 }
 
-var lineFunction = (wp) => d3.line()
-    .x(function(d) { return wp.x(d.x); })
-    .y(function(d) { return wp.y(d.y); });
-
 class Slider extends Quantity {
-    constructor (a, b, x, y, w, init) {
-        let v = init;
-        if (v<a) v=a;
-        if (v>b) v=b;
-        super(v);
+    constructor (a, b, x, y, w, init, transf) {
+        let i = init;
+        if (i<a) i=a;
+        if (i>b) i=b;
+        let t = transf ? transf : x => x;
+        super(t(i));
         this.a = a;
         this.b = b;
+        this.i = i;
         this.x = x;
         this.y = y;
         this.w = w;
+        this.t = t;
         this.default_attrs = {
             "stroke-width": 2, 
             "stroke": "black", 
@@ -81,7 +80,7 @@ class Slider extends Quantity {
         const [x,y,w] = [this.x,this.y,this.w];
         this.phys = wp.svg.append("g");
         this.segment = new PolyLine([new Point(x-w/2,y),new Point(x+w/2,y)]);
-        const t = (this.v-this.a)/(this.b-this.a);
+        const t = (this.i-this.a)/(this.b-this.a);
         const px = x-w/2 + t*w;
         this.anchor = new DPointOnSegment(px,y,new Point(x-w/2,y),new Point(x+w/2,y));
 
@@ -101,7 +100,7 @@ class Slider extends Quantity {
     }
 
     update() {
-        this.v = this.a+(this.anchor.x-this.x+this.w/2)*(this.b-this.a)/this.w;
+        this.v = this.t(this.a+(this.anchor.x-this.x+this.w/2)*(this.b-this.a)/this.w);
     }
 
 }
