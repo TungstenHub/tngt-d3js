@@ -30,8 +30,8 @@ l2 = new PolyLine([d,b]),
 d1 = new FQuantity(Point.dist, [a,d]),
 d2 = new FQuantity(Point.dist, [d,b]),
 
-t1 = new Text(new Point(ar.x,ar.y+0.133),d1),
-t2 = new Text(new Point(ar.x,ar.y-0.133),d2),
+t1 = new Text(new Point(ar.x,ar.y-0.133),d1),
+t2 = new Text(new Point(ar.x,ar.y+0.133),d2),
 t_eq = new Text(new Point(ar.x+0.4,ar.y),new Quantity("=")),
 t = new Text(new Point(ar.x+0.8,ar.y),s),
 
