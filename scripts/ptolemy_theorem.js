@@ -77,7 +77,7 @@ wp.append(rect2, {"stroke": color.purple.w500, "fill": color.purple.w200});
 wp.append(rect3, {"stroke": color.pink.w500, "fill": color.pink.w200});
 wp.append([ab, cd], {"stroke": color.orange.w500});
 wp.append([ac, bd], {"stroke": color.pink.w500});
-wp.append([ad, bc], {"stroke": color.deeppurple.w500});
+wp.append([ad, bc], {"stroke": color.purple.w500});
 wp.append([a,b,c,d], {"fill": color.blue.w800});
 
 wp.end();
