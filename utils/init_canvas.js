@@ -4,12 +4,10 @@ class WorkPlane {
         this.chartDiv = document.getElementById(ident.slice(1));
         this.svg = d3.select(this.chartDiv).append("svg")
             .style("position", "absolute")
-            .style("top", 0)
-            .style("left", 0)
-            .style("bottom", 0)
-            .style("right", 0);
-        this.width = this.chartDiv.clientWidth;
-        this.height = this.chartDiv.clientHeight;
+            .style("top", -1)
+            .style("left", -1);
+        this.width = this.chartDiv.offsetWidth - 2;
+        this.height = this.chartDiv.offsetHeight - 2;
         this.svg
           .attr("width", this.width)
           .attr("height", this.height);
@@ -33,8 +31,8 @@ class WorkPlane {
             .attr("class", "arrow");
 
         window.addEventListener("resize", () => {
-            this.width = this.chartDiv.clientWidth;
-            this.height = this.chartDiv.clientHeight;
+            this.width = this.chartDiv.offsetWidth - 2;
+            this.height = this.chartDiv.offsetHeight - 2;
             this.svg
                 .attr("width", this.width)
                 .attr("height", this.height);
