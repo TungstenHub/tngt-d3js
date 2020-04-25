@@ -1,6 +1,6 @@
 import {WorkPlane} from "../utils/init_canvas.js";
 
-import {DPoint, FPoint, Point} from "../basic_objects/point.js";
+import {DPoint, FPoint} from "../basic_objects/point.js";
 import {PolyLine} from "../basic_objects/polyline.js";
 import {Circle3P, CirclePR} from "../basic_objects/circle.js";
 import {FQuantity} from "../basic_objects/quantity.js";
