@@ -47,6 +47,19 @@ function incenter_radius(A, B, C){
         )/(Point.dist(A,B)+Point.dist(B,C)+Point.dist(C,A))
 }
 
+function excenter_coords(A, B, C) {
+    const bar = [-Point.dist(B,C),Point.dist(C,A),Point.dist(A,B)];
+    return from_bar_coords(A,B,C,bar);
+}
+
+function excenter_radius(A, B, C){
+    return Math.abs(
+        - A.y*B.x + A.x*B.y 
+        + A.y*C.x - B.y*C.x 
+        - A.x*C.y + B.x*C.y
+        )/(Point.dist(A,B)-Point.dist(B,C)+Point.dist(C,A))
+}
+
 function circumcenter_coords(A, B, C){
     const a = Point.dist(B,C);
     const b = Point.dist(C,A);
@@ -97,6 +110,8 @@ export {
     centroid_coords,
     incenter_coords,
     incenter_radius,
+    excenter_coords,
+    excenter_radius,
     circumcenter_coords,
     circumcenter_radius,
     orthocenter_coords,
