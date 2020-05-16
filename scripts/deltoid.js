@@ -22,7 +22,7 @@ f = t => ({
 
 d = new Parametric(
     t => () => f(t), [],
-    0, 2*Math.PI, 100
+    0+0.1, 2*Math.PI+0.1, 100
 ),
 
 hp = new FPoint(a => f(a.v), [a]),
