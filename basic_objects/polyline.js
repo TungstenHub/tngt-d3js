@@ -109,10 +109,27 @@ const rotate_polyline = (pol,q,a) => {
     )
 }
 
+// f has to be a curried funcion of type t => elems => point
+class Parametric extends PolyLine{
+    constructor (f, elems, init, end, subs) {
+        let points = [];
+        let t;
+        for (let k=0; k<=subs; k++) {
+            t = init + k*(end-init)/subs;
+            points.push(new FPoint(f(t), elems))
+        }
+        super(points, true);
+        for (let e of elems) {
+            e.dependents.push(this);
+        }
+    }
+}
+
 export{
     PolyLine,
     PolygonCP,
     PolygonPQ,
+    Parametric,
     translate_polyline,
     rotate_polyline
 }
