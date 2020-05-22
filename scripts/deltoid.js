@@ -57,7 +57,7 @@ wp.append(g_aux, {"fill": color.green.w500, "r":4});
 wp.append(h, {"stroke": color.amber.w500, "stroke-width": 4, "fill": color.amber.w200});
 wp.append(h_aux, {"fill": color.amber.w500, "r":4});
 wp.append(gd, {"stroke": color.green.w500, "stroke-width": 7});
-wp.append(d, {"stroke": color.amber.w500, "stroke-width": 9, "stroke-linejoin":"round"});
+wp.append(d, {"stroke": color.blue.w500, "stroke-width": 9, "stroke-linejoin":"round"});
 wp.append([g1,g2], {"fill": color.green.w800});
 wp.append(hp, {"fill": color.amber.w800});
 wp.append(p, {"fill": 'white'});
