@@ -1,6 +1,5 @@
 import {WorkPlane} from "../utils/init_canvas.js";
 
-import {Quantity} from "../basic_objects/quantity.js";
 import {Point, DPointOnCircle, FPoint} from "../basic_objects/point.js";
 import {PolyLine} from "../basic_objects/polyline.js";
 import {Circle} from "../basic_objects/circle.js";
@@ -52,12 +51,12 @@ wp.append([pb_aux,pc_aux,qc_aux,qa_aux,ra_aux,rb_aux], {
     "stroke-dasharray": ("10, 10")
 });
 
-wp.append([pd,qd,rd], {"stroke": color.green.w500});
+wp.append([pd,qd,rd], {"stroke": color.yellow.w500});
 
 wp.append(s, {"stroke": color.orange.w500});
 
 wp.append([p,q,r], {"fill": color.orange.w800});
 wp.append([a,b,c], {"fill": color.blue.w800});
-wp.append(d, {"fill": color.green.w800});
+wp.append(d, {"fill": color.yellow.w800});
 
 wp.end();
