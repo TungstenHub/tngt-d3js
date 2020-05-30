@@ -1,5 +1,40 @@
 import {Element} from "./element.js";
 
+// Utility functions
+
+const proj_a_bc_coords = (a,b,c) => {
+    const da = Point.dist(b,c)*Point.dist(b,c);
+    const db = Point.dist(c,a)*Point.dist(c,a);
+    const dc = Point.dist(a,b)*Point.dist(a,b);
+    return {x: ((da+db-dc)*b.x+(da-db+dc)*c.x)/(2*da),
+            y: ((da+db-dc)*b.y+(da-db+dc)*c.y)/(2*da)}
+}
+
+const int_ab_cd_coords = fun => (a,b,c,d) => {
+    const l1 = (c.y-d.y)*(a.x-c.x) + (d.x-c.x)*(a.y-c.y);
+    const l2 = (a.y-b.y)*(d.x-c.x) - (a.x-b.x)*(d.y-c.y);
+    if (l2 == 0 && fun) return fun(a,b,c,d)
+    else return {x:(l1/l2*b.x+(1-l1/l2)*a.x), y:(l1/l2*b.y+(1-l1/l2)*a.y)}
+}
+
+const inverse_coords = (a,circ) => {
+    const d = (a.x-circ.p.x)*(a.x-circ.p.x)+(a.y-circ.p.y)*(a.y-circ.p.y);
+    return {x:circ.p.x+circ.r*circ.r*(a.x-circ.p.x)/d, 
+            y:circ.p.y+circ.r*circ.r*(a.y-circ.p.y)/d};
+}
+
+const int_circles_coords = sign => (g,h) => {
+    const r = g.r;
+    const s = h.r;
+    const d = Point.dist(g.p,h.p);
+    // formulas from radical axis
+    const k = (s*s-r*r)/(d*d);
+    const p = {x: (g.p.x+h.p.x-k*(h.p.x-g.p.x))/2, y: (g.p.y+h.p.y-k*(h.p.y-g.p.y))/2};
+    // using Heron's formula
+    const l = Math.sqrt(Math.max((d+r+s)*(-d+r+s)*(d-r+s)*(d+r-s),0))/(2*d);
+    return {x:p.x+sign*l/d*(-h.p.y+g.p.y), y:p.y+sign*l/d*(h.p.x-g.p.x)}
+}
+
 /** Point */
 class Point extends Element {
     constructor (x, y) {
@@ -213,27 +248,6 @@ class DPointWithFunc extends DPoint {
     }
 }
 
-const proj_a_bc_coords = (a,b,c) => {
-    const da = Point.dist(b,c)*Point.dist(b,c);
-    const db = Point.dist(c,a)*Point.dist(c,a);
-    const dc = Point.dist(a,b)*Point.dist(a,b);
-    return {x: ((da+db-dc)*b.x+(da-db+dc)*c.x)/(2*da),
-            y: ((da+db-dc)*b.y+(da-db+dc)*c.y)/(2*da)}
-}
-
-const int_ab_cd_coords = fun => (a,b,c,d) => {
-    const l1 = (c.y-d.y)*(a.x-c.x) + (d.x-c.x)*(a.y-c.y);
-    const l2 = (a.y-b.y)*(d.x-c.x) - (a.x-b.x)*(d.y-c.y);
-    if (l2 == 0 && fun) return fun(a,b,c,d)
-    else return {x:(l1/l2*b.x+(1-l1/l2)*a.x), y:(l1/l2*b.y+(1-l1/l2)*a.y)}
-}
-
-const inverse_coords = (a,circ) => {
-    const d = (a.x-circ.p.x)*(a.x-circ.p.x)+(a.y-circ.p.y)*(a.y-circ.p.y);
-    return {x:circ.p.x+circ.r*circ.r*(a.x-circ.p.x)/d, 
-            y:circ.p.y+circ.r*circ.r*(a.y-circ.p.y)/d};
-}
-
 /** Functional Point */
 class FPoint extends Point {
     constructor (f, array) {
@@ -266,6 +280,11 @@ class FPoint extends Point {
      */
     static int_ab_cd(A, B, C, D, fun){
         return new FPoint(int_ab_cd_coords(fun), [A,B,C,D]);
+    }
+
+    static int_ab_l(A, B, l, fun){
+        return new FPoint(
+            (A,B,l) => int_ab_cd_coords(fun)(A,B,l.p,l.get_q()), [A,B,l]);
     }
 
     static int_lines(l,k,fun){
@@ -305,6 +324,13 @@ class FPoint extends Point {
             }
         }
         return [new FPoint(f(1), [A,c]), new FPoint(f(-1), [A,c])];
+    }
+
+    static int_circles(g,h){
+        return [
+            new FPoint(int_circles_coords(1), [g,h]), 
+            new FPoint(int_circles_coords(-1), [g,h])
+        ];
     }
 
     static pole(l, c){
@@ -385,5 +411,9 @@ export{
     DPointOnSegment,
     DPointOnConic,
     DPointWithFunc,
-    FPoint
+    FPoint,
+    // Utility functions
+    proj_a_bc_coords,
+    int_ab_cd_coords,
+    inverse_coords
 }
