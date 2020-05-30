@@ -86,6 +86,25 @@ class Circle3P extends Circle{
 
 }
 
+class CircleDiam extends Circle{
+    constructor (p1, p2) {
+        super(
+            {x:(p1.x+p2.x)/2, y:(p1.y+p2.y)/2}, 
+            Point.dist(p1,p2)/2
+        );
+        this.p1 = p1;
+        this.p2 = p2;
+        p1.dependents.push(this);
+        p2.dependents.push(this);
+    }
+
+    update() {
+        this.p = {x:(this.p1.x+this.p2.x)/2, y:(this.p1.y+this.p2.y)/2};
+        this.r = Point.dist(this.p1,this.p2)/2;
+    }
+
+}
+
 class Arc extends Element{
     constructor (p, rad, [alpha, beta]) {
         super();
@@ -148,7 +167,7 @@ const arc_coords = (p1,p2,p3) => {
     let c = Math.atan2(p3.y-p.y,p3.x-p.x);
     if (a > c) a = a-2*Math.PI;
     if (b > c) b = b-2*Math.PI;
-    if (b < a) [a,c] = [c-2*Math.PI,a]
+    if (b < a) [a,c] = [c-2*Math.PI,a];
     return [p,r,[a,c]]
 }
 
@@ -167,12 +186,36 @@ class Arc3P extends Arc{
 
 }
 
+const arc_diam_coords = (p1,p2) => {
+    const p = {x:(p1.x+p2.x)/2, y:(p1.y+p2.y)/2};
+    const r = Point.dist(p1,p2)/2;
+    let a = Math.atan2(p1.y-p.y,p1.x-p.x);
+    return [p,r,[a,a+Math.PI]]
+}
+
+class ArcDiam extends Arc{
+    constructor (p1, p2) {
+        super(...arc_diam_coords(p1,p2));
+        this.p1 = p1;
+        this.p2 = p2;
+        p1.dependents.push(this);
+        p2.dependents.push(this);
+    }
+
+    update() {
+        [this.p, this.rad, [this.alpha, this.beta]] = arc_diam_coords(this.p1, this.p2);
+    }
+
+}
+
 export{
     Circle,
     CirclePR,
     CirclePP,
     Circle3P,
+    CircleDiam,
     Arc,
     ArcQPR,
-    Arc3P
+    Arc3P,
+    ArcDiam
 }
