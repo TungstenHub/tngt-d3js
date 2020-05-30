@@ -44,6 +44,14 @@ class Line extends Element{
 
     get_q() {return {x: this.p.x+this.v.x, y:this.p.y+this.v.y}}
 
+    static parallel(p,l) {
+        return new Line(p, l.v);
+    }
+
+    static perpendicular(p,l) {
+        return new Line(p,FVector.perp(l.v));
+    }
+
     static polar(p,c) {
         const i = FPoint.inverse(p,c);
         return new Line(i,FVector.perp(new VectorPP(p,c.center())));
