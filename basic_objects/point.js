@@ -326,6 +326,30 @@ class FPoint extends Point {
         return [new FPoint(f(1), [A,c]), new FPoint(f(-1), [A,c])];
     }
 
+    static tangency_points_conic(p,k){
+        const f = s => (p,k) => {
+            const {a,b,c,d,e,f} = k.q;
+            const x = p.x;
+            const y = p.y;
+            const u = (a*x+b*y+d);
+            const v = (b*x+c*y+e);
+            const w = (d*x+e*y+f);
+            const A = a*v*v + c*u*u - 2*b*u*v;
+            const B = 2*(d*v*v - b*v*w + c*u*w - e*u*v);
+            const C = f*v*v + c*w*w - 2*e*v*w;
+            let t;
+            if (A!=0) {
+                const D = B*B - 4*A*C;
+                if (D<0) return {x:p.x, y:p.y};
+                t = (-B+s*Math.sqrt(D))/(2*A);
+            } else {
+                t = -C/B;
+            }
+            return {x:t, y:(-w-t*u)/v};
+        }
+        return [new FPoint(f(1), [p,k]), new FPoint(f(-1), [p,k])];
+    }
+
     static int_circles(g,h){
         return [
             new FPoint(int_circles_coords(1), [g,h]), 
