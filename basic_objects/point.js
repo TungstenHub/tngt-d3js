@@ -364,6 +364,25 @@ class FPoint extends Point {
         }, [l,c]);
     }
 
+    static pole_conic(l, c){
+        return new FPoint((l,k) => {
+            const {x,y} = l.p;
+            const {x:u,y:v} = l.get_q();
+            const {a,b,c,d,e,f} = k.q;
+            const D1 = a*x+b*y+d;
+            const E1 = b*x+c*y+e;
+            const F1 = d*x+e*y+f;
+            const D2 = a*u+b*v+d;
+            const E2 = b*u+c*v+e;
+            const F2 = d*u+e*v+f;
+            const Q = D1*E2 - D2*E1;
+            return {
+                x: -(E2*F1-E1*F2)/Q,
+                y: -(-D2*F1+D1*F2)/Q,
+            }
+        }, [l,c]);
+    }
+
     static ext_point(c, d){
         const f = (c,d) => {
             const r = c.r/(d.r-c.r);
