@@ -14,7 +14,7 @@ wp = WorkPlane.with("#pythagorean_decomposition_1", 130),
 a = new Point(-1,0),
 b = new Point(1,0),
 
-c = new DPointWithFunc(1,1.5,snapToUpperQuarter,[]),
+c = new DPointWithFunc(1,1.5,snapToUpperQuarter),
 
 m = new PolygonPQ(b,a,4),
 p = new PolygonPQ(a,c,4),

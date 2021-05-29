@@ -16,7 +16,7 @@ inside_unit_circle = p => {
     return {x:s*p.x/r, y:s*p.y/r}
 },
 
-d = new DPointWithFunc(0.12, -0.1, inside_unit_circle, []),
+d = new DPointWithFunc(0.12, -0.1, inside_unit_circle),
 
 schwarz_transf = p => a => { // z -> (z+a)/(1+a'z) = (A+Bi)/(C+Di)
     const

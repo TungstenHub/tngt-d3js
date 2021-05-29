@@ -18,9 +18,9 @@ inside_unit_circle = p => {
     return {x:s*p.x/r, y:s*p.y/r}
 },
 
-a = new DPointWithFunc(0,0.56, inside_unit_circle, []),
-b = new DPointWithFunc(-2.1,-0.7, inside_unit_circle, []),
-c = new DPointWithFunc(1.05,-0.7, inside_unit_circle, []),
+a = new DPointWithFunc(0,0.56, inside_unit_circle),
+b = new DPointWithFunc(-2.1,-0.7, inside_unit_circle),
+c = new DPointWithFunc(1.05,-0.7, inside_unit_circle),
 
 inn_t = new PolyLine([a,b,c,a]),
 

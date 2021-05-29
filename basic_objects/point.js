@@ -233,7 +233,7 @@ class DPointOnConic extends DPoint {
 }
 
 class DPointWithFunc extends DPoint {
-    constructor (x, y, f, elems) {
+    constructor (x, y, f, elems=[]) {
         super(x, y);
         this.f = f;
         this.elems = elems;

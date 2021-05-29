@@ -20,9 +20,9 @@ inside_circle = p => {
     return {x:s*p.x/r, y:offset+s*y/r}
 },
 
-a = new DPointWithFunc( -0.8, 0.5, inside_circle, []),
-b = new DPointWithFunc(  0.8, 0.5, inside_circle, []),
-c = new DPointWithFunc(  0.3, 1.6, inside_circle, []),
+a = new DPointWithFunc( -0.8, 0.5, inside_circle),
+b = new DPointWithFunc(  0.8, 0.5, inside_circle),
+c = new DPointWithFunc(  0.3, 1.6, inside_circle),
 
 m = FPoint.midp(a,b),
 

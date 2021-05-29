@@ -13,10 +13,9 @@ wp = WorkPlane.with("#hypocycloid_complementary", 300),
 
 c = new Circle(new Point(0,0), 1),
 a = new DPointWithFunc(0, 0, 
-  (p,_) => ({
+  p => ({
     x:1.4,
-    y:Math.min(1,Math.max(0,Math.round(3*p.y)/3))}), 
-  []),
+    y:Math.min(1,Math.max(0,Math.round(3*p.y)/3))})),
 r = new FQuantity((a) => 1/Math.round(3*a.y+3), [a]),
 l = new PolyLine([new Point(1.4,0), new Point(1.4,1)]),
 t = new Time(10),
