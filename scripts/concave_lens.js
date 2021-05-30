@@ -32,7 +32,7 @@ r0 = new PolyLine([s,t0]),
 r1 = new PolyLine([s,i1,t1]),
 r2 = new PolyLine([s,i2,t2]),
 
-rr1 = new PolyLine([t,i1]),
+rr1 = new PolyLine([new Point(-1, 0),i1]),
 rr2 = new PolyLine([t,i2]),
 rf = new PolyLine([s,new Point(1, 0)]);
 
