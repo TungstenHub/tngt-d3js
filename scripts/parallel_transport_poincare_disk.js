@@ -39,7 +39,7 @@ var image = svg.append("svg:image")
 	.attr('width', width)
 	.attr('height', height)
 	.attr("opacity", 0.2)
-	.attr("xlink:href", "http://bulatov.org/math/1201/images/circle_limit_i_01.jpg")
+	.attr("xlink:href", "../assets/poincare_disk.jpg")
 
 let vectors = Array.from({length: 12}, (x,i) => {return {x:0.25*Math.cos(2*Math.PI*i/12), y:0.25*Math.sin(2*Math.PI*i/12)}})
 let arrows = Array.from({length: 12}, (x,i) => 'none')

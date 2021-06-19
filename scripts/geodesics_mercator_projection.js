@@ -37,7 +37,7 @@ var image = svg.append("svg:image")
 	.attr('y', 0)
 	.attr('width', width)
 	.attr('height', height)
-	.attr("xlink:href", "https://upload.wikimedia.org/wikipedia/commons/7/74/Mercator-projection.jpg")
+	.attr("xlink:href", "../assets/mercator.jpg")
 
 let arrow = svg.append("path")
     .attr("d", lineFunction([c,{x:c.x+vector.x,y:c.y+vector.y}]))

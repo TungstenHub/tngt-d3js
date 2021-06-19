@@ -38,7 +38,7 @@ var image = svg.append("svg:image")
 	.attr('width', width)
     .attr('height', height)
     .attr("opacity", 0.2)
-	.attr("xlink:href", "http://bulatov.org/math/1201/images/circle_limit_i_01.jpg")
+	.attr("xlink:href", "../assets/poincare_disk.jpg")
 
 let arrow = svg.append("path")
     .attr("d", lineFunction([c,{x:c.x+vector.x,y:c.y+vector.y}]))

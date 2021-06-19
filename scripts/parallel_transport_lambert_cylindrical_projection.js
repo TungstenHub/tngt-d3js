@@ -38,7 +38,7 @@ var image = svg.append("svg:image")
 	.attr('y', 0)
 	.attr('width', width)
 	.attr('height', height)
-	.attr("xlink:href", "https://upload.wikimedia.org/wikipedia/commons/0/01/Lambert-cylindrical-equal-area-projection.jpg")
+	.attr("xlink:href", "../assets/lambert.jpg")
 
 let vectors = Array.from({length: 12}, (x,i) => {return {x:0.25*Math.cos(2*Math.PI*i/12), y:0.25*Math.sin(2*Math.PI*i/12)}})
 let arrows = Array.from({length: 12}, (x,i) => 'none')
