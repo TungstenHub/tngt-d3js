@@ -49,9 +49,7 @@ bezier = new Parametric(
         }
     }, as,
     0, 1, 100
-),
-
-aux=3;
+);
 
 
 wp.append(t, {"fill": 'black'});

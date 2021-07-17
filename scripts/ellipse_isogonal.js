@@ -28,9 +28,7 @@ alpha1 = new AngleQPR(f1,d,tt1),
 alpha2 = new AngleQPR(tt2,d,f2),
 
 lf = new PolyLine([f1,d,f2]),
-lt = new PolyLine([t1,d,t2]),
-
-aux=3;
+lt = new PolyLine([t1,d,t2]);
 
 wp.append(c, {"stroke": color.blue.w500});
 wp.append([alpha1,alpha2], {"fill": color.orange.w500,"in_r": 0,"ex_r": 50});
