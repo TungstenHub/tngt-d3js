@@ -14,6 +14,11 @@ class Quantity extends Element {
         return new Quantity(v);
     }
 
+    setValue(v) {
+        this.v = v;
+        this.update_total();
+    }
+
 }
 
 /** Functional Quantity */

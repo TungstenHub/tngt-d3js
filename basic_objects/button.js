@@ -6,7 +6,8 @@ const button_size = 30;
 const icon_size = 24;
 
 const common_icons = {
-    'reload': '\uf021'
+    'reload': '\uf021',
+    'question': '\uf128',
 }
 
 class Button extends Element{

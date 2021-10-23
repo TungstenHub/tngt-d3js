@@ -68,6 +68,12 @@ class Point extends Element {
             .attr("cy", function(d) {return wp.y(d.y)});
     }
 
+    setCoords(x,y) {
+        this.x = x;
+        this.y = y;
+        this.update_total();
+    }
+
 }
 
 class DPoint extends Point {
