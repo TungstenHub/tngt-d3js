@@ -1,5 +1,6 @@
 import {Element} from "./element.js";
 import {FPoint} from "./point.js";
+import d3 from "../utils/deps/d3.js";
 
 const lineFunction = (wp) => d3.line()
     .x(function(d) { return wp.x(d.x); })

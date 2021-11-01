@@ -1,4 +1,5 @@
 import {Element} from "./element.js";
+import d3 from "../utils/deps/d3.js";
 
 var lineFunction = (wp) => d3.line()
     .x(function(d) { return wp.x(d.x); })

@@ -1,4 +1,5 @@
 import {mdColor as color} from "../utils/material_color.js";
+import d3 from "../utils/deps/d3.js";
 
 import {get_projective_transformation, direct_transform} from "../utils/projective_transformation_utils.js";
 

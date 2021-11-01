@@ -1,3 +1,4 @@
+import d3 from "./deps/d3.js";
 
 class WorkPlane {
     constructor(ident, radius, off_x = 0, off_y = 0) {

@@ -1,6 +1,7 @@
 import {Element} from "./element.js";
 import {Point, FPoint} from "./point.js";
 import {FQuantity} from "./quantity.js";
+import d3 from "../utils/deps/d3.js";
 
 import {circumcenter_coords, circumcenter_radius} from "../utils/triangle_coordinates.js";
 

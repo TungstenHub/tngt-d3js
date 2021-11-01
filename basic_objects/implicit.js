@@ -1,5 +1,5 @@
 import {Element} from "./element.js";
-
+import d3 from "../utils/deps/d3.js";
 
 class Implicit extends Element{
     constructor (f) {

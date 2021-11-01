@@ -1,4 +1,5 @@
 import {mdColor as color} from "../utils/material_color.js";
+import d3 from "../utils/deps/d3.js";
 
 let pivot_coord  = [{x:0, y:0}];
 

@@ -1,4 +1,5 @@
 import {Element} from "./element.js";
+import d3 from "../utils/deps/d3.js";
 
 class Angle extends Element{
     constructor (p, [alpha, beta]) {
