@@ -10,6 +10,11 @@ let pivot_coord  = [{x:0.1, y:1}];
 var radius=160;
 
 let chartDiv = document.getElementById("gradient_descent_saddle_point");
+let prevChild = chartDiv.lastElementChild; 
+while (prevChild) {
+    chartDiv.removeChild(prevChild);
+    prevChild = chartDiv.lastElementChild;
+}
 let svg = d3.select(chartDiv).append("svg")
             .style("position", "absolute")
             .style("top", 0)

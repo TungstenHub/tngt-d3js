@@ -29,6 +29,11 @@ let gear12_points = array.map(function(k) { return {x: 0.5*(1+Math.cbrt(Math.cos
 let gear6_points = array.map(function(k) { return {x: 0.25*(1+Math.cbrt(Math.cos(6*k))/6)*Math.cos(k), y: 0.25*(1+Math.cbrt(Math.cos(6*k))/6)*Math.sin(k)}});
 
 let chartDiv = document.getElementById("astroid");
+let prevChild = chartDiv.lastElementChild; 
+while (prevChild) {
+    chartDiv.removeChild(prevChild);
+    prevChild = chartDiv.lastElementChild;
+}
 let svg = d3.select(chartDiv).append("svg")
             .style("position", "absolute")
             .style("top", 0)

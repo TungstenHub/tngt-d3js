@@ -8,6 +8,11 @@ julia_color = color.orange.w500;
 let radius = 150;
 
 let chartDiv = document.getElementById("julia_boundary_inverse_transformation");
+let prevChild = chartDiv.lastElementChild; 
+while (prevChild) {
+    chartDiv.removeChild(prevChild);
+    prevChild = chartDiv.lastElementChild;
+}
 let svg = d3.select(chartDiv).append("svg")
             .style("position", "absolute")
             .style("top", 0)

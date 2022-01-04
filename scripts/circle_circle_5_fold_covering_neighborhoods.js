@@ -50,6 +50,11 @@ let inside_annulus = function(a,b){
 }
 
 let chartDiv = document.getElementById("circle_circle_5_fold_covering_neighborhoods");
+let prevChild = chartDiv.lastElementChild; 
+while (prevChild) {
+    chartDiv.removeChild(prevChild);
+    prevChild = chartDiv.lastElementChild;
+}
 let svg = d3.select(chartDiv).append("svg")
             .style("position", "absolute")
             .style("top", 0)

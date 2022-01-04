@@ -11,6 +11,11 @@ side_color = color.blue.w500,
 triangle_color =color.blue.w100;
 
 let chartDiv = document.getElementById("hyperbolic_triangle");
+let prevChild = chartDiv.lastElementChild; 
+while (prevChild) {
+    chartDiv.removeChild(prevChild);
+    prevChild = chartDiv.lastElementChild;
+}
 let svg = d3.select(chartDiv).append("svg")
             .style("position", "absolute")
             .style("top", 0)

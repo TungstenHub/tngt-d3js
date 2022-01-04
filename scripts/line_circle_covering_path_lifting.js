@@ -42,6 +42,11 @@ let transv_helix = function(u){
 }
 
 let chartDiv = document.getElementById("line_circle_covering_path_lifting");
+let prevChild = chartDiv.lastElementChild; 
+while (prevChild) {
+    chartDiv.removeChild(prevChild);
+    prevChild = chartDiv.lastElementChild;
+}
 let svg = d3.select(chartDiv).append("svg")
             .style("position", "absolute")
             .style("top", 0)

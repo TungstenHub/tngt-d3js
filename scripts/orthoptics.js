@@ -15,6 +15,11 @@ center_color = color.orange.w800,
 center_angle_color = color.orange.w500;
 
 let chartDiv = document.getElementById("orthoptics");
+let prevChild = chartDiv.lastElementChild; 
+while (prevChild) {
+    chartDiv.removeChild(prevChild);
+    prevChild = chartDiv.lastElementChild;
+}
 let svg = d3.select(chartDiv).append("svg")
             .style("position", "absolute")
             .style("top", 0)

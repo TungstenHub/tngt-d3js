@@ -4,6 +4,11 @@ import d3 from "../utils/deps/d3.js";
 let pivot_coord  = [{x:0, y:0}];
 
 let chartDiv = document.getElementById("parallel_transport_poincare_disk");
+let prevChild = chartDiv.lastElementChild; 
+while (prevChild) {
+    chartDiv.removeChild(prevChild);
+    prevChild = chartDiv.lastElementChild;
+}
 let svg = d3.select(chartDiv).append("svg")
             .style("position", "absolute")
             .style("top", 0)

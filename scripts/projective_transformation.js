@@ -12,6 +12,11 @@ rays_color = color.pink.w500;
 let radius = 100;
 
 let chartDiv = document.getElementById("projective_transformation");
+let prevChild = chartDiv.lastElementChild; 
+while (prevChild) {
+    chartDiv.removeChild(prevChild);
+    prevChild = chartDiv.lastElementChild;
+}
 let svg = d3.select(chartDiv).append("svg")
             .style("position", "absolute")
             .style("top", 0)

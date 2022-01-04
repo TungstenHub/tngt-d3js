@@ -10,6 +10,11 @@ vertex_color = color.blue.w800,
 side_color = color.blue.w500;
 
 let chartDiv = document.getElementById("hyperbolic_line");
+let prevChild = chartDiv.lastElementChild; 
+while (prevChild) {
+    chartDiv.removeChild(prevChild);
+    prevChild = chartDiv.lastElementChild;
+}
 let svg = d3.select(chartDiv).append("svg")
             .style("position", "absolute")
             .style("top", 0)

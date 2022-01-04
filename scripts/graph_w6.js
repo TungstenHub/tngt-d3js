@@ -6,6 +6,11 @@ const node_color = color.red.w800;
 var radius = 300;
 
 let chartDiv = document.getElementById("graph_w6");
+let prevChild = chartDiv.lastElementChild; 
+while (prevChild) {
+    chartDiv.removeChild(prevChild);
+    prevChild = chartDiv.lastElementChild;
+}
 let svg = d3.select(chartDiv).append("svg")
             .style("position", "absolute")
             .style("top", 0)

@@ -7,6 +7,11 @@ let pendulum_color = color.blue.w500;
 let track_color = color.blue.w200;
 
 let chartDiv = document.getElementById("double_pendulum");
+let prevChild = chartDiv.lastElementChild; 
+while (prevChild) {
+    chartDiv.removeChild(prevChild);
+    prevChild = chartDiv.lastElementChild;
+}
 let svg = d3.select(chartDiv).append("svg")
             .style("position", "absolute")
             .style("top", 0)

@@ -6,6 +6,11 @@ let e = {x:0.5, y:0};
 let vector = {x:e.x-c.x,y:e.y-c.y};
 
 let chartDiv = document.getElementById("geodesics_lambert_cylindrical_projection");
+let prevChild = chartDiv.lastElementChild; 
+while (prevChild) {
+    chartDiv.removeChild(prevChild);
+    prevChild = chartDiv.lastElementChild;
+}
 let svg = d3.select(chartDiv).append("svg")
             .style("position", "absolute")
             .style("top", 0)

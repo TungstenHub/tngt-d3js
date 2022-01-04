@@ -10,6 +10,11 @@ let pivot_coord  = [{x:1.2, y:0.5}];
 var radius=160;
 
 let chartDiv = document.getElementById("gradient_descent_elliptic_minimum");
+let prevChild = chartDiv.lastElementChild; 
+while (prevChild) {
+    chartDiv.removeChild(prevChild);
+    prevChild = chartDiv.lastElementChild;
+}
 let svg = d3.select(chartDiv).append("svg")
             .style("position", "absolute")
             .style("top", 0)

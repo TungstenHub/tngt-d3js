@@ -14,6 +14,11 @@ cross_ratio_guides = color.gray.w500,
 cross_ratio_color = color.gray.w800;
 
 let chartDiv = document.getElementById("cross_ratio");
+let prevChild = chartDiv.lastElementChild; 
+while (prevChild) {
+    chartDiv.removeChild(prevChild);
+    prevChild = chartDiv.lastElementChild;
+}
 let svg = d3.select(chartDiv).append("svg")
             .style("position", "absolute")
             .style("top", 0)

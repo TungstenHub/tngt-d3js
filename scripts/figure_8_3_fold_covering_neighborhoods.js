@@ -30,6 +30,11 @@ const lemn_paramet = function(u){
 }
 
 let chartDiv = document.getElementById("figure_8_3_fold_covering_neighborhoods");
+let prevChild = chartDiv.lastElementChild; 
+while (prevChild) {
+    chartDiv.removeChild(prevChild);
+    prevChild = chartDiv.lastElementChild;
+}
 let svg = d3.select(chartDiv).append("svg")
             .style("position", "absolute")
             .style("top", 0)
