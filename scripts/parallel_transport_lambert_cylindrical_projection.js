@@ -1,5 +1,6 @@
 import {mdColor as color} from "../utils/material_color.js";
 import d3 from "../utils/deps/d3.js";
+import pictures from "../assets/pictures.js";
 
 let pivot_coord  = [{x:0, y:0}];
 
@@ -44,7 +45,7 @@ var image = svg.append("svg:image")
 	.attr('y', 0)
 	.attr('width', width)
 	.attr('height', height)
-	.attr("xlink:href", "../assets/lambert.jpg")
+	.attr('href', 'data:image/png+xml;base64,' + pictures.lambert)
 
 let vectors = Array.from({length: 12}, (x,i) => {return {x:0.25*Math.cos(2*Math.PI*i/12), y:0.25*Math.sin(2*Math.PI*i/12)}})
 let arrows = Array.from({length: 12}, (x,i) => 'none')

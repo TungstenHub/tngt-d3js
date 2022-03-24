@@ -1,5 +1,6 @@
 import {mdColor as color} from "../utils/material_color.js";
 import d3 from "../utils/deps/d3.js";
+import pictures from "../assets/pictures.js";
 
 let c = {x:0, y:0};
 let e = {x:0.5, y:0};
@@ -43,7 +44,7 @@ var image = svg.append("svg:image")
 	.attr('y', 0)
 	.attr('width', width)
 	.attr('height', height)
-	.attr("xlink:href", "../assets/lambert.jpg")
+	.attr('href', 'data:image/png+xml;base64,' + pictures.lambert)
 
 let arrow = svg.append("path")
     .attr("d", lineFunction([c,{x:c.x+vector.x,y:c.y+vector.y}]))
