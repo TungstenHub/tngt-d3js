@@ -34,7 +34,7 @@ e = new DPoint(-2,1),
 
 d = new Conic5P(a,b,c,h,e);
 
-wp.append(inn_t, {"fill": color.blue.w100,"stroke": 'none'});
+wp.append(inn_t, {"fill": color.blue.w500 + '40',"stroke": 'none'});
 wp.append(d, {"stroke": color.green.w500});
 wp.append([a_cev,b_cev,c_cev], {"stroke": color.lightblue.w500,"stroke-width": 3});
 wp.append([a_cev_aux,b_cev_aux,c_cev_aux], {

@@ -39,7 +39,7 @@ t = new Text(new Point(ar.x+1.2,ar.y),s),
 quot_line = new PolyLine([new Point(ar.x-0.4,ar.y+0.02), new Point(ar.x+0.4,ar.y+0.02)]);
 
 wp.append(x_axis, {"stroke": color.bluegray.w800});
-wp.append(s, {"fill": color.yellow.w100});
+wp.append(s, {"fill": color.amber.w500});
 wp.append(quot_line, {"stroke-width": 2, "stroke": color.bluegray.w800});
 wp.append(t1, {"fill": color.orange.w500});
 wp.append(t2, {"fill": color.pink.w500});

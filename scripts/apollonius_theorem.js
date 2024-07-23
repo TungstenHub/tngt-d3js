@@ -63,10 +63,10 @@ t_pl2 = new Text(c_pl2, new Quantity('+')),
 t_br = new Text(c_br, new Quantity(')'));
 
 wp.append([t_pl1, t_eq, t_pl2, t_br], {});
-wp.append(rect1, {"stroke": color.blue.w500, "fill": color.blue.w200});
-wp.append(rect2, {"stroke": color.green.w500, "fill": color.green.w200});
-wp.append(rect3, {"stroke": color.amber.w500, "fill": color.amber.w200});
-wp.append(rect4, {"stroke": color.orange.w500, "fill": color.orange.w200});
+wp.append(rect1, {"stroke": color.blue.w500, "fill": color.blue.w500 + '80'});
+wp.append(rect2, {"stroke": color.green.w500, "fill": color.green.w500 + '80'});
+wp.append(rect3, {"stroke": color.amber.w500, "fill": color.amber.w500 + '80'});
+wp.append(rect4, {"stroke": color.orange.w500, "fill": color.orange.w500 + '80'});
 wp.append([ac], {"stroke": color.blue.w500});
 wp.append([bc], {"stroke": color.green.w500});
 wp.append([cm], {"stroke": color.amber.w500});

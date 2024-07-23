@@ -47,10 +47,10 @@ wp.append([
     tl31_1,
     tl31_2],{"stroke-width": 2, "stroke": color.bluegray.w500});
 
-wp.append([c1,c2,c3],{"stroke-width": 4, "stroke": color.blue.w500, "fill": color.blue.w200 + '80'});
+wp.append([c1,c2,c3],{"stroke-width": 4, "stroke": color.blue.w500, "fill": color.blue.w500 + '40'});
 
 wp.append([e12,e23,e31], {"fill": color.bluegray.w800});
-wp.append([b1,b2,b3], {"fill": color.yellow.w100});
+wp.append([b1,b2,b3], {"fill": color.amber.w500});
 wp.append([a1,a2,a3], {"fill": color.blue.w800});
 
 wp.end();

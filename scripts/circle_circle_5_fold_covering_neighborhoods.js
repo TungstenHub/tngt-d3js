@@ -4,10 +4,10 @@ import d3 from "../utils/deps/d3.js";
 const
 point_color = color.teal.w800,
 path_color = color.teal.w500,
-disc_color = color.teal.w200,
+disc_color = color.teal.w500 + '80',
 lift_point_color = color.pink.w800,
 lift_path_color = color.pink.w500,
-lift_disc_color = color.pink.w200;
+lift_disc_color = color.pink.w500 + '80';
 
 let radius = 200
 
@@ -83,8 +83,8 @@ var circle1 = svg
     .attr("cy", y(0))
     .attr("r", radius)
     .style("stroke-width", 5)
-    .style("stroke", "black")   
-    .style("fill", "white");
+    .style("stroke", color.black)
+    .style("fill", color.white);
 
 var circle2 = svg
     .append("circle")
@@ -92,8 +92,8 @@ var circle2 = svg
     .attr("cy", y(0))
     .attr("r", 0.2*radius)
     .style("stroke-width", 5)
-    .style("stroke", "black")   
-    .style("fill", "white");
+    .style("stroke", color.black)
+    .style("fill", color.white);
 
 let point_neigh_coords = neigh_array.map(function(u) { return inside_annulus(
     point_coords[0].x+0.17*Math.cos(u),point_coords[0].y+0.17*Math.sin(u))});
@@ -134,7 +134,7 @@ for (let v of [0.4, 0.6, 0.8]) {
         .attr("cy", y(0))
         .attr("r", v*radius)
         .style("stroke-width", 1)
-        .style("stroke", "black")   
+        .style("stroke", color.black)
         .style("fill", "none");
 }
 
@@ -142,7 +142,7 @@ for (let v of Array.from({length: 20}, (x,i) => 2*Math.PI*i/20)) {
     svg.append("path")
         .attr("d", lineFunction(transv_polar(v)))
         .style("stroke-width", 1)
-        .attr("stroke", "black")
+        .attr("stroke", color.black)
         .attr("fill", "none");
 }
 
@@ -150,7 +150,7 @@ for (let v of [0.4, 0.6, 0.8]) {
     svg.append("path")
         .attr("d", lineFunction(long_helix(v)))
         .style("stroke-width", 1)
-        .attr("stroke", "black")
+        .attr("stroke", color.black)
         .attr("fill", "none");
 }
 
@@ -158,7 +158,7 @@ for (let v of [0.2, 1]) {
     svg.append("path")
         .attr("d", lineFunction(long_helix(v)))
         .style("stroke-width", 2)
-        .attr("stroke", "black")
+        .attr("stroke", color.black)
         .attr("fill", "none");
 }
 
@@ -166,7 +166,7 @@ for (let v of Array.from({length: 201}, (x,i) => 2*Math.PI*(i-100)/20)) {
     svg.append("path")
         .attr("d", lineFunction(transv_helix(v)))
         .style("stroke-width", 1)
-        .attr("stroke", "black")
+        .attr("stroke", color.black)
         .attr("fill", "none");
 }
 

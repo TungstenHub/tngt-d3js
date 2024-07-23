@@ -52,7 +52,7 @@ bezier = new Parametric(
 );
 
 
-wp.append(t, {"fill": 'black'});
+wp.append(t, {"fill": color.black});
 wp.append(d, {"stroke": color.orange.w500, "stroke-width": 3});
 wp.append(c, {"stroke": color.yellow.w500, "stroke-width": 3});
 wp.append(b, {"stroke": color.green.w500, "stroke-width": 3});

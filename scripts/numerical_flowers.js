@@ -20,7 +20,7 @@ flower = n => a => {
 
 seeds = Array(200).fill().map((x,i) => new FPoint(flower(i),[a]));
 
-wp.append(a, {"fill": color.amber.w200});
+wp.append(a, {"fill": color.amber.w500});
 wp.append(seeds, {"fill": color.blue.w500, "r":4});
 
 wp.end();

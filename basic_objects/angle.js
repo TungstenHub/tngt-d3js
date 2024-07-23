@@ -1,5 +1,6 @@
 import {Element} from "./element.js";
 import d3 from "../utils/deps/d3.js";
+import { mdColor as color } from "../utils/material_color.js";
 
 class Angle extends Element{
     constructor (p, [alpha, beta]) {
@@ -8,7 +9,7 @@ class Angle extends Element{
         this.alpha = alpha;
         this.beta = beta;
         p.dependents.push(this);
-        this.default_attrs = {"stroke": "none", "fill": "black"};
+        this.default_attrs = {"stroke": "none", "fill": color.black};
     }
 
     insertInto(wp, attrs={}) {

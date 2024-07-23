@@ -2,7 +2,7 @@ import {mdColor as color} from "../utils/material_color.js";
 import d3 from "../utils/deps/d3.js";
 
 const
-vertex_color = 'black',
+vertex_color = color.black,
 julia_color = color.orange.w500;
 
 let radius = 150;
@@ -62,12 +62,12 @@ let julia_coords = get_roots(k, s);
 var x_axis = svg.append("path")
     .attr("d", lineFunction([{x: -4, y: 0}, {x: 4, y: 0}]))
     .attr("stroke-width", 1)
-    .attr("stroke", '#00000080');
+    .attr("stroke", color.black + '80');
 
 var y_axis = svg.append("path")
     .attr("d", lineFunction([{x: 0, y: -3}, {x: 0, y: 3}]))
     .attr("stroke-width", 1)
-    .attr("stroke", '#00000080');
+    .attr("stroke", color.black + '80');
 
 var julia_points = svg
     .append("g")

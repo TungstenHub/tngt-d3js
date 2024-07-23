@@ -74,12 +74,12 @@ kk2 = translate_polyline(k2, new VectorPP(s3,m2)),
 k3 = new PolyLine([s3,s0,b,s3]),
 kk3 = translate_polyline(k3, new VectorPP(s3,b));
 
-const attrs = {"stroke": "black", "stroke-width":3, "stroke-linejoin":"round"};
+const attrs = {"stroke": color.black, "stroke-width":3, "stroke-linejoin":"round"};
 
 wp.append([t0,tt0], {"fill": color.pink.w300, ...attrs});
 wp.append([t1,tt1], {"fill": color.amber.w300, ...attrs});
 wp.append([h0,hh0,h1,hh1,h2,hh2,h3,hh3], {"fill": color.blue.w300, ...attrs});
 wp.append([k0,kk0,k1,kk1,k2,kk2,k3,kk3], {"fill": color.green.w300, ...attrs});
-wp.append(c, {"fill": "white"});
+wp.append(c, {"fill": color.white});
 
 wp.end();

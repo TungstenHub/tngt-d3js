@@ -1,5 +1,6 @@
 import {Element} from "./element.js";
 import d3 from "../utils/deps/d3.js";
+import { mdColor as color } from "../utils/material_color.js";
 
 class Text extends Element{
     constructor (p, q) {
@@ -13,7 +14,7 @@ class Text extends Element{
             "text-anchor": "middle", 
             "alignment-baseline": "middle",
             "font-family": "sans-serif",
-            "fill": "black"};
+            "fill": color.black};
     }
 
     insertInto(wp, attrs={}) {

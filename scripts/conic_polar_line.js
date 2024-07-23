@@ -27,14 +27,14 @@ p = Line.polar_conic(a,c),
 t1 = new PolyLine([a,tp1]),
 t2 = new PolyLine([a,tp2]);
 
-wp.append(c, {"stroke": "black"});
+wp.append(c, {"stroke": color.black});
 wp.append([t1,t2], { 
     "stroke": color.green.w500, 
     "stroke-width": 4.5, 
     "stroke-dasharray": ("10, 10")
 });
 wp.append(p, {"stroke": color.green.w500});
-wp.append([k1,k2,k3,k4,k5], {"fill": color.yellow.w200});
+wp.append([k1,k2,k3,k4,k5], {"fill": color.amber.w300});
 wp.append(a, {"fill": color.blue.w800});
 
 wp.end();

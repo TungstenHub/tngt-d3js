@@ -27,7 +27,7 @@ c_perp = new PolyLine([FPoint.midp(a,b),circ]),
 rad = new FQuantity(circumcenter_radius, [a,b,c]),
 circc = new CirclePR(circ,rad);
 
-wp.append(inn_t, {"fill": color.blue.w100});
+wp.append(inn_t, {"fill": color.blue.w500 + '40'});
 
 wp.append([a_perp,b_perp,c_perp], {"stroke": color.red.w500});
 

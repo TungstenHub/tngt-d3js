@@ -50,16 +50,16 @@ h_aux = rolling_points(p,hp,12),
 g_aux = rolling_points(gm,g1,24),
 c_aux = rolling_points(new Point(0,0),new Point(1,0),36);
 
-wp.append(c, {"stroke": color.blue.w500, "stroke-width": 4, "fill": color.blue.w200});
-wp.append(c_aux, {"fill": color.blue.w500, "r":4});
-wp.append(g, {"stroke": color.green.w500, "stroke-width": 4, "fill": color.green.w200});
-wp.append(g_aux, {"fill": color.green.w500, "r":4});
-wp.append(h, {"stroke": color.amber.w500, "stroke-width": 4, "fill": color.amber.w200});
-wp.append(h_aux, {"fill": color.amber.w500, "r":4});
-wp.append(gd, {"stroke": color.green.w500, "stroke-width": 7});
-wp.append(d, {"stroke": color.blue.w500, "stroke-width": 9, "stroke-linejoin":"round"});
+wp.append(c, {"stroke": color.blue.w600, "stroke-width": 4, "fill": color.blue.w200});
+wp.append(c_aux, {"fill": color.blue.w600, "r":4});
+wp.append(g, {"stroke": color.green.w600, "stroke-width": 4, "fill": color.green.w200});
+wp.append(g_aux, {"fill": color.green.w600, "r":4});
+wp.append(h, {"stroke": color.amber.w600, "stroke-width": 4, "fill": color.amber.w200});
+wp.append(h_aux, {"fill": color.amber.w600, "r":4});
+wp.append(gd, {"stroke": color.green.w600, "stroke-width": 7});
+wp.append(d, {"stroke": color.blue.w600, "stroke-width": 9, "stroke-linejoin":"round"});
 wp.append([g1,g2], {"fill": color.green.w800});
 wp.append(hp, {"fill": color.amber.w800});
-wp.append(p, {"fill": 'white'});
+wp.append(p, {"fill": color.white});
 
 wp.end();

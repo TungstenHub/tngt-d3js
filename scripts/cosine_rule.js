@@ -103,10 +103,10 @@ wp.append([ta,tb,tc,th], {
     "font-size": "21px", "font-family": "source code pro", 
 });
 wp.append([tx], {
-    "fill": color.green.a700, "font-weight": "bold",
+    "fill": color.green.w800, "font-weight": "bold",
     "font-size": "21px", "font-family": "source code pro", 
 });
-wp.append(expl, {"fill": 'black', "font-weight": "bold", "text-anchor": "start",
+wp.append(expl, {"fill": color.black, "font-weight": "bold", "text-anchor": "start",
     "font-size": "18px", "font-family": "source code pro"});
 wp.append([a,b,c], {"fill": color.lightblue.w800});
 

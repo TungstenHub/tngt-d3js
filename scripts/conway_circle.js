@@ -64,6 +64,6 @@ wp.append(d, {"stroke": color.gray.w800});
 wp.append(i, {"fill": color.gray.w800, "r": 4});
 
 wp.append([p_abc,p_acb,p_bca,p_bac,p_cab,p_cba], {"fill": color.gray.w800});
-wp.append([a,b,c], {"fill": 'white'});
+wp.append([a,b,c], {"fill": color.white});
 
 wp.end();

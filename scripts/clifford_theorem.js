@@ -40,8 +40,8 @@ m = new FPoint(int_pair, [o_abc,o_abd,iab]);
 
 wp.append([c_a,c_b,c_c,c_d], {"stroke": color.blue.w800});
 wp.append([c_abc,c_abd,c_acd,c_bcd], {"stroke": color.blue.w200});
-wp.append(o, {"fill": 'white'});
-wp.append(m, {"fill": color.pink.w800,"stroke": 'white','stroke-width': 2});
+wp.append(o, {"fill": color.white});
+wp.append(m, {"fill": color.pink.w800,"stroke": color.white,'stroke-width': 2});
 wp.append([iab,iac,iad,ibc,ibd,icd], {"fill": color.blue.w500});
 wp.append([a,b,c,d], {"fill": color.blue.w800});
 

@@ -39,7 +39,7 @@ h = new CirclePP(o,d),
 k = new PolyLine([d,a1,o,a2,d]),
 k_inn = new PolyLine([d,a1,o,d,a2,o,d]);
 
-wp.append(k_inn, {"stroke": 'white', "fill": color.green.w200, "stroke-width": 25});
+wp.append(k_inn, {"stroke": color.white, "fill": color.green.w200, "stroke-width": 25});
 wp.append(x_axis, {"stroke": color.gray.w800, "stroke-width": 2});
 wp.append(c, {"stroke": color.blue.w500});
 wp.append([di,a], {"stroke": color.green.w500, "stroke-width": 3});
@@ -49,7 +49,7 @@ wp.append(h, {"stroke": color.yellow.a700, "stroke-width": 9});
 wp.append([i,a1,a2], {"fill": color.green.w800, "r":5});
 wp.append([f1,f2], {"fill": color.blue.w800, "r":6});
 wp.append(o, {"fill": color.yellow.w800});
-wp.append(d, {"fill": 'white'});
+wp.append(d, {"fill": color.white});
 wp.append(b, {"fill": color.blue.w800});
 
 wp.end();

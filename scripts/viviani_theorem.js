@@ -52,7 +52,7 @@ ld_ab = new PolyLine([p,q]),
 ld_bc = new PolyLine([q,r]),
 ld_ca = new PolyLine([r,s]);
 
-wp.append(inn_t, {"fill": color.blue.w100});
+wp.append(inn_t, {"fill": color.blue.w500, "fill-opacity": 0.3});
 
 wp.append([td_ab,ld_ab], {"stroke": color.orange.w500});
 wp.append([td_bc,ld_bc], {"stroke": color.pink.w500});
@@ -61,6 +61,6 @@ wp.append([td_ca,ld_ca], {"stroke": color.deeppurple.w500});
 wp.append(t, {"stroke": color.blue.w500});
 
 wp.append([a,b,c], {"fill": color.blue.w800});
-wp.append(d, {"fill": 'white'});
+wp.append(d, {"fill": color.white});
 
 wp.end();

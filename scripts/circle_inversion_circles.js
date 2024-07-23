@@ -33,11 +33,11 @@ image_c_center = new FPoint(
 ),
 image_c = new CirclePR(image_c_center,image_c_radius);
 
-wp.append(base_c, {"stroke": "black"});
+wp.append(base_c, {"stroke": color.black});
 wp.append(domain_c,{"stroke-width": 3, "stroke": color.blue.w500});
 wp.append(image_c,{"stroke-width": 3, "stroke": color.green.w500});
 
-wp.append([a,b], {"fill": color.yellow.w100});
+wp.append([a,b], {"fill": color.amber.w500});
 wp.append(q, {"fill": color.green.w800});
 wp.append(p, {"fill": color.blue.w800});
 

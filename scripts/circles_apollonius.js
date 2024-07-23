@@ -36,9 +36,9 @@ wp.append([c_pmp,c_mpm],{"stroke-width": 3, "stroke": color.teal.w500});
 wp.append([c_ppm,c_mmp],{"stroke-width": 3, "stroke": color.deeporange.w500});
 wp.append([c_ppp,c_mmm],{"stroke-width": 3, "stroke": color.pink.w500});
 
-wp.append([c1,c2,c3],{"stroke-width": 4, "stroke": color.blue.w500, "fill": color.blue.w200 + '80'});
+wp.append([c1,c2,c3],{"stroke-width": 4, "stroke": color.blue.w500, "fill": color.blue.w500 + '40'});
 
-wp.append([b1,b2,b3], {"fill": color.yellow.w100});
+wp.append([b1,b2,b3], {"fill": color.amber.w500});
 wp.append([a1,a2,a3], {"fill": color.blue.w800});
 
 wp.end();

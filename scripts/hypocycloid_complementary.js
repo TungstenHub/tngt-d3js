@@ -80,7 +80,7 @@ wp.append(ph, {"stroke": color.cyan.w500, "stroke-width": 4});
 wp.append(qh, {"stroke": color.lime.w500, "stroke-width": 4});
 wp.append(hyp, {"stroke": color.gray.w800, "stroke-width": 7, "stroke-linejoin":"round"});
 wp.append(h, {"fill": color.gray.w800, "r":7});
-wp.append(l, {"stroke": 'black', "stroke-width": 2});
-wp.append(a, {"fill": 'white'});
+wp.append(l, {"stroke": color.black, "stroke-width": 2});
+wp.append(a, {"fill": color.white});
 
 wp.end();

@@ -31,7 +31,7 @@ l2 = new PolyLine([p,t2]),
 pow_c = new CirclePP(p,t1);
 
 wp.append(x_axis,{"stroke-width": 4});
-wp.append([l1,l2,pow_c],{"stroke-width": 4, "stroke": color.amber.w200});
+wp.append([l1,l2,pow_c],{"stroke-width": 4, "stroke": color.amber.w500});
 wp.append(c,{"stroke-width": 4, "stroke": color.blue.w500});
 
 wp.append(p, {"fill": color.amber.w800});

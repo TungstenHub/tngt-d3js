@@ -40,12 +40,12 @@ tc32 = new PolyLine([p,tpc32]),
 
 pow_c = new CirclePP(p,tpc11);
 
-wp.append([tc11,tc12,tc21,tc22,tc31,tc32,pow_c],{"stroke-width": 4, "stroke": color.amber.w200});
+wp.append([tc11,tc12,tc21,tc22,tc31,tc32,pow_c],{"stroke-width": 4, "stroke": color.amber.w500});
 wp.append([c1,c2,c3],{"stroke-width": 4, "stroke": color.blue.w500});
 wp.append([l12,l23,l31],{"stroke-width": 4, "stroke": color.orange.w500});
 
 wp.append(p, {"fill": color.orange.w800});
-wp.append([b1,b2,b3], {"fill": color.yellow.w100});
+wp.append([b1,b2,b3], {"fill": color.amber.w500});
 wp.append([a1,a2,a3], {"fill": color.blue.w800});
 
 wp.end();

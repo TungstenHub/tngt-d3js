@@ -2,6 +2,7 @@ import {Element} from "./element.js";
 import { Point, DPointOnSegment, FPoint } from "./point.js";
 import { PolyLine } from "./polyline.js";
 import { Text } from "./text.js";
+import { mdColor as color } from "../utils/material_color.js";
 
 /** Quantity */
 class Quantity extends Element {
@@ -75,8 +76,8 @@ class Slider extends Quantity {
         this.t = t;
         this.default_attrs = {
             "stroke-width": 2, 
-            "stroke": "black", 
-            "fill": "black",
+            "stroke": color.black,
+            "fill": color.black,
             "font-size": "18px"
         };
     }

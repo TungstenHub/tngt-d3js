@@ -63,7 +63,7 @@ var circle = svg
     .attr("cy", y(0))
     .attr("r", radius)
     .style("stroke-width", 5)
-    .style("stroke", "black")   
+    .style("stroke", color.black)
     .style("fill", "none"); 
 
 var hyp_line = svg.append("path")

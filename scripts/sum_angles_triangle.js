@@ -32,16 +32,16 @@ inn_t = new PolyLine([c,a,b,c]),
 
 up_base = new Line(c, new Vector(1,0));
 
-wp.append(up_base, {"stroke": color.gray.w500, "stroke-width": 2, "stroke-dasharray": ("10, 10")});
-
 wp.append(inn_t, {"fill": color.gray.w200});
 
 wp.append([alpha, alpha2], {"fill": color.pink.w500,"in_r": 36,"ex_r": 44});
 wp.append([beta, beta2], {"fill": color.orange.w500,"in_r": 36,"ex_r": 44});
 wp.append(gamma, {"fill": color.blue.w500,"in_r": 36,"ex_r": 44});
 
+wp.append(up_base, {"stroke": color.gray.w500, "stroke-width": 2, "stroke-dasharray": ("10, 10")});
+
 wp.append(t, {"stroke": color.gray.w800, "stroke-width": 3});
 
-wp.append([a,b,c], {"fill": 'white'});
+wp.append([a,b,c], {"fill": color.white});
 
 wp.end();

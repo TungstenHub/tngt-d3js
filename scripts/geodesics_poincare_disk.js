@@ -91,7 +91,7 @@ var trace = svg
 		.attr("cx", function(d) {return(x(d.x))})
 		.attr("cy", function(d) {return(y(d.y))})
 		.attr("r", 3)
-        .attr("fill", 'black')
+        .attr("fill", color.black)
         .attr("opacity",0.3);
 
 var end_pivot = svg

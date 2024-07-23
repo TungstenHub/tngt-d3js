@@ -50,7 +50,7 @@ wp.append(l,{"stroke-width": 4, "stroke": color.orange.w500});
 wp.append(bit_c,{"stroke-width": 4, "stroke": color.pink.w500});
 
 wp.append(e, {"fill": color.green.w800});
-wp.append([b1,b2], {"fill": color.yellow.w100});
+wp.append([b1,b2], {"fill": color.amber.w500});
 wp.append([a1,a2], {"fill": color.blue.w800});
 wp.append([p,q], {"fill": color.pink.w800});
 

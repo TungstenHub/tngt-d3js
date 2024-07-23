@@ -1,6 +1,6 @@
 
 
-const mdColor = {
+const mdColorDef = {
     red: {
         w50: '#ffebee',
         w100: '#ffcdd2',
@@ -292,7 +292,11 @@ const mdColor = {
         w700: '#455a64',
         w800: '#37474f',
         w900: '#263238'
-    }
+    },
+    black: '#000000',
+    white: '#ffffff',
 } 
+
+  const mdColor = window.color || mdColorDef;
 
 export {mdColor};

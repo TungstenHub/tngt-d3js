@@ -49,14 +49,14 @@ int_c = n => k => new FPoint(r => {
 int = n => k => new CirclePR(int_c(n)(k), int_rads[n]),
 intt = n => Array.from({length: 2*n-1}, (x, i) => i+1-n).map(int(n));
 
-const w = ['w900','w800','w700','w600','w500','w400','w300','w200','w100','w50'];
-const rg = [9,8,7,6,5,4,3,2,1,0];
+const w = ['w900','w800','w700','w600','w500','w400','w300','w200','w100'];
+const rg = [8,7,6,5,4,3,2,1,0];
 
 rg.forEach(i => wp.append(pap(i), {"fill": color.lightblue[w[i]]+'80'}));
 rg.forEach(i => wp.append(intt(i), {"stroke": color.lime[w[i]], "stroke-width": 3}));
 rg.forEach(i => wp.append(pap(i), {"stroke": color.blue[w[i]]}));
 
-wp.append([c,e], {"stroke": "black"});
-wp.append(d, {"fill": 'white'});
+wp.append([c,e], {"stroke": color.black});
+wp.append(d, {"fill": color.white});
 
 wp.end();

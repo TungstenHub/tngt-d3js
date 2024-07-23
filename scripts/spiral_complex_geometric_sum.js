@@ -47,12 +47,12 @@ const l = new PolyLine(spiral);
 
 wp.append(gr, {"stroke": color.gray.w200, "stroke-width": 2});
 wp.append(ax, {"stroke": color.gray.w500, "stroke-width": 3});
-wp.append(r, {"fill": color.amber.w200});
-wp.append(c, {"stroke": 'black', "stroke-width": 2, "stroke-dasharray": ("10, 10")});
+wp.append(r, {"fill": color.amber.w500});
+wp.append(c, {"stroke": color.black, "stroke-width": 2, "stroke-dasharray": ("10, 10")});
 wp.append(d, {"stroke": color.pink.w500, "stroke-width": 2});
 wp.append(l, {"stroke": color.blue.w500, "stroke-linejoin":"round", "stroke-width": 3});
 wp.append(spiral, {"fill": color.blue.w800, "r":4});
 wp.append(limit, {"stroke": color.pink.w800, "fill": '#00000000', "stroke-width": 3, "r":5});
-wp.append(au, {"fill": color.amber.w200});
+wp.append(au, {"fill": color.amber.w500});
 
 wp.end();

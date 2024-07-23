@@ -32,6 +32,6 @@ wp.append([x_axis, y_axis], {"stroke": color.gray.w500, "stroke-width": 2});
 wp.append(l, {"stroke": color.gray.w800, "stroke-width": 4});
 wp.append(tx, {"stroke": color.teal.w800, "stroke-linejoin":"round"});
 wp.append(q, {"fill": color.teal.w500});
-wp.append(p, {"fill": 'white'});
+wp.append(p, {"fill": color.white});
 
 wp.end();

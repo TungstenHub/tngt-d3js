@@ -81,9 +81,9 @@ deltoid = new Parametric(
     0, 2*Math.PI, 100
 );
 
-wp.append(inn_t, {"fill": color.blue.w100});
+wp.append(inn_t, {"fill": color.blue.w500 + '40'});
 
-wp.append(circ, {"stroke": "black", "stroke-width": 3});
+wp.append(circ, {"stroke": color.black, "stroke-width": 3});
 
 wp.append(t, {"stroke": color.blue.w500, "stroke-width": 3});
 

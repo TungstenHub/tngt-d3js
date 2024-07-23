@@ -42,7 +42,7 @@ t = new PolyLine([a,b,c,a]),
 inn_t = new PolyLine([a,b,c,a]);
 
 
-wp.append(inn_t, {"fill": color.blue.w100});
+wp.append(inn_t, {"fill": color.blue.w500 + '40'});
 wp.append(t, {"stroke": color.blue.w500});
 
 wp.append([d,e,f], {"stroke": color.orange.w500});

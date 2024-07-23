@@ -51,14 +51,14 @@ pow_c = new CirclePP(e,powp1),
 
 l = new LinePP(p,q);
 
-wp.append([pow1,pow2,pow_c],{"stroke-width": 3, "stroke": color.amber.w100});
+wp.append([pow1,pow2,pow_c],{"stroke-width": 2, "stroke": color.amber.w500, "stroke-dasharray": ("10, 10")});
 wp.append([t1,t2], {"stroke-width": 4, "stroke": color.green.w500});
 wp.append([c1,c2],{"stroke-width": 4, "stroke": color.blue.w500});
 wp.append(l,{"stroke-width": 4, "stroke": color.orange.w500});
 wp.append(bit_c,{"stroke-width": 4, "stroke": color.pink.w500});
 
 wp.append(e, {"fill": color.green.w800});
-wp.append([b1,b2], {"fill": color.yellow.w100});
+wp.append([b1,b2], {"fill": color.amber.w500});
 wp.append([a1,a2], {"fill": color.blue.w800});
 wp.append([p,q], {"fill": color.pink.w800});
 

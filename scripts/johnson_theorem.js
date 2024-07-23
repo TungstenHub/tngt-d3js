@@ -32,6 +32,6 @@ wp.append([a,b,c], {"stroke": color.amber.w500});
 wp.append(h, {"stroke": color.pink.w500});
 wp.append([p,q,r], {"fill": color.pink.w800});
 wp.append([x,y,z], {"fill": color.amber.w800});
-wp.append(o, {"fill": color.bluegray.w800});
+wp.append(o, {"fill": color.gray.w800});
 
 wp.end();

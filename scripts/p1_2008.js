@@ -45,7 +45,7 @@ c_c = new CirclePP(m_c, h),
 
 d = new Circle3P(ia1,ib1,ic1);
 
-wp.append(inn_t, {"fill": color.blue.w100});
+wp.append(inn_t, {"fill": color.blue.w500 + '40'});
 
 wp.append([a_cev,b_cev,c_cev], {
     "stroke": color.deeppurple.w500,

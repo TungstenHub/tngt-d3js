@@ -5,15 +5,15 @@ let radius = 125
 
 const
 astroid_border_color = color.blue.w500, 
-astroid_color = color.blue.w200 + '80', 
+astroid_color = color.blue.w500 + '80',
 gear24_border_color = color.green.w500, 
-gear24_color = color.green.w200, 
+gear24_color = color.green.w500 + '80',
 gear12_border_color = color.orange.w500, 
-gear12_color = color.orange.w200, 
+gear12_color = color.orange.w500 + '80',
 gear6_border_color = color.pink.w500, 
-gear6_color = color.pink.w200, 
+gear6_color = color.pink.w500 + '80',
 pivot_border_color = color.blue.w800, 
-pivot_color = 'white',
+pivot_color = color.white,
 tangent_point_color = color.lime.w500, 
 tangent_color = color.lime.w500; 
 
@@ -63,12 +63,12 @@ let t = {x: Math.pow(Math.cos(angle),3), y: Math.pow(Math.sin(angle),3)}
 var x_axis = svg.append("path")
     .attr("d", lineFunction([{x: -1.1, y: 0}, {x: 1.1, y: 0}]))
     .attr("stroke-width", 5)
-    .attr("stroke", 'black');
+    .attr("stroke", color.black);
 
 var y_axis = svg.append("path")
     .attr("d", lineFunction([{x: 0, y: -1.1}, {x: 0, y: 1.1}]))
     .attr("stroke-width", 5)
-    .attr("stroke", 'black');
+    .attr("stroke", color.black);
 
 var astroid = svg.append("path")
     .attr("d", lineFunction(astroid_points))

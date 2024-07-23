@@ -23,10 +23,10 @@ a_polar = Line.polar_conic(a,c),
 b = new DPointOnLine(0.6, -1/0.6, a_polar),
 b_polar = Line.polar_conic(b,c);
 
-wp.append(c, {"stroke": "black"});
+wp.append(c, {"stroke": color.black});
 wp.append(b_polar, {"stroke": color.green.w500});
 wp.append(a_polar, {"stroke": color.blue.w500});
-wp.append([k1,k2,k3,k4,k5], {"fill": color.yellow.w200});
+wp.append([k1,k2,k3,k4,k5], {"fill": color.amber.w300});
 wp.append(b, {"fill": color.green.w800});
 wp.append(a, {"fill": color.blue.w800});
 

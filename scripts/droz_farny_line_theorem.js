@@ -72,6 +72,6 @@ wp.append(cc, {"fill": color.pink.w800});
 wp.append(h, {"fill": color.deeppurple.w800});
 
 wp.append([a,b,c], {"fill": color.blue.w800});
-wp.append(d, {"fill": 'white'});
+wp.append(d, {"fill": color.white});
 
 wp.end();

@@ -27,7 +27,7 @@ i = new FPoint(incenter_coords, [a,b,c]),
 
 el = new PolyLine([h,circ]);
 
-wp.append(inn_t, {"fill": color.blue.w100});
+wp.append(inn_t, {"fill": color.blue.w500 + '40'});
 
 wp.append(t, {"stroke": color.blue.w500});
 

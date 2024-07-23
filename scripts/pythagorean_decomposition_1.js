@@ -52,13 +52,13 @@ tt3 = translate_polyline(t3, new VectorPP(po,b)),
 
 qt = translate_polyline(q, new VectorPP(qo,mo));
 
-const attrs = {"stroke":"black", "stroke-width":3, "stroke-linejoin":"round"};
+const attrs = {"stroke":color.black, "stroke-width":3, "stroke-linejoin":"round"};
 
 wp.append([q,qt], {"fill": color.blue.w300, ...attrs});
 wp.append([t0,tt0], {"fill": color.amber.w300, ...attrs});
 wp.append([t1,tt1], {"fill": color.pink.w300, ...attrs});
 wp.append([t2,tt2], {"fill": color.green.w300, ...attrs});
 wp.append([t3,tt3], {"fill": color.purple.w300, ...attrs});
-wp.append(c, {"fill": "white"});
+wp.append(c, {"fill": color.white});
 
 wp.end();

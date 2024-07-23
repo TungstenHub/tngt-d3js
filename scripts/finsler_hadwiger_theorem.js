@@ -31,11 +31,11 @@ t = new PolyLine([cp,mb,cq,mc,cp]);
 
 wp.append(p, {"stroke": color.blue.w500, "fill": color.blue.w200+'88'});
 wp.append(q, {"stroke": color.pink.w500, "fill": color.pink.w200+'88'});
-wp.append([tb,tc], {"stroke": "black", "stroke-width": 3});
+wp.append([tb,tc], {"stroke": color.black, "stroke-width": 3});
 wp.append(t, {"stroke": color.amber.w500, "fill": color.amber.w200+'88'});
 wp.append(p_aux, {"fill": color.blue.w800});
 wp.append(q_aux, {"fill": color.pink.w800});
 wp.append([mb,mc,cp,cq], {"fill": color.amber.w800});
-wp.append([a,b,c], {"fill": "white"});
+wp.append([a,b,c], {"fill": color.white});
 
 wp.end();

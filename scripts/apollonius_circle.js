@@ -37,7 +37,7 @@ t = new Text(new Point(ar.x+0.8,ar.y),s),
 
 quot_line = new PolyLine([new Point(ar.x-0.266,ar.y+0.0133), new Point(ar.x+0.266,ar.y+0.0133)]);
 
-wp.append(s, {"fill": color.yellow.w100});
+wp.append(s, {"fill": color.amber.w500});
 
 wp.append(quot_line, {"stroke-width": 2, "stroke": color.bluegray.w800});
 wp.append(t1, {"fill": color.orange.w500});

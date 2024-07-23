@@ -74,13 +74,13 @@ const base_attrs = {
     "stroke": color.bluegray.w200,
     "stroke-width": 1
 };
-wp.append(main_circles, main_attrs);
 wp.append(base_circles, base_attrs);
-wp.append(main_lines, main_attrs);
 wp.append(base_lines, base_attrs);
+wp.append(main_circles, main_attrs);
+wp.append(main_lines, main_attrs);
 
-wp.append(c, {"stroke": 'black'});
+wp.append(c, {"stroke": color.black});
 
-wp.append(d, {"fill": 'white'});
+wp.append(d, {"fill": color.white});
 
 wp.end();

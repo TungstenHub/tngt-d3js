@@ -45,8 +45,8 @@ e = FPoint.ext_point(o1,o2),
 t1 = new LinePP(e,tp1),
 t2 = new LinePP(e,tp2);
 
-wp.append([i,j,k,l], {"stroke": 'black', "stroke-width": 1, "stroke-dasharray": ("10, 10")});
-wp.append(o, {"stroke": 'black', "stroke-width": 4});
+wp.append([i,j,k,l], {"stroke": color.black, "stroke-width": 1, "stroke-dasharray": ("10, 10")});
+wp.append(o, {"stroke": color.black, "stroke-width": 4});
 wp.append(ac, {"stroke": color.cyan.w600, "stroke-width": 2});
 wp.append(pol, {"stroke": color.cyan.w600});
 wp.append([t1,t2], {"stroke": color.amber.w500, "stroke-width": 3});

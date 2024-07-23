@@ -135,7 +135,7 @@ var pivot = svg
 svg.append("path")
     .attr("d", lineFunction([{x:x.invert(width*2/5),y:y.invert(height*9/10)},{x:x.invert(width*3/5),y:y.invert(height*9/10)}]))
     .attr("stroke-width", 2)
-    .attr("stroke", 'black')
+    .attr("stroke", color.black)
     .attr("fill", 'none');
 
 var lr_pivot = svg
@@ -149,7 +149,7 @@ var lr_pivot = svg
         .attr("cx", function(d) {return(x(d.x))})
         .attr("cy", function(d) {return(y(d.y))})
         .attr("r", 5)
-        .attr("fill", "white"); 
+        .attr("fill", color.white);
 
 
 var drag_handler = d3.drag()

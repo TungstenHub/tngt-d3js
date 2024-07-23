@@ -73,7 +73,7 @@ l2 = l(d2,2),
 l3 = l(d3,3),
 l4 = l(d4,4);
 
-wp.append(inn_t, {"fill": color.blue.w100});
+wp.append(inn_t, {"fill": color.blue.w500 + '40'});
 
 wp.append([a_cev,b_cev,c_cev], {"stroke": color.deeppurple.w500, "stroke-width": 2});
 wp.append(ax, {"stroke": color.teal.w500, "stroke-dasharray": ("4, 4"), "stroke-width": 2});
@@ -83,12 +83,12 @@ wp.append(ped, {"stroke": color.purple.w800, "stroke-linejoin":"round"});
 wp.append(w, {"stroke": color.teal.w500, "stroke-linejoin":"round"});
 wp.append(pbapc, {"stroke": color.pink.w800, "stroke-dasharray": ("4, 4"), "stroke-width": 2});
 wp.append(pbpc, {"stroke": color.pink.w800, "stroke-dasharray": ("10, 10"), "stroke-width": 3.5});
-wp.append(xb_z_y_xc, {"stroke": color.yellow.a700, "stroke-dasharray": ("10, 10"), "stroke-width": 3.5});
+wp.append(xb_z_y_xc, {"stroke": color.yellow.w700, "stroke-dasharray": ("10, 10"), "stroke-width": 3.5});
 wp.append(xbaxc, {"stroke": color.orange.w800, "stroke-dasharray": ("4, 4"), "stroke-width": 2});
 wp.append(xbxc, {"stroke": color.orange.w800, "stroke-dasharray": ("10, 10"), "stroke-width": 3.5});
 
 wp.append(l0, {"stroke": color.teal.w500});
-wp.append(l1, {"stroke": color.yellow.a700});
+wp.append(l1, {"stroke": color.yellow.w700});
 wp.append(l2, {"stroke": color.orange.w800});
 wp.append(l3, {"stroke": color.pink.w800});
 wp.append(l4, {"stroke": color.purple.w800});

@@ -32,7 +32,7 @@ r_aux = new PolyLine([r,FPoint.midp(a,b)]),
 t = new PolyLine([a,b,c,a]),
 inn_t = new PolyLine([a,b,c,a]);
 
-wp.append(inn_t, {"fill": color.blue.w100});
+wp.append(inn_t, {"fill": color.blue.w500 + '40'});
 wp.append([p_aux,q_aux,r_aux], {
   "stroke": color.blue.w500,
   "stroke-width": 4.5, 

@@ -39,9 +39,9 @@ s = new PolyLine([p,q,r,p]),
 t = new PolyLine([a,b,c,a]),
 inn_t = new PolyLine([a,b,c,a]);
 
-wp.append(inn_t, {"fill": color.blue.w100});
+wp.append(inn_t, {"fill": color.blue.w500 + '40'});
 
-wp.append(circ, {"stroke": "black"});
+wp.append(circ, {"stroke": color.black});
 
 wp.append(t, {"stroke": color.blue.w500});
 

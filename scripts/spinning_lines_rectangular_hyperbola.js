@@ -49,7 +49,7 @@ c = new Conic5P(a,b,i1,i2,i3);
 
 wp.append(c, {"stroke": color.red.w800, "stroke-width": 4});
 wp.append([h,k], {"stroke": color.blue.w500, "stroke-width": 3});
-wp.append(s, {"fill": color.amber.w200});
+wp.append(s, {"fill": color.amber.w500});
 wp.append(i, {"fill": color.red.w800, "r": 6});
 wp.append([a,b], {"fill": color.blue.w800});
 

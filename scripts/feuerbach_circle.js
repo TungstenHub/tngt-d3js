@@ -70,7 +70,7 @@ ecc = new CirclePR(ec,ecr),
 [tc1,tc2] = FPoint.tangency_points(c,ecc),
 tc = new PolyLine([tc1,c,tc2]);
 
-wp.append(inn_t, {"fill": color.blue.w100});
+wp.append(inn_t, {"fill": color.blue.w500 + '40'});
 wp.append(ic, {"fill": color.amber.w500+'80'});
 wp.append([ta,tb,tc], {
     "stroke": color.amber.w500, 

@@ -1,7 +1,7 @@
 import {mdColor as color} from "../utils/material_color.js";
 import d3 from "../utils/deps/d3.js";
 
-const node_color = color.red.w800;
+const node_color = color.pink.w600;
 
 var radius = 300;
 
@@ -73,7 +73,7 @@ var link = svg.append("g")
     .selectAll("line")
     .data(graph.links)
     .enter().append("line")
-    .attr("stroke", 'black')
+    .attr("stroke", color.black)
     .attr("stroke-width", 4)
     .attr("stroke-opacity", 0.6);
 
@@ -83,7 +83,7 @@ var node = svg.append("g")
     .data(graph.nodes)
     .enter().append("circle")
     .attr("r", 7)
-    .attr("stroke", 'white')
+    .attr("stroke", color.white)
     .attr("stroke-width", 2)
     .attr("fill", node_color)
     .call(d3.drag()

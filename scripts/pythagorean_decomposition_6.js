@@ -118,13 +118,13 @@ i = new FPoint(incenter_coords, [a,b,c]),
 rad = new FQuantity(incenter_radius, [a,b,c]),
 ic = new CirclePR(i,rad);
 
-const attrs = {"stroke": "black", "stroke-width":3, "stroke-linejoin":"round"};
+const attrs = {"stroke": color.black, "stroke-width":3, "stroke-linejoin":"round"};
 
 wp.append([t0,tt0], {"fill": color.pink.w300, ...attrs});
 wp.append([w0,w1,w2,w3,ww0,ww1,ww2,ww3], {"fill": color.amber.w300, ...attrs});
 wp.append([h0,hh0,h1,hh1,h2,hh2,h3,hh3], {"fill": color.green.w300, ...attrs});
 wp.append([k0,kk0,k1,kk1,k2,kk2,k3,kk3], {"fill": color.blue.w300, ...attrs});
-wp.append(ic, {"stroke": "black", "stroke-width":2});
-wp.append(c, {"fill": "white"});
+wp.append(ic, {"stroke": color.black, "stroke-width":2});
+wp.append(c, {"fill": color.white});
 
 wp.end();

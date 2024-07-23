@@ -21,11 +21,11 @@ cq = q.center(),
 cr = r.center(),
 t = new PolyLine([cp,cq,cr,cp]);
 
-wp.append(p, {"stroke": color.blue.w500, "fill": color.blue.w200+'88'});
-wp.append(q, {"stroke": color.pink.w500, "fill": color.pink.w200+'88'});
-wp.append(r, {"stroke": color.orange.w500, "fill": color.orange.w200+'88'});
-wp.append(t, {"stroke": color.green.w500, "fill": color.green.w200+'88'});
+wp.append(p, {"stroke": color.blue.w500, "fill": color.blue.w200+'80'});
+wp.append(q, {"stroke": color.pink.w500, "fill": color.pink.w200+'80'});
+wp.append(r, {"stroke": color.orange.w500, "fill": color.orange.w200+'80'});
+wp.append(t, {"stroke": color.green.w500, "fill": color.green.w200+'80'});
 wp.append([cp,cq,cr], {"fill": color.green.w800});
-wp.append([a,b,c], {"fill": "white"});
+wp.append([a,b,c], {"fill": color.white});
 
 wp.end();

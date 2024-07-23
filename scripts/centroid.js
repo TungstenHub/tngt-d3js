@@ -25,7 +25,7 @@ a_cev = new PolyLine([a,p]),
 b_cev = new PolyLine([b,q]),
 c_cev = new PolyLine([c,r]);
 
-wp.append(inn_t, {"fill": color.blue.w100});
+wp.append(inn_t, {"fill": color.blue.w500 + '40'});
 
 wp.append([a_cev,b_cev,c_cev], {"stroke": color.green.w500});
 

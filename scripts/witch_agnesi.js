@@ -49,6 +49,6 @@ wp.append(l, {"stroke": color.gray.w800, "stroke-width": 2});
 wp.append(tx, {"stroke": color.amber.w500, "stroke-linejoin":"round"});
 wp.append([o,a], {"fill": color.gray.w800, "r":4});
 wp.append(q, {"fill": color.amber.w800});
-wp.append(p, {"fill": 'white'});
+wp.append(p, {"fill": color.white});
 
 wp.end();

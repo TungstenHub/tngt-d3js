@@ -104,6 +104,6 @@ wp.append(base_meridians, base_attrs);
 wp.append(main_parallels, main_attrs);
 wp.append(main_meridians, main_attrs);
 
-wp.append([a,b,c], {"fill": color.gray.w800});
+wp.append([a,b,c], {"fill": color.black});
 
 wp.end();

@@ -8,7 +8,7 @@ let point_coords = [{x:0.6, y:0.1}, {x:-0.2, y:0.7}, {x:-0.5, y:-0.6}];
 const
 vertex_color = color.blue.w800,
 side_color = color.blue.w500,
-triangle_color =color.blue.w100;
+triangle_color =color.blue.w500 + '40';
 
 let chartDiv = document.getElementById("hyperbolic_triangle");
 let prevChild = chartDiv.lastElementChild; 
@@ -65,7 +65,7 @@ var circle = svg
     .attr("cy", y(0))
     .attr("r", radius)
     .style("stroke-width", 5)
-    .style("stroke", "black")   
+    .style("stroke", color.black)
     .style("fill", "none"); 
 
 var triangle = svg.append("path")

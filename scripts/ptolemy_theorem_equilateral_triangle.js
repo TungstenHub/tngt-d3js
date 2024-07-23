@@ -63,7 +63,7 @@ la = new PolyLine([lai, lae]),
 lb = new PolyLine([lbi, lbe]),
 lc = new PolyLine([lci, lce]);
 
-wp.append(inn_t, {"fill": color.blue.w100});
+wp.append(inn_t, {"fill": color.blue.w500 + '40'});
 wp.append(t, {"stroke": color.blue.w500});
 
 wp.append(d, {"stroke": color.green.w500});

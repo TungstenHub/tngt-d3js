@@ -48,7 +48,7 @@ gamma3 = new AngleQPR(ma,c,b),
 
 mt = new PolyLine([ma,mb,mc,ma]);
 
-wp.append(inn_t, {"fill": color.blue.w100});
+wp.append(inn_t, {"fill": color.blue.w500 + '40'});
 
 wp.append(alpha1, {"fill": color.green.w800,"in_r": 40,"ex_r": 44});
 wp.append(alpha2, {"fill": color.green.w800,"in_r": 45,"ex_r": 49});
@@ -66,7 +66,7 @@ wp.append(mbac, {"stroke": color.green.w500});
 wp.append(macb, {"stroke": color.pink.w500});
 wp.append(mcba, {"stroke": color.orange.w500});
 wp.append(t, {"stroke": color.blue.w500});
-wp.append(mt, {"stroke": color.yellow.w500,"fill": color.yellow.w200+'66'});
+wp.append(mt, {"stroke": color.yellow.w500,"fill": color.yellow.w500+'40'});
 
 wp.append([ma,mb,mc], {"fill": color.yellow.w500});
 wp.append([a,b,c], {"fill": color.blue.w800});

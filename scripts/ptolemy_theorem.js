@@ -72,9 +72,9 @@ t_eq = new Text(c_eq, new Quantity('='));
 
 wp.append(e, {"stroke": color.green.w500});
 wp.append([t_pl, t_eq], {});
-wp.append(rect1, {"stroke": color.orange.w500, "fill": color.orange.w200});
-wp.append(rect2, {"stroke": color.purple.w500, "fill": color.purple.w200});
-wp.append(rect3, {"stroke": color.pink.w500, "fill": color.pink.w200});
+wp.append(rect1, {"stroke": color.orange.w500, "fill": color.orange.w500 + '80'});
+wp.append(rect2, {"stroke": color.purple.w500, "fill": color.purple.w500 + '80'});
+wp.append(rect3, {"stroke": color.pink.w500, "fill": color.pink.w500 + '80'});
 wp.append([ab, cd], {"stroke": color.orange.w500});
 wp.append([ac, bd], {"stroke": color.pink.w500});
 wp.append([ad, bc], {"stroke": color.purple.w500});

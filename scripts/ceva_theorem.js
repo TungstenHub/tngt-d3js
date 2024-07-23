@@ -73,7 +73,7 @@ prod2 = new Text(new Point(anchor.x+1.5*quot_offset,anchor.y),new Quantity("×")
 t_eq = new Text(new Point(anchor.x+2*quot_offset+0.35,anchor.y),new Quantity("= 1"));
 
 
-wp.append(inn_t, {"fill": color.blue.w100});
+wp.append(inn_t, {"fill": color.blue.w500 + '40'});
 
 wp.append([ql1,ql2,ql3], {"stroke-width": 2, "stroke": color.bluegray.w800});
 wp.append(tar, {"fill": color.pink.w300});

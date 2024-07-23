@@ -25,7 +25,7 @@ l = Line.radical_axis(c1,c2);
 wp.append([c1,c2],{"stroke-width": 4, "stroke": color.blue.w500});
 wp.append(l,{"stroke-width": 4, "stroke": color.orange.w500});
 
-wp.append([b1,b2], {"fill": color.yellow.w100});
+wp.append([b1,b2], {"fill": color.amber.w500});
 wp.append([a1,a2], {"fill": color.blue.w800});
 
 wp.end();

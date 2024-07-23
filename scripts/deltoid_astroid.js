@@ -77,20 +77,20 @@ h2_aux = rolling_points(p2,q2,24),
 h3_aux = rolling_points(p3,q3,36),
 c_aux = rolling_points(new Point(0,0),new Point(1,0),48);
 
-wp.append(c, {"stroke": color.blue.w500, "stroke-width": 4, "fill": color.blue.w200});
-wp.append(c_aux, {"fill": color.blue.w500, "r":4});
-wp.append(h3, {"stroke": color.green.w500, "stroke-width": 4, "fill": color.green.w200});
-wp.append(h3_aux, {"fill": color.green.w500, "r":4});
-wp.append(h2, {"stroke": color.amber.w500, "stroke-width": 4, "fill": color.amber.w200});
-wp.append(h2_aux, {"fill": color.amber.w500, "r":4});
-wp.append(h1, {"stroke": color.orange.w500, "stroke-width": 4, "fill": color.orange.w200});
-wp.append(h1_aux, {"fill": color.orange.w500, "r":4});
-wp.append(q2d, {"stroke": color.amber.w500, "stroke-width": 9});
-wp.append(delt, {"stroke": color.green.w500, "stroke-width": 9, "stroke-linejoin":"round"});
-wp.append(ast, {"stroke": color.blue.w500, "stroke-width": 9, "stroke-linejoin":"round"});
+wp.append(c, {"stroke": color.blue.w600, "stroke-width": 4, "fill": color.blue.w200});
+wp.append(c_aux, {"fill": color.blue.w600, "r":4});
+wp.append(h3, {"stroke": color.green.w600, "stroke-width": 4, "fill": color.green.w200});
+wp.append(h3_aux, {"fill": color.green.w600, "r":4});
+wp.append(h2, {"stroke": color.amber.w600, "stroke-width": 4, "fill": color.amber.w200});
+wp.append(h2_aux, {"fill": color.amber.w600, "r":4});
+wp.append(h1, {"stroke": color.orange.w600, "stroke-width": 4, "fill": color.orange.w200});
+wp.append(h1_aux, {"fill": color.orange.w600, "r":4});
+wp.append(q2d, {"stroke": color.amber.w600, "stroke-width": 9});
+wp.append(delt, {"stroke": color.green.w600, "stroke-width": 9, "stroke-linejoin":"round"});
+wp.append(ast, {"stroke": color.blue.w600, "stroke-width": 9, "stroke-linejoin":"round"});
 wp.append([q3,q3a,q3b], {"fill": color.green.w800});
 wp.append([q2,q2a], {"fill": color.amber.w800});
 wp.append(q1, {"fill": color.orange.w800});
-wp.append(p1, {"fill": 'white'});
+wp.append(p1, {"fill": color.white});
 
 wp.end();

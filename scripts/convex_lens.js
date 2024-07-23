@@ -46,10 +46,10 @@ wp.append([
   foc_2, 
   cen_1, 
   cen_2
-], {"stroke": "black", "stroke-width": 2});
+], {"stroke": color.black, "stroke-width": 2});
 
-wp.append([rr0,rr1,rr2,rf], {"stroke": color.yellow.a400, "stroke-width": 2.5, "stroke-dasharray": ("10, 10")});
-wp.append([r0,r1,r2], {"stroke": color.yellow.a400, "stroke-width": 4});
+wp.append([rr0,rr1,rr2,rf], {"stroke": color.yellow.w600, "stroke-width": 2.5, "stroke-dasharray": ("10, 10")});
+wp.append([r0,r1,r2], {"stroke": color.yellow.w600, "stroke-width": 4});
 
 wp.append(s, {"fill": color.yellow.w800});
 wp.append(t, {"fill": color.cyan.w800});

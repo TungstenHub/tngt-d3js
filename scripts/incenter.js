@@ -30,7 +30,7 @@ c_cev = new PolyLine([c,r]),
 rad = new FQuantity(incenter_radius, [a,b,c]),
 ic = new CirclePR(i,rad);
 
-wp.append(inn_t, {"fill": color.blue.w100});
+wp.append(inn_t, {"fill": color.blue.w500 + '40'});
 
 wp.append([a_cev,b_cev,c_cev], {"stroke": color.amber.w500});
 

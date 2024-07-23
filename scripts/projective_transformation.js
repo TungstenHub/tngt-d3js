@@ -4,7 +4,7 @@ import d3 from "../utils/deps/d3.js";
 import {get_projective_transformation, direct_transform} from "../utils/projective_transformation_utils.js";
 
 const
-vertex_color = '#000000',
+vertex_color = color.black,
 grid_color = color.orange.w500,
 circles_color = color.blue.w500,
 rays_color = color.pink.w500;

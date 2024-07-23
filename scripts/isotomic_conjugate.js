@@ -41,7 +41,7 @@ be_aux = new PolyLine([b,e]),
 ce_aux = new PolyLine([c,e]);
 
 
-wp.append(inn_t, {"fill": color.blue.w100});
+wp.append(inn_t, {"fill": color.blue.w500 + '40'});
 
 wp.append([ae_aux,be_aux,ce_aux], {
     "stroke": color.yellow.w500, 
@@ -64,7 +64,7 @@ wp.append([ad_cev,bd_cev,cd_cev], {
 
 wp.append(t, {"stroke": color.blue.w500});
 
-wp.append(e, {"fill": color.yellow.a700});
+wp.append(e, {"fill": color.yellow.w800});
 wp.append(d, {"fill": color.bluegray.w800});
 
 wp.append([a,b,c], {"fill": color.blue.w800});

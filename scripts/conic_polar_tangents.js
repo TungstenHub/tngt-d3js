@@ -37,7 +37,7 @@ b = FPoint.pole_conic(b_polar,c),
 t1 = new PolyLine([b,tp1]),
 t2 = new PolyLine([b,tp2]);
 
-wp.append(c, {"stroke": "black"});
+wp.append(c, {"stroke": color.black});
 
 wp.append([t1,t2], { 
     "stroke": color.green.w500, 
@@ -47,7 +47,7 @@ wp.append([t1,t2], {
 
 wp.append(b_polar, {"stroke": color.green.w500});
 wp.append(a_polar, {"stroke": color.blue.w500});
-wp.append([k1,k2,k3,k4,k5], {"fill": color.yellow.w200});
+wp.append([k1,k2,k3,k4,k5], {"fill": color.amber.w300});
 wp.append(b, {"fill": color.green.w800});
 wp.append(a, {"fill": color.blue.w800});
 

@@ -83,10 +83,10 @@ wp.append(trg, {
 wp.append(t_trg, {
     "stroke": color.pink.w500,
     "stroke-width": 3, 
-    "fill": color.pink.w200 + '80',
+    "fill": color.pink.w500 + '40',
 });
 wp.append([la,lb], {
-    "stroke": 'black',
+    "stroke": color.black,
     "stroke-width": 4
 });
 
@@ -111,6 +111,6 @@ wp.append([t_a,t_b,t_c], {
 });
 
 wp.append([a,b,c], {"fill": color.blue.w800});
-wp.append(d, {"fill": 'white'});
+wp.append(d, {"fill": color.white});
 
 wp.end();

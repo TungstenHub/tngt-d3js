@@ -94,7 +94,7 @@ var circle = svg
     .attr("cy", y(0))
     .attr("r", radius)
     .style("stroke-width", 5)
-    .style("stroke", "black")   
+    .style("stroke", color.black)
     .style("fill", "none"); 
 
 var pivot_arc = svg.append("path")
@@ -118,14 +118,14 @@ let new_delta = pivot_angles(d,a,b)[1].endAngle;
 var pivot_arc_1 = svg.append("path")
     .attr("d", angleFunction({startAngle: new_gamma, endAngle: (new_gamma+new_delta)/2}))
     .style("stroke-width", 2)
-    .style("stroke", "white") 
+    .style("stroke", color.white)
     .attr("transform", "translate("+x(1.3)+","+y(1)+")")
     .attr("fill", pivot_angle_color);
 
 var pivot_arc_2 = svg.append("path")
     .attr("d", angleFunction({startAngle: (new_gamma+new_delta)/2, endAngle: new_delta}))
     .style("stroke-width", 2)
-    .style("stroke", "white")
+    .style("stroke", color.white)
     .attr("transform", "translate("+x(1.3)+","+y(1)+")")
     .attr("fill", pivot_angle_color);
 

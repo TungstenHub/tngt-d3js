@@ -37,6 +37,6 @@ wp.append(s, {"stroke": color.green.w500, "fill": color.green.w200+'88'});
 wp.append(t, {"stroke": color.bluegray.w500, "fill": color.bluegray.w200+'88'});
 wp.append([cp,cq,cr,cs], {"fill": color.bluegray.w800});
 wp.append(d, {"fill": color.bluegray.w200});
-wp.append([a,b,c], {"fill": "white"});
+wp.append([a,b,c], {"fill": color.white});
 
 wp.end();

@@ -45,7 +45,7 @@ t_c = new PolyLine([c,w]),
 
 l = new LinePP(u,w);
 
-wp.append(inn_t, {"fill": color.amber.w100, "stroke": "none"});
+wp.append(inn_t, {"fill": color.amber.w300 + '80', "stroke": "none"});
 
 wp.append([l_bc,l_ca,l_ab], {
     "stroke": color.amber.w300, 

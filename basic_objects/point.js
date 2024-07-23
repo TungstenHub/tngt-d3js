@@ -1,5 +1,6 @@
 import {Element} from "./element.js";
 import d3 from "../utils/deps/d3.js";
+import { mdColor as color } from "../utils/material_color.js";
 
 // Utility functions
 
@@ -80,7 +81,7 @@ class Point extends Element {
 class DPoint extends Point {
     constructor (x, y) {
         super(x, y);
-        this.default_attrs = {"r": 6, "stroke": "black", "stroke-width": 2};
+        this.default_attrs = {"r": 6, "stroke": color.black, "stroke-width": 2};
     }
     
     insertInto(wp, attrs={}) {

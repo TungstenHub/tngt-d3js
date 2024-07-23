@@ -31,7 +31,7 @@ alpha1 = new AngleQPl(a1,d,p),
 alpha2 = new AngleQPl(a2,d,p);
 
 wp.append(c, {"stroke": color.teal.w500});
-wp.append(e, {"stroke": 'black', "stroke-width": 3});
+wp.append(e, {"stroke": color.black, "stroke-width": 3});
 wp.append([alpha1,alpha2], {
     "fill": color.lightblue.w900,
     "in_r": 0,
